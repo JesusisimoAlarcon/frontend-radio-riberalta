@@ -68,7 +68,7 @@ function SwipeableTextMobileStepper(props) {
                 {props.imagenes.map((step, index) => (
                     <div key={index}>
                         {Math.abs(activeStep - index) <= 2 ? (
-                            <Image aspectRatio={(16 / 14)} src={props.API + 'static/images/' + step.infografia} alt={step.infotitulo} />
+                            <Image aspectRatio={(16 / 9)} src={props.API + 'static/images/' + step.infografia} alt={step.infotitulo} />
                             
                             //<Image aspectRatio={(16 / 9)} src={step.imgPath} alt={step.label} />
                             //<Image className={classes.img} src={step.imgPath} alt={step.label} />

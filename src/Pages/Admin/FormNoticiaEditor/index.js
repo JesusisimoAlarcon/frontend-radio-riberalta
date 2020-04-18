@@ -7,7 +7,7 @@ import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import { Paper, Divider, Tooltip, Typography, CardActionArea, TextareaAutosize, Input } from '@material-ui/core';
 import { Row, Col, Label } from 'reactstrap';
 //import portada from '../../assets/utils/images/dropdown-header/abstract1.jpg'
-import portada from '../../../assets/test/portada.png'
+//import portada from '../../../assets/test/portada.png'
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import VideocamIcon from '@material-ui/icons/Videocam';
@@ -43,7 +43,7 @@ import Switch from '@material-ui/core/Switch';
 //import Grid from '@material-ui/core/Grid';
 
 
-import musica from '../../../assets/test/musica.mp3'
+//import musica from '../../../assets/test/musica.mp3'
 
 import AudioPlayer from 'react-h5-audio-player';
 //import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
@@ -51,6 +51,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import './styleControlAudio.css'
 //import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 //import YouTubePlayer from 'react-player/lib/players/Streamable'
+//import { Route, Redirect } from 'react-router-dom';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import LoopIcon from '@material-ui/icons/Loop';
@@ -82,7 +83,10 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 //const Slide = require('material-auto-rotating-carousel/lib/Slide');
 //import Slide from 'material-auto-rotating-carousel';
 //const Slide = require('./Slide').default;
-
+import {
+    toast,
+    Bounce
+} from 'react-toastify';
 
 import Swiper from './SwipeableTextMobileStepper'
 
@@ -126,11 +130,11 @@ class FormNoticiaEditor extends Component {
             tipoinfografia: true,
             carusel: false,
             //urlinfografia: 'https://youtu.be/CPK_IdHe1Yg',
-            urlinfografia: 'https://www.facebook.com/435932830125753/videos/614756425922384/',
-            foto: {},
-            media: {},
+            urlinfografia: '',
+            foto: '',
+            media: [],
             portada: '',
-            tipo: 'nota',
+            tipo: 'tipo',
             seccion: 0,
             idconductor: 55,
             pieportada: '',
@@ -161,7 +165,27 @@ class FormNoticiaEditor extends Component {
         this.player = React.createRef();
         //this.arrayimages = [];
     }
+    notifycorrecto = () => {
+        this.toastId =
+            toast("Registro realizo de forma correcta", {
+                transition: Bounce,
+                closeButton: true,
+                autoClose: 5000,
+                position: 'bottom-center',
+                type: 'success'
+            });
+        //<Redirect to="/noticias/riberalta" />
+    };
 
+
+    notifyvalidacion = () => this.toastId =
+        toast("Por favor complete los compos obligatorios para registrar una noticia.", {
+            transition: Bounce,
+            closeButton: true,
+            autoClose: 5000,
+            position: 'bottom-center',
+            type: 'error'
+        });
     onPreviewDrop = (file) => {
         this.setState({
             foto: file
@@ -196,7 +220,9 @@ class FormNoticiaEditor extends Component {
 
     checkedChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.checked
+            [e.target.name]: e.target.checked,
+            urlinfografia: '',
+            media: []
         })
         console.log(e.target.checked)
     }
@@ -213,43 +239,74 @@ class FormNoticiaEditor extends Component {
     setContenido = (event, editor) => {
         this.setState({ contenido: editor.getData() })
     }
-
-    registrar = (eventt) => {
-        const newNoticia = {
-            titulo: this.state.titulo,
-            subtitulo: this.state.subtitulo,
-            pieportada: this.state.pieportada,
-            portada: this.state.portada,
-            contenido: this.state.contenido,
-            tipo: this.state.tipo,
-            idseccion: this.state.seccion,
-            idconductor: this.state.idconductor,
-            fecha: format(this.state.fecha, 'yyyy-MM-dd H:mm:ss'),
-            //fecha: format(this.state.fecha, 'yyyy-MM-dd'),
-            hora: format(this.state.fecha, 'H:mm:ss'),
-            prioridad: this.state.prioridad,
-            infocontenido: this.state.infocontenido,
-            estado: true
+    verificarcampos() {
+        if (this.state.foto === '' || this.state.seccion === 0 ||
+            this.state.tipo === 'tipo' || this.state.titulo === '' ||
+            this.state.subtitulo === '' || this.state.pieportada === '' || this.state.contenido === '') {
+            return false;
         }
-        //console.log(newNoticia);
-        console.log(this.state.foto[0])
-        const dato = new FormData();
-        dato.append('imagen', this.state.foto[0]);
-        fetch(this.props.API + 'noticia/portada', {
-            method: 'post',
-            body: dato
-        }).then((response) => {
-            return response.json()
-        }).then(async (response) => {
-            console.log(response)
-            newNoticia.portada = response.imagen
-            console.log(newNoticia)
-            const resp = await Axios.post(this.props.API + 'noticia', newNoticia);
-            console.log(resp)
-            console.log(resp.data.insertId)
-            const newid = resp.data.insertId
-            this.registrarInfografia(newid);
-        })
+        else {
+            if (this.state.tipo !== 'nota' && this.state.infocontenido !== '' && this.state.media.length > 0) {
+                return true;
+            }
+            else if (this.state.tipo === 'video' && this.state.urlinfografia !== '') {
+                return true;
+            }
+            else if (this.state.tipo === 'nota') {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+    }
+    registrar = (eventt) => {
+        console.log(this.verificarcampos())
+        if (this.verificarcampos()) {
+            const newNoticia = {
+                titulo: this.state.titulo,
+                subtitulo: this.state.subtitulo,
+                pieportada: this.state.pieportada,
+                portada: this.state.portada,
+                contenido: this.state.contenido,
+                tipo: this.state.tipo,
+                idseccion: this.state.seccion,
+                idconductor: this.state.idconductor,
+                fecha: format(this.state.fecha, 'yyyy-MM-dd H:mm:ss'),
+                //fecha: format(this.state.fecha, 'yyyy-MM-dd'),
+                hora: format(this.state.fecha, 'H:mm:ss'),
+                prioridad: this.state.prioridad,
+                infocontenido: this.state.infocontenido,
+                estado: true
+            }
+            //console.log(newNoticia);
+            console.log(this.state.foto[0])
+            const dato = new FormData();
+            dato.append('imagen', this.state.foto[0]);
+            fetch(this.props.API + 'noticia/portada', {
+                method: 'post',
+                body: dato
+            }).then((response) => {
+                return response.json()
+            }).then(async (response) => {
+                console.log(response)
+                newNoticia.portada = response.imagen
+                console.log(newNoticia)
+                const resp = await Axios.post(this.props.API + 'noticia', newNoticia);
+                console.log(resp)
+                console.log(resp.data.insertId)
+                const newid = resp.data.insertId
+                this.registrarInfografia(newid);
+                this.notifycorrecto();
+
+
+            })
+
+        }
+        else {
+            this.notifyvalidacion()
+        }
     }
 
     registrarInfografia = async (newid) => {
@@ -349,6 +406,8 @@ class FormNoticiaEditor extends Component {
         }
     }
 
+
+
     render() {
         return (
             <Fragment>
@@ -404,11 +463,12 @@ class FormNoticiaEditor extends Component {
                                                             onClick={this.openDialog}>
                                                             <Image
                                                                 animationDuration={10000}
+                                                                //loading={false}
                                                                 //loading={<CircularProgress size={48} />}
                                                                 aspectRatio={(16 / 9)}
                                                                 src={
                                                                     this.state.foto.length > 0 ?
-                                                                        URL.createObjectURL(this.state.foto[0]) : portada
+                                                                        URL.createObjectURL(this.state.foto[0]) : null
                                                                 }
                                                             />
                                                         </CardActionArea>
@@ -468,7 +528,7 @@ class FormNoticiaEditor extends Component {
                                             size='small'
                                         //onChange={onChangeSeccion}
                                         >
-                                            <MenuItem value='0'>Seccion</MenuItem>
+                                            <MenuItem value={0}>Seccion</MenuItem>
                                             {this.props.SECCIONES.map(sec =>
                                                 <MenuItem key={sec.id} value={sec.id}>
                                                     <Chip size="small" label={sec.label} />
@@ -585,13 +645,13 @@ class FormNoticiaEditor extends Component {
                             <Divider className='mt-2 mb-3' />
                             <Row>
                                 <Col lg='8'>
-                                    {this.state.tipo !== 'nota' &&
+                                    {this.state.tipo !== 'nota' && this.state.tipo !== 'tipo' &&
                                         <CKEditor
                                             name='infocontenido'
                                             editor={InlineEditor}
                                             //editor={BalloonBlockEditor}
                                             config={editorConfiguration}
-                                            data='<h1>Escriba el contenido superior aqui</h1>'
+                                            data='<h1>Escriba el contenido superior aqui<h1/>'
                                             onInit={editor => {
                                                 // You can store the "editor" and use when it is needed.
                                                 //console.log('Editor is ready to use!', editor);
@@ -659,7 +719,7 @@ class FormNoticiaEditor extends Component {
                                                                     //className=''
                                                                     src={
                                                                         this.state.media.length > 0 ?
-                                                                            URL.createObjectURL(this.state.media[0]) : musica
+                                                                            URL.createObjectURL(this.state.media[0]) : null
                                                                     }
                                                                     onPlay={e => console.log("onPlay")}
                                                                     header={this.state.media.length > 0 ?
@@ -843,7 +903,7 @@ class FormNoticiaEditor extends Component {
                                                 aspectRatio={(16 / 9)}
                                                 src={
                                                     this.state.foto.length > 0 ?
-                                                        URL.createObjectURL(this.state.foto[0]) : portada
+                                                        URL.createObjectURL(this.state.foto[0]) : null
                                                 }
                                             />
                                             <small>{this.state.titulo}</small>
