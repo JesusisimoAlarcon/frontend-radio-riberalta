@@ -132,7 +132,7 @@ class FormNoticiaEditor extends Component {
             portada: '',
             tipo: 'nota',
             seccion: 0,
-            idconductor: 49,
+            idconductor: 55,
             pieportada: '',
             secciones: this.props.SECCIONES,
             titulo: '',
