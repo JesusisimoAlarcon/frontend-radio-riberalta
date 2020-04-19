@@ -24,12 +24,11 @@ const Noticias = (props) => {
             <AppHeader />
             <div className="app-main">
                 <AppSidebar />
-                
+
                 <div className="app-main__outer">
                     <div className="app-main__inner">
                         {/* Noticias */}
                         {props.SECCIONES.map(sec =>
-
                             <Route
                                 key={sec.label}
                                 path={`${props.match.url}/${sec.label.toLowerCase()}`}
@@ -37,7 +36,6 @@ const Noticias = (props) => {
                             />
 
                         )}
-                        
 
                     </div>
                 </div>

@@ -131,6 +131,7 @@ const initialState = {
     enablePageTitleSubheading: true,
     enablePageTabsAlt: false,
     API_REST: 'http://192.34.58.196:4500/api/'
+    //API_REST: 'http://192.168.1.6:4500/api/'
 }
 
 export default function reducer(state = initialState, action) {

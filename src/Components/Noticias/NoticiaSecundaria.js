@@ -36,7 +36,7 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 class NoticiaSecundaria extends Component {
 
     state = {
-        link: '/noticia/' + this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+        link: this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
     }
 
     render() {

@@ -5,16 +5,17 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 
 
-//import Hamburger from 'react-hamburgers';
+import Hamburger from 'react-hamburgers';
 //import Programacion from '../../Programacion';
 //import Programacion from '../../Pages/Programacion'
+/*
 import {
 
     faTasks
 
 } from '@fortawesome/free-solid-svg-icons';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+*/
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const useStyles = makeStyles({
     list: {
         //width: window.screen.width,
@@ -58,10 +59,11 @@ export default function SwipeableTemporaryDrawer() {
     );
     return (
         <Fragment>
-            {/*}
+            
             <Hamburger type='elastic' onClick={toggleDrawer('right', true)} />
-            {*/}
+            {/*}
             <FontAwesomeIcon size={'2x'} className="ml-2 mr-2" icon={faTasks} onClick={toggleDrawer('right', true)} />
+            {*/}
             <SwipeableDrawer
                 anchor={'right'}
                 open={state['right']}

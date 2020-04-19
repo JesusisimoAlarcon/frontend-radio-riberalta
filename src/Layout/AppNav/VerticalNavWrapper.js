@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 import MetisMenu from 'react-metismenu';
 import { connect } from 'react-redux';
-import { RiberaltaNav, NostrosNav, AdminNav } from './NavItems';
+//import { RiberaltaNav, NostrosNav, AdminNav, NoticiasTestNav, NoticiasNav } from './NavItems';
+import { NoticiasTestNav } from './NavItems';
 //import axios from 'axios';
 class Nav extends Component {
 
@@ -11,14 +12,15 @@ class Nav extends Component {
         return (
             <Fragment>
                 <h5 className="app-sidebar__heading">NOTICIAS</h5>
-
-                <MetisMenu content={this.props.SECCIONES} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
+                <MetisMenu content={NoticiasTestNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
+                {/*}
                 <h5 className="app-sidebar__heading">RIBERALTA</h5>
                 <MetisMenu content={RiberaltaNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
                 <h5 className="app-sidebar__heading">NUESTRA RADIO</h5>
                 <MetisMenu content={NostrosNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
                 <h5 className="app-sidebar__heading">ADMINISTRACION</h5>
                 <MetisMenu content={AdminNav} activeLinkFromLocation className="vertical-nav-menu" iconNamePrefix="" classNameStateIcon="pe-7s-angle-down" />
+        {*/}
             </Fragment>
         );
     }

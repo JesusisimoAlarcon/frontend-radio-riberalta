@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import {
-    DropdownToggle,
+    //DropdownToggle,
     ButtonDropdown,
-    UncontrolledTooltip
+    //UncontrolledTooltip
 } from 'reactstrap';
 
 
@@ -29,15 +29,9 @@ class UserBox extends React.Component {
                         <div className="widget-content-wrapper">
                             <div className="widget-content-left">
                                 <ButtonDropdown>
-                                    
                                     <PlayStream />
                                     <ProgramaActual />
-                                    <DropdownToggle color="link" className="p-0 ml-2 mr-2" id="Tooltip-2">    
-                                        <BaraLateral/>
-                                    </DropdownToggle>
-                                    <UncontrolledTooltip className="tooltip-light" placement="bottom-start" target={'Tooltip-2'}>
-                                        Consulta nuestra programacion para hoy : !
-                                    </UncontrolledTooltip>
+                                    <BaraLateral/>
                                 </ButtonDropdown>
                             </div>
                         </div>

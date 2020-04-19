@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import Tabs from 'react-responsive-tabs';
 
-import PageTitle from '../../../Layout/AppMain/PageTitle';
+import PageTitle from '../../../../Layout/AppMain/PageTitle';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 //import Programacion2 from '../../Programacion'
 
