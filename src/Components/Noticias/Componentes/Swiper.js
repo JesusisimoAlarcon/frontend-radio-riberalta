@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     },
     header: {
         display: 'flex',
-        alignItems: 'center',
         height: 50,
         paddingLeft: theme.spacing(4),
         backgroundColor: theme.palette.background.default,
@@ -54,9 +53,10 @@ function SwipeableTextMobileStepper(props) {
 
     return (
         <div className={classes.root}>
-            <Paper square elevation={0} className={classes.header}>
+            <Paper square elevation={0} className='text-center p-2'>
                 {/*}<Typography>{props.imagenes[activeStep].label}</Typography>{*/}
-                <Typography>{props.imagenes[activeStep].infotitulo}</Typography>
+                <Typography>{props.imagenes[activeStep].infotitulo.split('.')[0]}</Typography>
+                
             </Paper>
             <AutoPlaySwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -69,7 +69,7 @@ function SwipeableTextMobileStepper(props) {
                     <div key={index}>
                         {Math.abs(activeStep - index) <= 2 ? (
                             <Image aspectRatio={(16 / 9)} src={props.API + 'static/images/' + step.infografia} alt={step.infotitulo} />
-                            
+
                             //<Image aspectRatio={(16 / 9)} src={step.imgPath} alt={step.label} />
                             //<Image className={classes.img} src={step.imgPath} alt={step.label} />
                             /*<img className={classes.img} src={step.imgPath} alt={step.label} />*/

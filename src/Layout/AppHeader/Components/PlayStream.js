@@ -8,7 +8,7 @@ export default class PlayStream extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            play: true
+            play: false
         }
         this.repro = React.createRef();
         this.encender.bind()
@@ -16,9 +16,9 @@ export default class PlayStream extends Component {
 
     componentDidMount() {
         //this.repro.current.autoplay = this.state.play;
-        this.repro.current.pause();
-        this.setState({ play: !this.state.play });
-        console.log(this.repro)
+        //this.repro.current.pause();
+        //this.setState({ play: !this.state.play });
+        //console.log(this.repro)
     }
 
     encender = () => {        

@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import React, { Suspense, lazy, Fragment } from 'react';
 
 import {
@@ -6,7 +6,7 @@ import {
 } from 'react-toastify';
 //import DetailNotice from '../../Components/Noticias/DetailNotice';
 //import DetalleNoticia from '../../Components/Noticias/DetalleNoticia';
-const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
+//const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
 //const Noticias = lazy(() => import('../../Pages/Noticias'));
 const RR = lazy(() => import('../../Pages/RR'));
 //const Administracion = lazy(() => import('../../Pages/Admin'));
@@ -32,30 +32,21 @@ const AppMain = () => {
                     </div>
                 </div>
             }>
+
+
                 <Route path="/RR" component={RR} />
             </Suspense>
 
 
 
 
-            {/* Detalle noticias */}
 
-            <Suspense fallback={
-                <div className="loader-container">
-                    <div className="loader-container-inner">
-                        <h6 className="mt-5">
-                            Por favor espere mientras cargamos todos los ejemplos de Componentes
-                            <small>Como se trata de una demostración, cargamos a la vez todos los ejemplos de componentes. ¡Esto no sucedería en una aplicación real en vivo!</small>
-                        </h6>
-                    </div>
-                </div>
-            }>
-                <Route path="/noticia/:id/:titulo" component={DetailNotice} />
-            </Suspense>
-
+            {/*}
             <Route exac path="/" render={() => (
                 <Redirect to="/RR/riberalta" />
             )} />
+
+            {*/}
             <ToastContainer />
         </Fragment>
     )

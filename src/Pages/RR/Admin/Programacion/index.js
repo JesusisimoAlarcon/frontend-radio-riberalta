@@ -55,18 +55,23 @@ class FormProgramacion extends Component {
             programacion: [],
             tab: 0,
             dias: [
+                'Domingo',
                 'Lunes',
                 'Martes',
                 'Miercoles',
                 'Jueves',
                 'Viernes',
-                'Sabado',
-                'Domingo'
-            ]
+                'Sabado'
+            ],
+            hoy: new Date().getDay()
         }
         this.getDatos();
+        /*
+        this.setState({
+            tab: this.state.dias.indexOf(this.state.hoy)
+        })
+        */
     }
-
 
     recargar = async (diasemana, horainicio, horafin, idconductor, idprograma) => {
         const programacion = {
@@ -115,7 +120,7 @@ class FormProgramacion extends Component {
                         />
                     </FormGroup>
 
-                    <Paper square>
+                    <Paper square className='mb-3'>
                         <Tabs
                             value={this.state.tab}
                             indicatorColor="secondary"

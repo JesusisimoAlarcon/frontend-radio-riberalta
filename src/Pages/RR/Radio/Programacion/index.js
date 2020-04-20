@@ -30,9 +30,13 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
 import { connect } from 'react-redux';
-import Axios from 'axios';
+//import Axios from 'axios';
 
-//import format from 'date-fns/format'
+import Chip from '@material-ui/core/Chip';
+//import FaceIcon from '@material-ui/icons/Face';
+import AlbumIcon from '@material-ui/icons/Album';
+import * as moment from 'moment';
+import format from 'date-fns/format';
 //import esLocale from 'date-fns/locale/es';
 //import parse from 'date-fns/parse'
 class Programacion extends React.Component {
@@ -50,11 +54,12 @@ class Programacion extends React.Component {
                 'Viernes',
                 'Sabado'
             ],
-            programas: [],
+            programas: this.props.PROGRAMACION,
             //hoy: format(new Date(), 'E', { locale: esLocale })
             hoy: new Date().getDay()
+            //hoydia: ''
         }
-        console.log(this.state.hoy)
+        //console.log(this.state.hoy)
         //const dia = format(new Date(), 'EEEE', { locale: esLocale });
         //console.log(dia)
         //console.log(this.state.hoy)
@@ -62,20 +67,48 @@ class Programacion extends React.Component {
     }
 
     componentDidMount = async () => {
-        const resp = await Axios.get(this.props.API + 'programacion/detalle');
+        //const resp = await Axios.get(this.props.API + 'programacion/detalle');
         this.setState({
-            programas: resp.data
+            //programas: resp.data,
+            hoydia: this.state.diasTabs[this.state.hoy]
+
         })
+        //this.encontrar_live();
+        //this.actualizar_programacion();
     }
 
-    render() {
+/*
 
+    encontrar_live = () => {
+        //console.log(this.state.programas)
+        this.state.programas.filter((p) => {
+            return (p.diasemana === this.state.hoydia && p.estado === 1)
+        }).map(programa => {
+
+            const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
+            const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
+
+            const horaactual = new Date().getTime();
+            //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
+
+            if (horaactual >= horainicio && horaactual < horafin) {
+                //console.log("si")
+                programa.live = 1;
+            }
+
+            //console.log(horainicio)
+            //programa.live = 1;
+            return programa;
+        })
+        //console.log(this.state.programas)
+    }
+*/
+    render() {
         return (
             <Fragment>
-
                 <PageTitle
                     heading="Nuestra programacion"
-                    subheading="Puedes consultar nuestra programacion radial semanas con la informacion de todos nuestros programas."
+                    subheading="Puedes consultar nuestra programacion radial semanal para poder escuchar todos nuestros programas."
                     icon="pe-7s-radio icon-gradient bg-amy-crisp"
                 />
 
@@ -100,22 +133,34 @@ class Programacion extends React.Component {
 
                                 <VerticalTimeline>
 
-                                    {this.state.programas.filter((p) => { return p.diasemana === tab }).map(programa =>
+                                    {this.state.programas.filter((p) => { return (p.diasemana === tab) }).map(programa =>
                                         <VerticalTimelineElement
                                             key={programa.idprogramacion}
 
                                             icon={
                                                 programa.genero === 'NOTICIAS' ?
-                                                    <MenuBookIcon fontSize='large' className='pe-spin' />
+                                                    <MenuBookIcon fontSize='large' className={programa.live ? 'pe-spin' : ''} />
                                                     : programa.genero === 'MUSICA' ?
-                                                        <MusicNoteIcon fontSize='large' className='pe-spin' />
+                                                        <MusicNoteIcon fontSize='large' className={programa.live ? 'pe-spin' : ''} />
                                                         :
-                                                        <SettingsRemoteIcon fontSize='large' className='pe-spin' />
+                                                        <SettingsRemoteIcon fontSize='large' className={programa.live ? 'pe-spin' : ''} />
                                             }
                                             className="vertical-timeline-element--education"
-                                            //contentStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
+
+                                            contentStyle={
+                                                programa.live ?
+                                                    {
+                                                        background: 'rgb(233, 30, 99)', color: '#fff'
+                                                    }
+                                                    : {}
+                                            }
                                             contentArrowStyle={{ borderRight: '7px solid  rgb(233, 30, 99)' }}
-                                            date={<h5>{programa.horainicio + ' - ' + programa.horafin}</h5>}
+                                            date={<h5><b>
+                                                {programa.live ?
+                                                    <Chip color="secondary" size='small' icon={<AlbumIcon />} label='en vivo' />
+                                                    : ''
+                                                }
+                                                {" " + format(new Date(moment(programa.horainicio, 'hh:mm:ss')), 'HH:mm') + ' - ' + format(new Date(moment(programa.horafin, 'HH:mm:ss')), 'HH:mm')}</b></h5>}
                                             iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
                                         >
                                             <Grid
@@ -131,26 +176,37 @@ class Programacion extends React.Component {
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant='subtitle2'><b>Por:</b></Typography>
+                                                    <Typography variant='subtitle2'><b>Con:</b></Typography>
                                                 </Grid>
                                                 <Grid item>
                                                     <ListItem className='p-0'>
-                                                        <ListItemAvatar className='mr-1'>
+                                                        <ListItemAvatar className='mr-2'>
                                                             <Avatar variant="rounded" style={
                                                                 {
-                                                                    width: '100px',
-                                                                    height: '100px'
+                                                                    width: '120px',
+                                                                    height: '120px'
                                                                 }
                                                             } src={this.props.API + 'static/perfiles/' + programa.fotografia} />
 
                                                         </ListItemAvatar>
                                                         <ListItemText
                                                             primary={<Typography component='span' variant='subtitle1'>{programa.nombres + ' ' + programa.apellidos}</Typography>}
-                                                            secondary={<span>
-                                                                <FacebookIcon color='secondary' fontSize='small' />{programa.facebook}<br />
-                                                                <TwitterIcon color='secondary' fontSize='small' />{programa.twiter}<br />
-                                                                <WhatsAppIcon color='secondary' fontSize='small' />{programa.whatsapp}<br />
-                                                            </span>}
+                                                            secondary={
+                                                                <Typography component='span' variant='subtitle1'>
+                                                                    {programa.facebook ?
+                                                                        <span><br /><FacebookIcon color={programa.live ? 'inherit' : 'secondary'} fontSize='small' />{programa.facebook}<br /></span>
+                                                                        : ''
+                                                                    }
+                                                                    {programa.twiter ?
+                                                                        <span><TwitterIcon color={programa.live ? 'inherit' : 'secondary'} fontSize='small' />{programa.twiter}<br /></span>
+                                                                        : ''
+                                                                    }
+                                                                    {programa.whatsapp ?
+                                                                        <span><WhatsAppIcon color={programa.live ? 'inherit' : 'secondary'} fontSize='small' />{programa.whatsapp}</span>
+                                                                        : ''
+                                                                    }
+                                                                </Typography>
+                                                            }
                                                         />
                                                     </ListItem>
 
@@ -169,7 +225,8 @@ class Programacion extends React.Component {
     }
 }
 const mapStateToProps = state => ({
-    API: state.ThemeOptions.API_REST
+    API: state.ThemeOptions.API_REST,
+    PROGRAMACION: state.ThemeOptions.programacion
 });
 
 const mapDispatchToProps = dispatch => ({});

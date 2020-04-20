@@ -50,6 +50,8 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import LinkOffIcon from '@material-ui/icons/LinkOff';
 import LoopIcon from '@material-ui/icons/Loop';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import moment from 'moment';
+//import moduleName from 'date-fns/parseJSON'
 function ScrollTop(props) {
     const { children, window } = props;
     //const classes = useStyles();
@@ -267,7 +269,7 @@ class DetailNotice extends Component {
                                             <div>
                                                 <Typography variant="caption" display="block" gutterBottom>
                                                     <AccessTimeIcon fontSize='small' />
-                                                    {format(new Date(), 'dd MMMM yyyy', { locale: esLocale })}
+                                                    {format(new Date(moment(this.state.noticia.fecha)), 'dd MMMM yyyy - hh:mm a', { locale: esLocale })}
                                                 </Typography>
                                             </div>
                                         </Grid>

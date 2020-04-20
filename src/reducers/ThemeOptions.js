@@ -1,6 +1,6 @@
 import axios from 'axios'
 import sideBar6 from '../assets/utils/images/sidebar/city1.jpg';
-
+import * as moment from 'moment';
 export const SET_ENABLE_BACKGROUND_IMAGE = 'THEME_OPTIONS/SET_ENABLE_BACKGROUND_IMAGE';
 
 export const SET_ENABLE_MOBILE_MENU = 'THEME_OPTIONS/SET_ENABLE_MOBILE_MENU';
@@ -112,6 +112,8 @@ export const setBackgroundImage = backgroundImage => ({
 
 const initialState = {
     secciones: [],
+    programacion: [],
+    programaactual: {},
     backgroundColor: 'bg-white sidebar-text-dark',
     //backgroundColor: 'swatch-holder bg-light',
     headerBackgroundColor: 'bg-danger active active header-text-light',
@@ -130,18 +132,61 @@ const initialState = {
     enablePageTitleIcon: true,
     enablePageTitleSubheading: true,
     enablePageTabsAlt: false,
+    diasTabs: [
+        'Domingo',
+        'Lunes',
+        'Martes',
+        'Miercoles',
+        'Jueves',
+        'Viernes',
+        'Sabado'
+    ],
+    hoy: new Date().getDay(),
+    hoydia: '',
     API_REST: 'http://192.34.58.196:4500/api/'
     //API_REST: 'http://192.168.1.6:4500/api/'
 }
 
+
 export default function reducer(state = initialState, action) {
-    
+
+    state.hoydia=state.diasTabs[state.hoy];
     axios.get(state.API_REST + 'seccion/navs').then(response => {
         return response.data;
     }).then(response => {
-        state.secciones = response        
+        state.secciones = response
     })
-    //console.log(state)
+
+
+    axios.get(state.API_REST + 'programacion/detalle').then(response => {
+        return response.data;
+    }).then(response => {
+
+
+
+        response.filter((p) => {
+            return (p.diasemana === state.hoydia && p.estado === 1)
+        }).map(programa => {
+
+            const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
+            const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
+
+            const horaactual = new Date().getTime();
+            //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
+
+            if (horaactual >= horainicio && horaactual < horafin) {
+                //console.log("si")
+                state.programaactual = programa;
+                programa.live = 1;
+            }
+
+            //console.log(horainicio)
+            //programa.live = 1;
+            return programa;
+        })
+        state.programacion = response
+    })
+
     switch (action.type) {
         case SET_ENABLE_BACKGROUND_IMAGE:
             return {
