@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
-import PageTitle from '../../../Layout/AppMain/PageTitle';
+//import PageTitle from '../../../Layout/AppMain/PageTitle';
+import CabeceraInfo from '../../../Layout/AppMain/CabeceraInfo';
 import Axios from 'axios';
 import NoticiaSecundaria from '../../../Components/Noticias/NoticiaSecundaria';
 //import { Container } from 'reactstrap';
@@ -28,14 +29,22 @@ class Noticias extends Component {
     render() {
         return (
             <Fragment>
-
+                {/*}
                 <PageTitle
                     heading={this.state.seccion}
                     subheading="Noticas de ultima hora sobre la ciudad de Riberalta."
                     icon="pe-7s-add-user text-primary"
                 />
-
-
+                {*/}
+                <Row>
+                    <Col lg='1'>
+                    </Col>
+                    <Col lg='10'>
+                        <CabeceraInfo />
+                    </Col>
+                    <Col lg='1'>
+                    </Col>
+                </Row>
                 <Row>
                     <Col lg='1'>
                     </Col>

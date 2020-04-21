@@ -85,7 +85,7 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
-            <div className='text-center mt-3'>Estas eschucando...</div>
+            <div className='text-center mt-3'>Estas escuchando...</div>
             <VerticalTimeline
                 layout='1-column'
             >

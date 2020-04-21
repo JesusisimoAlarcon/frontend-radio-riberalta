@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 //import * as moment from 'moment';
 class ProgramaActual extends Component {
-    
+
     render() {
         return (
-
-            <div className="ml-2">
+            this.props.PROGRAMAACTUAL &&
+            <div className="ml-1 mr-2">
                 <div className="widget-heading">
                     {this.props.PROGRAMAACTUAL && this.props.PROGRAMAACTUAL.programa}
                 </div>
@@ -20,7 +20,7 @@ class ProgramaActual extends Component {
 }
 const mapStateToProps = state => ({
     //API: state.ThemeOptions.API_REST,
-    PROGRAMACION: state.ThemeOptions.programacion,
+    //PROGRAMACION: state.ThemeOptions.programacion,
     PROGRAMAACTUAL: state.ThemeOptions.programaactual
 });
 
