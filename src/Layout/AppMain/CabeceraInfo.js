@@ -26,11 +26,12 @@ export default class CabeceraInfo extends Component {
             beni: resp.data.departamento.bn,
             contadorbeni: resp.data.departamento.bn.contador
         })
-        console.log(this.state.datosoficiales)
+        //console.log(this.state.datosoficiales)
     }
     render() {
         return (
             <Fragment>
+
                 <ReactCSSTransitionGroup
                     component="div"
                     transitionName="TabsAnimation"
@@ -39,9 +40,15 @@ export default class CabeceraInfo extends Component {
                     transitionEnter={false}
                     transitionLeave={false}>
                     {this.state.datosoficiales &&
-                        <Paper style={{ background: '#e91e63', color: 'white', fontWeight: 'bold' }} elevation={1} className='p-1 pb-0 mb-3'>
-                            <Typography variant='h5' className='text-center'>
-                                <b>COVID-19 BOLIVIA - BENI</b>
+                        <Paper style={{ background: '#f50057', color: 'white', fontWeight: 'bold' }} elevation={1} className='p-1 pb-0 mb-3'>
+
+                            <Typography className='text-center' variant='h1' style={{
+                                fontSize: '1.2rem',
+                                //fontFamily: 'PlayfairDisplay-Bold',
+                                lineHeight: '2.4rem',
+                                fontWeight: 'bold'
+                            }}>
+                                COVID-19 BOLIVIA - BENI
                             </Typography>
                             <Row>
                                 <Col lg='6' md='6' sm='12'>
@@ -145,13 +152,12 @@ export default class CabeceraInfo extends Component {
                                 <Col lg='4'>
                                 </Col>
                                 <Col lg='4' sm='6'>
-                                    <Typography variant='subtitle1' className='text-center'>
+                                    <Typography variant="caption" display="block" className='text-center'>
                                         Actualizado: {this.state.datosoficiales.fecha}
                                     </Typography>
-
                                 </Col>
                                 <Col lg='4' sm='6'>
-                                    <Typography variant='subtitle1' className='text-center'>
+                                    <Typography variant="caption" display="block" className='text-center'>
                                         Fuente: <a target='_blank' style={{ color: 'white' }} rel='noopener noreferrer' href="https://www.boliviasegura.gob.bo/">www.boliviasegura.gob.bo</a>
                                     </Typography>
                                 </Col>
@@ -160,6 +166,8 @@ export default class CabeceraInfo extends Component {
                     }
 
                 </ReactCSSTransitionGroup>
+
+
             </Fragment>
         )
     }

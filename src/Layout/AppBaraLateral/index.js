@@ -111,7 +111,7 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
                         contentStyle={
                             programa.live ?
                                 {
-                                    background: 'rgb(233, 30, 99)', color: '#fff'
+                                    background: '#f50057', color: '#fff'
                                 }
                                 : {}
                         }

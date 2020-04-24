@@ -11,6 +11,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
 
 import Zoom from '@material-ui/core/Zoom';
+//import { Badge } from 'reactstrap'
 import { Paper, CardMedia, Divider, Tooltip, Typography, CardActionArea } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
 //import portada from '../../assets/utils/images/dropdown-header/abstract1.jpg'
@@ -51,6 +52,9 @@ import LinkOffIcon from '@material-ui/icons/LinkOff';
 import LoopIcon from '@material-ui/icons/Loop';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import moment from 'moment';
+
+
+
 //import moduleName from 'date-fns/parseJSON'
 function ScrollTop(props) {
     const { children, window } = props;
@@ -253,23 +257,61 @@ class DetailNotice extends Component {
                                             alignItems="flex-end"
                                         >
                                             <div className='mt-2 mb-2'>
+                                                {/*}
+                                                <Badge href="#" style={{
+                                                    background: '#e91e63',
+                                                    color: 'white'
+                                                }} pill>
+                                                    {this.state.noticia.tipo}
+                                                </Badge>
+                                                <DescriptionIcon />
+                                            {*/}
 
-                                                <Chip size="small" label='' color='secondary' avatar={
-                                                    this.state.noticia.tipo === 'audio' ? <VolumeUpIcon /> : this.state.noticia.tipo === 'video' ? <VideocamIcon /> : this.state.noticia.tipo === 'image' ? <PhotoLibraryIcon /> : <DescriptionIcon />
+                                                <Chip size="small" label='' color='secondary' className='mr-1' avatar={
+                                                    this.state.noticia.tipo === 'audio' ?
+                                                        <VolumeUpIcon style={{
+                                                            background: '#f50057',
+                                                            padding: '0'
+                                                        }} /> : this.state.noticia.tipo === 'video' ?
+                                                            <VideocamIcon style={{
+                                                                background: '#f50057',
+                                                                padding: '0'
+                                                            }} /> : this.state.noticia.tipo === 'image' ?
+                                                                <PhotoLibraryIcon style={{
+                                                                    background: '#f50057',
+                                                                    padding: '0'
+                                                                }} /> :
+                                                                <DescriptionIcon style={{
+                                                                    background: '#f50057',
+                                                                    padding: '0'
+                                                                }} />
                                                 } />
-                                                {' '}
+
+                                                <Chip
+                                                    size='small'
+                                                    color='secondary'
+                                                    label={
+                                                        <Link to={'/RR/' + (this.state.noticia.seccion + '').toLowerCase()} style={{
+                                                            color: 'white'
+                                                        }}>{this.state.noticia.seccion}</Link>
+                                                    }
+                                                />
+
+
+                                                {/*}
                                                 <Link to={'/RR/' + (this.state.noticia.seccion + '').toLowerCase()}>
-                                                    <Chip
-                                                        size='small'
-                                                        color='secondary'
-                                                        label={this.state.noticia.seccion}
-                                                    />
+                                                    <Badge style={{
+                                                        background: '#e91e63',
+                                                        color: 'white'
+                                                    }} pill>{this.state.noticia.seccion}</Badge>
                                                 </Link>
+                                                {*/}
                                             </div>
                                             <div>
                                                 <Typography variant="caption" display="block" gutterBottom>
                                                     <AccessTimeIcon fontSize='small' />
-                                                    {format(new Date(moment(this.state.noticia.fecha)), 'dd MMMM yyyy - hh:mm a', { locale: esLocale })}
+                                                    {format(new Date(moment(this.state.noticia.fecha)), 'dd MMMM yyyy - ', { locale: esLocale })}
+                                                    {this.state.noticia.hora}
                                                 </Typography>
                                             </div>
                                         </Grid>

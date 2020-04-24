@@ -33,7 +33,7 @@ import { connect } from 'react-redux';
 
 import Image from 'material-ui-image'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-class NoticiaSecundaria extends Component {
+class NoticiaHorizontal extends Component {
 
     state = {
         link: this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
@@ -74,17 +74,50 @@ class NoticiaSecundaria extends Component {
                                 </Col>
                                 <Col lg='4'>
                                     <CardContent>
-                                        <Link to={this.state.link}>
-                                            <Typography variant='h1' style={{
-                                                fontSize: '2.2rem',
-                                                fontFamily: 'PlayfairDisplay-Bold',
-                                                lineHeight: '2.4rem',
-                                                fontWeight: 'bold'
-                                            }}>
-                                                {this.props.titulo}
-                                            </Typography>
-                                        </Link>
+
+                                        <Typography variant='h1' style={{
+                                            fontSize: '2.2rem',
+                                            fontFamily: 'PlayfairDisplay-Bold',
+                                            lineHeight: '2.4rem',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            <Link to={this.state.link}>{this.props.titulo}</Link>
+                                        </Typography>
+
                                         <div className='mt-2 mb-2'>
+
+
+                                            <Chip size="small" label='' color='secondary' className='mr-1' avatar={
+                                                this.props.tipo === 'audio' ?
+                                                    <VolumeUpIcon style={{
+                                                        background: '#f50057',
+                                                        padding: '0'
+                                                    }} /> : this.props.tipo === 'video' ?
+                                                        <VideocamIcon style={{
+                                                            background: '#f50057',
+                                                            padding: '0'
+                                                        }} /> : this.props.tipo === 'image' ?
+                                                            <PhotoLibraryIcon style={{
+                                                                background: '#f50057',
+                                                                padding: '0'
+                                                            }} /> :
+                                                            <DescriptionIcon style={{
+                                                                background: '#f50057',
+                                                                padding: '0'
+                                                            }} />
+                                            } />
+
+                                            <Chip
+                                                size='small'
+                                                color='secondary'
+                                                label={
+                                                    <Link to={'/RR/' + (this.props.seccion + '').toLowerCase()} style={{
+                                                        color: 'white',
+                                                        fontWeight: 'bold'
+                                                    }}>{this.props.seccion}</Link>
+                                                }
+                                            />
+                                            {/*}
                                             <Chip size="small" label='' avatar={
                                                 this.props.tipo === 'audio' ? <VolumeUpIcon /> : this.props.tipo === 'video' ? <VideocamIcon /> : this.props.tipo === 'image' ? <PhotoLibraryIcon /> : <DescriptionIcon />
                                             } />
@@ -95,18 +128,19 @@ class NoticiaSecundaria extends Component {
                                                     label={this.props.seccion}
                                                 />
                                             </Link>
+                                        {*/}
                                         </div>
-                                        <Link to={this.state.link}>
-                                            <Typography variant='subtitle1' style={{
-                                                marginTop: '10px',
-                                                color: '#4a4a4a',
-                                                fontFamily: 'LatoBold',
-                                                fontSize: '1rem',
-                                                lineHeight: '1.2rem',
-                                            }}>
-                                                {this.props.subtitulo}
-                                            </Typography>
-                                        </Link>
+
+                                        <Typography variant='subtitle1' style={{
+                                            marginTop: '10px',
+                                            color: '#4a4a4a',
+                                            fontFamily: 'LatoBold',
+                                            fontSize: '1rem',
+                                            lineHeight: '1.2rem',
+                                        }}>
+                                            <Link to={this.state.link}>{this.props.subtitulo}</Link>
+                                        </Typography>
+
                                         <Divider className='m-1' />
                                         <Grid
                                             container
@@ -116,15 +150,16 @@ class NoticiaSecundaria extends Component {
 
                                         >
                                             <div>
-
                                                 <Typography variant="caption" display="block" gutterBottom>
-                                                    <AccessTimeIcon fontSize='small' /> {this.props.tiempo}
+                                                    <AccessTimeIcon color='secondary' fontSize='small' /> {this.props.tiempo}
                                                 </Typography>
                                             </div>
                                             <div>
-                                                <Link to={this.state.link}>
-                                                    <Typography variant="caption" display="block" gutterBottom>Leer mas..</Typography>
-                                                </Link>
+
+                                                <Typography variant="caption" display="block" color='secondary' gutterBottom>
+                                                    <Link to={this.state.link}>Leer mas..</Link>
+                                                </Typography>
+
                                             </div>
                                         </Grid>
                                     </CardContent>
@@ -143,4 +178,4 @@ const mapStateToProps = state => ({
     API: state.ThemeOptions.API_REST
 });
 const mapDispatchToProps = dispatch => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(NoticiaSecundaria);
+export default connect(mapStateToProps, mapDispatchToProps)(NoticiaHorizontal);
