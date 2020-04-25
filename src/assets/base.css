@@ -7971,7 +7971,8 @@ button,
   .app-header__logo .logo-src {
     height: 23px;
     width: 97px;
-    background: url('../assets/utils/images/logo-inverse.png');
+    /*background: url('../assets/utils/images/logo-inverse.png');*/
+    background: url('../assets/utils/images/logo-test-inverse.png');
     /*background: url("~assets/utils/images/logo-inverse.png");*/ }
 
 .app-header__menu,
@@ -8054,6 +8055,7 @@ button,
 .app-header.header-text-light .app-header__logo .logo-src {
   /*background: url("~assets/utils/images/logo.png");*/
   background: url("../assets/utils/images/logo.png");
+  /*background: url("../assets/utils/images/logo-test-blanquito.png");*/
 }
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner,
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner::before,

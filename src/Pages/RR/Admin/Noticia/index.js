@@ -4,7 +4,7 @@ import Fab from '@material-ui/core/Fab';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
-import { Paper, Divider, Tooltip, Typography, CardActionArea, TextareaAutosize, Input } from '@material-ui/core';
+import { Paper, Divider, Tooltip, CardActionArea, TextareaAutosize, Input } from '@material-ui/core';
 import { Row, Col, Label } from 'reactstrap';
 //import portada from '../../assets/utils/images/dropdown-header/abstract1.jpg'
 //import portada from '../../../assets/test/portada.png'
@@ -52,6 +52,7 @@ import './styleControlAudio.css'
 //import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 //import YouTubePlayer from 'react-player/lib/players/Streamable'
 //import { Route, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import LoopIcon from '@material-ui/icons/Loop';
@@ -90,7 +91,7 @@ import {
 
 import Swiper from './SwipeableTextMobileStepper'
 
-
+import ChipInput from 'material-ui-chip-input'
 const editorConfiguration = {
     //plugins: [Essentials, Bold, Italic, Paragraph],
     //toolbar: ['bold', 'italic']
@@ -148,6 +149,9 @@ class FormNoticia extends Component {
             prioridad: 2,
             hover: -1,
             labels: {
+                //1: 'noticia normal',
+                //2: 'noticia secundaria',
+                //3: 'primera plana',
                 0.5: 'Normal',
                 1: 'Useless+',
                 1.5: 'Poor',
@@ -158,7 +162,8 @@ class FormNoticia extends Component {
                 4: 'Good+',
                 4.5: 'Excellent',
                 5: 'Primera plana',
-            }
+            },
+            etiquetas: []
         }
         this.dropzoneRef = React.createRef();
         this.dropzoneRef2 = React.createRef();
@@ -242,7 +247,7 @@ class FormNoticia extends Component {
     verificarcampos() {
         if (this.state.foto === '' || this.state.seccion === 0 ||
             this.state.tipo === 'tipo' || this.state.titulo === '' ||
-            this.state.subtitulo === '' || this.state.pieportada === '' || this.state.contenido === '') {
+            this.state.subtitulo === '' || this.state.pieportada === '' || this.state.contenido === '' || this.state.etiquetas.length === 0) {
             return false;
         }
         else {
@@ -292,6 +297,7 @@ class FormNoticia extends Component {
             }).then(async (response) => {
                 console.log(response)
                 newNoticia.portada = response.imagen
+                newNoticia.etiquetas = this.state.etiquetas.toString()
                 console.log(newNoticia)
                 const resp = await Axios.post(this.props.API + 'noticia', newNoticia);
                 console.log(resp)
@@ -300,7 +306,7 @@ class FormNoticia extends Component {
                 this.registrarInfografia(newid);
                 this.notifycorrecto();
 
-
+                this.props.history.push('/RR/listar-noticias');
             })
 
         }
@@ -621,7 +627,7 @@ class FormNoticia extends Component {
                                             name="hover-feedback"
                                             size="large"
                                             value={this.state.prioridad}
-                                            precision={0.5}
+                                            precision={1}
                                             onChange={(event, prioridad) => {
                                                 this.setState({
                                                     prioridad
@@ -639,6 +645,35 @@ class FormNoticia extends Component {
                                             </Box>
                                         }
                                     </center>
+
+                                    <ChipInput
+                                        //defaultValue={}
+                                        value={this.state.etiquetas}
+                                        onAdd={(chip) => {
+                                            //this.setState({ etiquetas: this.state.etiquetas.push(chip) })
+                                            const newetiquetas = this.state.etiquetas;
+                                            newetiquetas.push(chip)
+                                            //this.state.etiquetas.push(chip)
+                                            this.setState({
+                                                etiquetas: newetiquetas
+                                                //...etiquetas.push(chip)
+                                            })
+                                            //console.log(this.state.etiquetas)
+                                        }}
+                                        onDelete={(chip, index) => {
+                                            //this.setState({ etiquetas: this.state.etiquetas.slice(index, 1) })
+                                            const newetiquetas = this.state.etiquetas;
+                                            newetiquetas.splice(index, 1)
+                                            this.setState({
+                                                etiquetas: newetiquetas
+                                            })
+
+                                            //console.log(this.state.etiquetas)
+                                        }}
+                                        fullWidth
+                                        label='Palabras clave o etiquetas'
+                                        placeholder='Escriba y presione Intro para agregar las etiquetas'
+                                    />
                                 </Col>
 
                             </Row>
@@ -651,7 +686,7 @@ class FormNoticia extends Component {
                                             editor={InlineEditor}
                                             //editor={BalloonBlockEditor}
                                             config={editorConfiguration}
-                                            data='<h1>Escriba el contenido superior aqui<h1/>'
+                                            data='<b>Escriba el contenido superior aqui<b/>'
                                             onInit={editor => {
                                                 // You can store the "editor" and use when it is needed.
                                                 //console.log('Editor is ready to use!', editor);
@@ -847,7 +882,36 @@ class FormNoticia extends Component {
                                                                         }
                                                                     </div>
                                                                     :
-                                                                    ''
+                                                                    this.state.tipo === 'nota' ?
+                                                                        <CKEditor
+                                                                            name='contenido'
+                                                                            editor={InlineEditor}
+                                                                            //editor={BalloonBlockEditor}
+                                                                            config={editorConfiguration}
+                                                                            data='<b>Escriba el contenido aqui</b>'
+                                                                            onInit={editor => {
+                                                                                // You can store the "editor" and use when it is needed.
+                                                                                //console.log('Editor is ready to use!', editor);
+                                                                            }}
+                                                                            /*
+                                                                            onChange={(event, editor) => {
+                                                                                const contenido = editor.getData();
+                                                                                this.setState(contenido)
+                                                                                //setContenido(data)
+                                                                                //console.log({ event, editor, data });
+                                                                                //console.log(data);
+                                                                            }}
+                                                                            */
+                                                                            onChange={this.setContenido}
+                                                                            onBlur={(event, editor) => {
+                                                                                //console.log('Blur.', editor);
+                                                                            }}
+                                                                            onFocus={(event, editor) => {
+                                                                                //console.log('Focus.', editor);
+                                                                            }}
+                                                                        />
+                                                                        :
+                                                                        ''
                                                         }
                                                     </div>
                                                 </div>
@@ -858,33 +922,7 @@ class FormNoticia extends Component {
 
 
 
-                                    <CKEditor
-                                        name='contenido'
-                                        editor={InlineEditor}
-                                        //editor={BalloonBlockEditor}
-                                        config={editorConfiguration}
-                                        data='<h1>Escriba el contenido aqui</h1>'
-                                        onInit={editor => {
-                                            // You can store the "editor" and use when it is needed.
-                                            //console.log('Editor is ready to use!', editor);
-                                        }}
-                                        /*
-                                        onChange={(event, editor) => {
-                                            const contenido = editor.getData();
-                                            this.setState(contenido)
-                                            //setContenido(data)
-                                            //console.log({ event, editor, data });
-                                            //console.log(data);
-                                        }}
-                                        */
-                                        onChange={this.setContenido}
-                                        onBlur={(event, editor) => {
-                                            //console.log('Blur.', editor);
-                                        }}
-                                        onFocus={(event, editor) => {
-                                            //console.log('Focus.', editor);
-                                        }}
-                                    />
+
                                 </Col>
 
                                 <Col lg='4'>
@@ -893,21 +931,7 @@ class FormNoticia extends Component {
                                         position: 'sticky',
                                         top: '70px'
                                     }}>
-                                        <Typography variant='subtitle1' className='mb-2' style={{ fontWeight: '' }}>
-                                            Vista previa
-                                        </Typography>
 
-
-                                        <Paper className='p-1 mb-2 mt-2'>
-                                            <Image
-                                                aspectRatio={(16 / 9)}
-                                                src={
-                                                    this.state.foto.length > 0 ?
-                                                        URL.createObjectURL(this.state.foto[0]) : null
-                                                }
-                                            />
-                                            <small>{this.state.titulo}</small>
-                                        </Paper>
 
                                         <Fab
                                             color='secondary'
@@ -937,4 +961,4 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(FormNoticia);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormNoticia));

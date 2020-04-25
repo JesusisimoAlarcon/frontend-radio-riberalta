@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 // COMPONENTS
 
@@ -25,51 +25,55 @@ import FormNoticia from './Admin/Noticia';
 import ListNoticias from './Admin/NoticiasList';
 //const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
 import DetailNotice from '../../Components/Noticias/DetailNotice'
+
 const RR = (props) => {
     return (
         <Fragment>
+
             <AppHeader />
             <div className="app-main">
                 <AppSidebar />
 
                 <div className="app-main__outer">
                     <div className="app-main__inner">
-                        {/* Noticias */}
-                        {props.SECCIONES.map(sec =>
-                            <Route
-                                key={sec.label}
-                                path={`${props.match.url}/${sec.label.toLowerCase()}`}
-                                component={Noticias}
-                            />
+                        <Switch>
+                            {/* Noticias */}
+                            {props.SECCIONES.map(sec =>
+                                <Route
+                                    key={sec.label}
+                                    path={`${props.match.url}/${sec.label.toLowerCase()}`}
+                                    component={Noticias}
+                                />
 
-                        )}
-
-
-                        {/* Riberalta */}
+                            )}
 
 
-                        {/* Radio Riberalta */}
-
-                        <Route exact path={`${props.match.url}/quienes-somos`} component={Programacion} />
-                        <Route path={`${props.match.url}/nuestros-servicios`} component={Programacion} />
-                        <Route path={`${props.match.url}/nuestra-programacion`} component={Programacion} />
+                            {/* Riberalta */}
 
 
+                            {/* Radio Riberalta */}
 
-                        {/* Administracion */}
-
-                        {/* Administracion noticias */}
-                        <Route path={`${props.match.url}/registrar-noticia`} component={FormNoticia} />
-                        <Route path={`${props.match.url}/listar-noticias`} component={ListNoticias} />
+                            <Route exact path={`${props.match.url}/quienes-somos`} component={Programacion} />
+                            <Route path={`${props.match.url}/nuestros-servicios`} component={Programacion} />
+                            <Route path={`${props.match.url}/nuestra-programacion`} component={Programacion} />
 
 
-                        {/* Administracion programacion */}
-                        <Route path={`${props.match.url}/programa`} component={Programa} />
-                        <Route path={`${props.match.url}/conductor`} component={Conductor} />
-                        <Route path={`${props.match.url}/programacion`} component={Programacion2} />
-                        <Route path={`${props.match.url}/:id/:titulo`} component={DetailNotice} />
 
-                        {/*}<Route path="/noticia/:id/:titulo" component={DetailNotice} />{*/}
+                            {/* Administracion */}
+
+                            {/* Administracion noticias */}
+                            <Route path={`${props.match.url}/registrar-noticia`} component={FormNoticia} />
+                            <Route path={`${props.match.url}/listar-noticias`} component={ListNoticias} />
+
+
+                            {/* Administracion programacion */}
+                            <Route path={`${props.match.url}/programa`} component={Programa} />
+                            <Route path={`${props.match.url}/conductor`} component={Conductor} />
+                            <Route path={`${props.match.url}/programacion`} component={Programacion2} />
+                            <Route path={`${props.match.url}/:id/:titulo`} component={DetailNotice} />
+
+                            {/*}<Route path="/noticia/:id/:titulo" component={DetailNotice} />{*/}
+                        </Switch>
                     </div>
                 </div>
             </div>

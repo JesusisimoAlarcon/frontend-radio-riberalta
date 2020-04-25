@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import ResizeDetector from 'react-resize-detector';
 
 import AppMain from '../../Layout/AppMain';
+//import AppMain from '../../Pages/RR';
 
 class Main extends React.Component {
     constructor(props) {

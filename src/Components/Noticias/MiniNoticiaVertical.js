@@ -30,7 +30,7 @@ import { connect } from 'react-redux';
 
 import Image from 'material-ui-image'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-class NoticiaVertical extends Component {
+class MiniNoticiaVertical extends Component {
 
     state = {
         link: this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
@@ -51,8 +51,6 @@ class NoticiaVertical extends Component {
 
                         <CardActionArea
                         >
-
-
                             <Link to={{
                                 pathname: this.state.link,
                                 state: {
@@ -72,9 +70,9 @@ class NoticiaVertical extends Component {
                             <CardContent>
 
                                 <Typography variant='h1' style={{
-                                    fontSize: '2rem',
+                                    fontSize: '1.2rem',
                                     fontFamily: 'PlayfairDisplay-Bold',
-                                    lineHeight: '2.1rem',
+                                    lineHeight: '1.3rem',
                                     fontWeight: 'bold'
                                 }}>
                                     <Link to={this.state.link}>{this.props.titulo}</Link>
@@ -133,7 +131,6 @@ class NoticiaVertical extends Component {
                                     alignItems="flex-end"
 
                                 >
-
                                     <div>
                                         <Typography style={{ fontWeight: 'bold' }} variant="caption" color='secondary' display="block" gutterBottom>
                                             <AccessTimeIcon color='secondary' fontSize='small' /> {this.props.tiempo}
@@ -162,4 +159,4 @@ const mapStateToProps = state => ({
     API: state.ThemeOptions.API_REST
 });
 const mapDispatchToProps = dispatch => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(NoticiaVertical);
+export default connect(mapStateToProps, mapDispatchToProps)(MiniNoticiaVertical);

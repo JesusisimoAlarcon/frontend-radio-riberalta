@@ -5,6 +5,7 @@ import CabeceraInfo from '../../../Layout/AppMain/CabeceraInfo';
 import Axios from 'axios';
 //import NoticiaHorizontal from '../../../Components/Noticias/NoticiaHorizontal';
 import NoticiaVertical from '../../../Components/Noticias/NoticiaVertical';
+import MiniNoticiaVertical from '../../../Components/Noticias/MiniNoticiaVertical';
 //import { Container } from 'reactstrap';
 import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
@@ -182,7 +183,7 @@ class Noticias extends Component {
                             {this.state.noticiasrestantes && this.state.noticiasrestantes.map((noticia) =>
                                 <Col lg='3'
                                     key={noticia.idnoticia}>
-                                    <NoticiaVertical
+                                    <MiniNoticiaVertical
                                         //props={this.props}
 
                                         noticia={noticia}
