@@ -19,7 +19,7 @@ export default class CabeceraInfo extends Component {
     }
 
     componentDidMount = async () => {
-        const resp = await Axios.get('https://www.boliviasegura.gob.bo/wp-content/json/api.php');
+        const resp = await Axios.get('https://boliviasegura.agetic.gob.bo/wp-content/json/api.php');
         this.setState({
             datosoficiales: resp.data,
             contadorbolivia: resp.data.contador,

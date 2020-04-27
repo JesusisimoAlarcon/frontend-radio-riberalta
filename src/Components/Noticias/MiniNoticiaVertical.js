@@ -81,7 +81,7 @@ class MiniNoticiaVertical extends Component {
                                 <div className='mt-2 mb-2'>
 
 
-                                    <Chip size="small" label='' color='secondary' className='mr-1' avatar={
+                                    <Chip size='small' label='' color='secondary' className='mr-1' avatar={
                                         this.props.tipo === 'audio' ?
                                             <VolumeUpIcon style={{
                                                 background: '#f50057',
@@ -97,7 +97,8 @@ class MiniNoticiaVertical extends Component {
                                                     }} /> :
                                                     <DescriptionIcon style={{
                                                         background: '#f50057',
-                                                        padding: '0'
+                                                        padding: '0',
+                                                        //margin: '0'
                                                     }} />
                                     } />
 

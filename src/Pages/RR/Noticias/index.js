@@ -11,7 +11,6 @@ import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
 import { Divider } from '@material-ui/core';
-import AppFooter from '../../../Layout/AppFooter'
 
 class Noticias extends Component {
 
@@ -208,18 +207,6 @@ class Noticias extends Component {
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>
                     </Col>
                 </Row>
-                {/*}
-                <Divider style={{
-                    background: '#f50057'
-                }} className='mt-3'/>
-                {*/}
-             <Divider />
-                <Row>
-                    <Col xl='12' lg='12' >
-                        <AppFooter />
-                    </Col>
-                </Row>
-
             </Fragment>
         )
     }

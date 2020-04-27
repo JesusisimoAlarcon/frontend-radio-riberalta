@@ -7,8 +7,9 @@ import { Route, Switch } from 'react-router-dom';
 
 //import TabExample from '../Components/Tabs/';
 
-import AppHeader from '../../Layout/AppHeader/';
-import AppSidebar from '../../Layout/AppSidebar/';
+import AppHeader from '../../Layout/AppHeader';
+import AppSidebar from '../../Layout/AppSidebar';
+import AppFooter from '../../Layout/AppFooter';
 
 //import Riberalta from './Riberalta';
 //import Politica from './Politica';
@@ -25,6 +26,7 @@ import FormNoticia from './Admin/Noticia';
 import ListNoticias from './Admin/NoticiasList';
 //const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
 import DetailNotice from '../../Components/Noticias/DetailNotice'
+
 
 const RR = (props) => {
     return (
@@ -77,6 +79,8 @@ const RR = (props) => {
                     </div>
                 </div>
             </div>
+            
+            <AppFooter />
         </Fragment>
     )
 };

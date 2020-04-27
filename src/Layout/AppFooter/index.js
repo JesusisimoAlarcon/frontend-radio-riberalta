@@ -7,14 +7,19 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import Instagram from '@material-ui/icons/Instagram';
 import { Button } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 class AppFooter extends React.Component {
     render() {
         return (
 
             <footer className=''>
+                <Divider
+                    className='m-2'
+                //style={{ background: '#f50057' }} 
+                />
                 <div className='container pt-5'>
                     <div className='row'>
-                        <div className='col-sm-6 col-md-6 col-lg-4 mb-5'>
+                        <div className='col-sm-6 col-md-6 col-lg-3 mb-5'>
                             <div className='footer-title'>
                                 <h6>Acerca de Nosotros</h6>
                             </div>
@@ -30,13 +35,13 @@ class AppFooter extends React.Component {
                                         turpis tincidunt. Aenean suscipit eget. Aenean suscipit eget
                                         mi act fermentum phasellus vulputate turpis tincidunt. Aenean
                                         suscipit ege Aenean suscipit eget mi act fermentum phasellus.
-                </small>
+                                    </small>
                                 </p>
 
                                 <Button color='secondary' variant='contained' size='small'>Saber mas...</Button>
                             </div>
                         </div>
-                        <div className='col-sm-6 col-md-6 col-lg-2 mb-5'>
+                        <div className='col-sm-6 col-md-6 col-lg-3 mb-5'>
                             <div className='footer-title'>
                                 <h6>Secciones</h6>
                             </div>
@@ -52,7 +57,7 @@ class AppFooter extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className='col-sm-6 col-md-6 col-lg-2 mb-5'>
+                        <div className='col-sm-6 col-md-6 col-lg-3 mb-5'>
                             <div className='footer-title'>
                                 <h6>Nuestra Radio</h6>
                             </div>
@@ -76,7 +81,6 @@ class AppFooter extends React.Component {
                                 </ul>
                             </div>
                         </div>
-
                         <div className='col-sm-6 col-md-6 col-lg-3 mb-5'>
                             <div className='footer-title'>
                                 <h6>Contactanos</h6>
@@ -91,29 +95,31 @@ class AppFooter extends React.Component {
                                 <p className='text-muted'>
                                     <small>E-mail : radioriberalta@hotmail.com</small>
                                 </p>
-                                <div className='social-media mt-4'>
-                                    <a href='!#' className='text-light'>
-                                        <FacebookIcon color='secondary' className='mr-4' />
+                                <center>
+                                    <div className='social-media mt-4'>
+                                        <a href='!#' className='text-light'>
+                                            <FacebookIcon color='secondary' className='mr-4' />
 
-                                    </a>
-                                    <a href='!#' className='text-light'>
-                                        <TwitterIcon color='secondary' className='mr-4' />
+                                        </a>
+                                        <a href='!#' className='text-light'>
+                                            <TwitterIcon color='secondary' className='mr-4' />
 
-                                    </a>
-                                    <a href='!#' className='text-light'>
-                                        <Instagram color='secondary' className='mr-4' />
+                                        </a>
+                                        <a href='!#' className='text-light'>
+                                            <Instagram color='secondary' className='mr-4' />
 
-                                    </a>
-                                    <a href='!#' className='text-light'>
-                                        <WhatsappIcon color='secondary' className='mr-4' />
+                                        </a>
+                                        <a href='!#' className='text-light'>
+                                            <WhatsappIcon color='secondary' className='mr-4' />
 
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='bottom-footer pt-3 pb-3 text-center'>
+                <div className='bottom-footer pt-3 pb-3 text-center mb-4'>
                     <small>© 2020 Radio Riberalta, todos los derechos reservados.</small>
                 </div>
             </footer>

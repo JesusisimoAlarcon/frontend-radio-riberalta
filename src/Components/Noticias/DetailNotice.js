@@ -56,6 +56,7 @@ import moment from 'moment';
 import MiniNoticiaVertical from './MiniNoticiaVertical';
 
 import { formatDistanceStrict } from 'date-fns';
+
 //import moduleName from 'date-fns/parseJSON'
 function ScrollTop(props) {
     const { children, window } = props;
@@ -123,6 +124,8 @@ class DetailNotice extends Component {
     }
 
     componentDidMount = async () => {
+
+        //window.iframely && iframely.load();
         const resp = await Axios.get(this.props.API + 'noticia/' + this.state.id);
         const respnoti = resp.data;
         this.setState({
@@ -164,7 +167,7 @@ class DetailNotice extends Component {
 
         //console.log(this.state.noticia)
         //console.log(this.state.noticia.contenido)
-        let contenido_original = this.state.noticia.contenido + '';
+        let contenido_original = this.state.noticia.contenido;
         //console.log(contenido_original);
 
 
@@ -183,6 +186,12 @@ class DetailNotice extends Component {
         this.setState({
             contenido: contenido_modificado_fin
         })
+        /*
+        this.setState({
+            contenido: contenido_original
+        })
+        */
+
 
         const anchor = document.querySelector('#back-to-top-anchor');
         //console.log(anchor)
@@ -190,18 +199,19 @@ class DetailNotice extends Component {
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-
-        //obteniendo noticias relacionadas con la actual
-        const resp2 = await Axios.get(this.props.API + 'noticia/detalle/' + this.state.noticia.seccion);
-        const noticiasall = resp2.data;
-        
-        const noticiasrelacionadas = noticiasall.filter(noti =>
-            (this.state.noticia.idnoticia !== noti.idnoticia
-                && noti.contenido.toLowerCase().indexOf(this.state.noticia.etiquetas.toLowerCase()) > -1
-                //&& this.state.noticia.etiquetas.split(',').map(eti => { return eti })
-            )
-        )
-
+        /*
+                //obteniendo noticias relacionadas con la actual
+                const resp2 = await Axios.get(this.props.API + 'noticia/detalle/' + this.state.noticia.seccion);
+                const noticiasall = resp2.data;
+                
+                const noticiasrelacionadas = noticiasall.filter(noti =>
+                    (this.state.noticia.idnoticia !== noti.idnoticia
+                        && noti.contenido.toLowerCase().indexOf(this.state.noticia.etiquetas.toLowerCase()) > -1
+                        //&& this.state.noticia.etiquetas.split(',').map(eti => { return eti })
+                    )
+                )
+        */
+        const noticiasrelacionadas = await (await Axios.get(this.props.API + 'noticia/relacionadas/' + this.state.noticia.idnoticia + '/' + this.state.noticia.etiquetas)).data;
         this.setState({
             noticiasrelacionadas
         })
@@ -210,7 +220,6 @@ class DetailNotice extends Component {
         return (
 
             <React.Fragment>
-
 
                 <div id="back-to-top-anchor"></div>
                 {/*}<Container fluid={false}>{*/}
@@ -226,7 +235,7 @@ class DetailNotice extends Component {
                         </Col>
                         <Col xl='10'>
                             {this.state.noticia &&
-                                <Paper my={0} elevation={2} style={{ background: '#ffffff' }} className='pl-4 pr-4 pt-3 pb-3'>
+                                <Paper my={0} elevation={1} style={{ background: '#ffffff' }} className='pl-4 pr-4 pt-3 pb-3'>
                                     <Row>
                                         <Col lg='1' className='p-0'>
                                             <aside style={{
@@ -369,7 +378,6 @@ class DetailNotice extends Component {
                                                 <Col lg='8'>
                                                     <div>{ReactHtmlParser(this.state.noticia.infocontenido)}</div>
 
-
                                                     {this.state.noticia.tipo === 'image' ?
                                                         this.state.imagenes.length > 0 &&
                                                         <Swiper
@@ -380,7 +388,7 @@ class DetailNotice extends Component {
                                                         this.state.noticia.tipo === 'audio' ?
                                                             this.state.infografias.length > 0 &&
 
-                                                            < AudioPlayer
+                                                            <AudioPlayer
                                                                 //autoPlay
                                                                 className='mb-3'
                                                                 autoPlay={false}
@@ -425,26 +433,46 @@ class DetailNotice extends Component {
                                                             />
                                                             :
                                                             this.state.infografias.length > 0 &&
-                                                            <ReactPlayer
-                                                                className='mb-3'
-                                                                controls
-                                                                light={false}
-                                                                url={
-                                                                    this.state.tipovideo === true ?
-                                                                        this.state.video_url
-                                                                        :
-                                                                        this.state.video
-                                                                }
+                                                            <div style={{
+                                                                //position: 'relative',
+                                                                //paddingTop: '56.25%'
+                                                                height: 0,
+                                                                overflow: 'hidden',
+                                                                paddingBottom: '56.25%',
+                                                                paddingTop: '30px',
+                                                                position: 'relative'
+                                                            }}>
+                                                                <ReactPlayer
+                                                                    style={{
+                                                                        position: 'absolute',
+                                                                        top: 0,
+                                                                        left: 0,
+                                                                        width: '100%',
+                                                                        height: '100%'
+                                                                    }}
+                                                                    className='mb-3'
+                                                                    controls
+                                                                    light={false}
+                                                                    url={
+                                                                        this.state.tipovideo === true ?
+                                                                            this.state.video_url
+                                                                            :
+                                                                            this.state.video
+                                                                    }
+                                                                    width='100%'
+                                                                    height='100%'
                                                                 //url={video}
-                                                                width='100'
-                                                                height='auto'
-                                                            />
+                                                                //width='100'
+                                                                //height='auto'
+                                                                />
+                                                            </div>
                                                     }
 
 
 
 
                                                     <div>{ReactHtmlParser(this.state.contenido)}</div>
+
 
                                                     <Typography style={{ fontWeight: 'bold' }} variant="h6" color='secondary' display="block" gutterBottom>
                                                         En esta nota
@@ -493,7 +521,7 @@ class DetailNotice extends Component {
                                             <MiniNoticiaVertical
                                                 //props={this.props}
 
-                                                noticia={noticia}
+                                                //noticia={noticia}
                                                 idnoticia={noticia.idnoticia}
                                                 key={noticia.idnoticia}
                                                 portada={noticia.portada}
@@ -512,13 +540,9 @@ class DetailNotice extends Component {
 
                                 )}
                             </Row>
-
                         </Col>
-
                     </Row>
-
                 </ReactCSSTransitionGroup>
-
                 {/*}</Container>{*/}
                 <ScrollTop {...this.props}>
                     <Fab color="secondary" size="small" aria-label="scroll back to top">

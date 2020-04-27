@@ -21,10 +21,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import foto from '../../../../assets/test/test04.jpg'
-import CKEditor from '@ckeditor/ckeditor5-react';
-//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import InlineEditor from '@ckeditor/ckeditor5-build-inline'
-import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 //import TextField from '@material-ui/core/TextField';
 import esLocale from 'date-fns/locale/es';
 import DateFnsUtils from "@date-io/date-fns";
@@ -91,8 +87,15 @@ import {
 
 import Swiper from './SwipeableTextMobileStepper'
 
-import ChipInput from 'material-ui-chip-input'
+import ChipInput from 'material-ui-chip-input';
+//import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
+import CKEditor from '@ckeditor/ckeditor5-react';
+//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import InlineEditor from '@ckeditor/ckeditor5-build-inline'
+import '@ckeditor/ckeditor5-build-classic/build/translations/es';
+//import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 const editorConfiguration = {
+    //plugins: [MediaEmbed],
     //plugins: [Essentials, Bold, Italic, Paragraph],
     //toolbar: ['bold', 'italic']
     //blockToolbar: ['paragraph', 'heading1', 'heading2', '|', 'bulletedList', 'numberedList'],
@@ -114,6 +117,12 @@ const editorConfiguration = {
             'alignRight'
         ]
     }
+    /*
+    ,
+    mediaEmbed: {
+        previewsInData: true
+    }
+    */
     //toolbar: [BalloonBlockEditor]
 };
 
@@ -838,8 +847,23 @@ class FormNoticia extends Component {
                                                                         </Grid>
                                                                     </center>
                                                                     {/*}<div className="embed-responsive embed-responsive-16by4">{*/}
-                                                                    <div>
+                                                                    <div style={{
+                                                                        //position: 'relative',
+                                                                        //paddingTop: '56.25%'
+                                                                        height: 0,
+                                                                        overflow: 'hidden',
+                                                                        paddingBottom: '56.25%',
+                                                                        paddingTop: '30px',
+                                                                        position: 'relative'
+                                                                    }}>
                                                                         <ReactPlayer
+                                                                            style={{
+                                                                                position: "absolute",
+                                                                                top: 0,
+                                                                                left: 0,
+                                                                                width: '100%',
+                                                                                height: '100%'
+                                                                            }}
                                                                             className='mb-3'
                                                                             //url='https://www.facebook.com/435932830125753/videos/614756425922384/'
                                                                             //url={portada}
@@ -856,8 +880,8 @@ class FormNoticia extends Component {
                                                                                         URL.createObjectURL(this.state.media[0]) : null
                                                                             }
                                                                             //url={video}
-                                                                            width='100'
-                                                                            height='100'
+                                                                            width='100%'
+                                                                            height='100%'
 
                                                                         />
                                                                     </div>
@@ -882,38 +906,41 @@ class FormNoticia extends Component {
                                                                         }
                                                                     </div>
                                                                     :
-                                                                    this.state.tipo === 'nota' ?
-                                                                        <CKEditor
-                                                                            name='contenido'
-                                                                            editor={InlineEditor}
-                                                                            //editor={BalloonBlockEditor}
-                                                                            config={editorConfiguration}
-                                                                            data='<b>Escriba el contenido aqui</b>'
-                                                                            onInit={editor => {
-                                                                                // You can store the "editor" and use when it is needed.
-                                                                                //console.log('Editor is ready to use!', editor);
-                                                                            }}
-                                                                            /*
-                                                                            onChange={(event, editor) => {
-                                                                                const contenido = editor.getData();
-                                                                                this.setState(contenido)
-                                                                                //setContenido(data)
-                                                                                //console.log({ event, editor, data });
-                                                                                //console.log(data);
-                                                                            }}
-                                                                            */
-                                                                            onChange={this.setContenido}
-                                                                            onBlur={(event, editor) => {
-                                                                                //console.log('Blur.', editor);
-                                                                            }}
-                                                                            onFocus={(event, editor) => {
-                                                                                //console.log('Focus.', editor);
-                                                                            }}
-                                                                        />
-                                                                        :
-                                                                        ''
+                                                                    ''
                                                         }
+
                                                     </div>
+
+                                                    {this.state.tipo !== 'tipo' ?
+                                                        <CKEditor
+                                                            name='contenido'
+                                                            editor={InlineEditor}
+                                                            //editor={BalloonBlockEditor}
+                                                            config={editorConfiguration}
+                                                            data='<b>Escriba el contenido aqui</b>'
+                                                            onInit={editor => {
+                                                                // You can store the "editor" and use when it is needed.
+                                                                //console.log('Editor is ready to use!', editor);
+                                                            }}
+                                                            /*
+                                                            onChange={(event, editor) => {
+                                                                const contenido = editor.getData();
+                                                                this.setState(contenido)
+                                                                //setContenido(data)
+                                                                //console.log({ event, editor, data });
+                                                                //console.log(data);
+                                                            }}
+                                                            */
+                                                            onChange={this.setContenido}
+                                                            onBlur={(event, editor) => {
+                                                                //console.log('Blur.', editor);
+                                                            }}
+                                                            onFocus={(event, editor) => {
+                                                                //console.log('Focus.', editor);
+                                                            }}
+                                                        />
+                                                        :
+                                                        ''}
                                                 </div>
                                             );
                                         }}
