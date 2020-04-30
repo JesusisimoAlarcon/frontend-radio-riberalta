@@ -38,6 +38,9 @@ const RR = (props) => {
 
                 <div className="app-main__outer">
                     <div className="app-main__inner">
+                        {/* Pagina principal */}
+                        <Route exact path={`${props.match.url}/`} component={Programacion} />
+
                         <Switch>
                             {/* Noticias */}
                             {props.SECCIONES.map(sec =>
@@ -55,7 +58,7 @@ const RR = (props) => {
 
                             {/* Radio Riberalta */}
 
-                            <Route exact path={`${props.match.url}/quienes-somos`} component={Programacion} />
+                            <Route path={`${props.match.url}/quienes-somos`} component={Programacion} />
                             <Route path={`${props.match.url}/nuestros-servicios`} component={Programacion} />
                             <Route path={`${props.match.url}/nuestra-programacion`} component={Programacion} />
 
@@ -77,10 +80,11 @@ const RR = (props) => {
                             {/*}<Route path="/noticia/:id/:titulo" component={DetailNotice} />{*/}
                         </Switch>
                     </div>
+
+                    <AppFooter />
                 </div>
             </div>
-            
-            <AppFooter />
+
         </Fragment>
     )
 };

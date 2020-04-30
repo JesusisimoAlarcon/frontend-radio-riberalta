@@ -21,7 +21,7 @@ class AppFooter extends React.Component {
                     <div className='row'>
                         <div className='col-sm-6 col-md-6 col-lg-3 mb-5'>
                             <div className='footer-title'>
-                                <h6>Acerca de Nosotros</h6>
+                                <h6>Nos encuentras</h6>
                             </div>
                             <div className='footer-content'>
 
@@ -29,14 +29,10 @@ class AppFooter extends React.Component {
                                     <div className="logo-src" />
                                 </div>
 
-                                <p>
-                                    <small className='text-muted'>
-                                        Aenean suscipit eget mi act fermentum phasellus vulputate
-                                        turpis tincidunt. Aenean suscipit eget. Aenean suscipit eget
-                                        mi act fermentum phasellus vulputate turpis tincidunt. Aenean
-                                        suscipit ege Aenean suscipit eget mi act fermentum phasellus.
-                                    </small>
-                                </p>
+                                <p><b>Direccion:</b> Barrio Base Aerea</p>
+                                <p><b>Calle:</b> Av. Bernandino Ochoa</p>
+                                <p><b>N°:</b> 1030</p>
+                                <p>RIBERALTA - BENI -BOLIVIA</p>
 
                                 <Button color='secondary' variant='contained' size='small'>Saber mas...</Button>
                             </div>
@@ -87,17 +83,18 @@ class AppFooter extends React.Component {
                             </div>
                             <div className='footer-content'>
                                 <p className='text-muted'>
-                                    <small>Direccion : Barrio El Periodista, Av. Nogal, Riberalta</small>
+                                    <b>Telefono Fijo:</b> 3-852 4014
                                 </p>
                                 <p className='text-muted'>
-                                    <small>Telefono : +591 75894449</small>
+                                    <b>Celular:</b> 76873500
                                 </p>
                                 <p className='text-muted'>
-                                    <small>E-mail : radioriberalta@hotmail.com</small>
+                                    <b>Email:</b> radioriberalta@hotmail.com
                                 </p>
                                 <center>
                                     <div className='social-media mt-4'>
                                         <a href='!#' className='text-light'>
+
                                             <FacebookIcon color='secondary' className='mr-4' />
 
                                         </a>

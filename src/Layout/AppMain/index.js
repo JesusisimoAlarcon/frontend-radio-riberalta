@@ -1,18 +1,12 @@
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import React, { Suspense, lazy, Fragment } from 'react';
 
 import {
     ToastContainer,
 } from 'react-toastify';
-//import DetailNotice from '../../Components/Noticias/DetailNotice';
-//import DetalleNoticia from '../../Components/Noticias/DetalleNoticia';
-//const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
-//const Noticias = lazy(() => import('../../Pages/Noticias'));
+import { CircularProgress } from '@material-ui/core';
+import logo from '../../assets/utils/images/logo-inverse.png'
 const RR = lazy(() => import('../../Pages/RR'));
-//const Administracion = lazy(() => import('../../Pages/Admin'));
-//const Radio = lazy(() => import('../../Pages/Radio'));
-//const DetalleNoticia = lazy(() => import('../../Components/Noticias/DetalleNoticia'))
-//import moduleName from '../../Components/Noticias/DetalleNoticia'
 
 const AppMain = () => {
 
@@ -20,15 +14,14 @@ const AppMain = () => {
         <Fragment>
 
 
+
             {/* Noticias */}
 
             <Suspense fallback={
                 <div className="loader-container">
                     <div className="loader-container-inner">
-                        <h6 className="mt-5">
-                            Por favor espere mientras cargamos todos los ejemplos de Componentes
-                            <small>Como se trata de una demostración, cargamos a la vez todos los ejemplos de componentes. ¡Esto no sucedería en una aplicación real en vivo!</small>
-                        </h6>
+                        <img src={logo} alt='RADIO RIBERALTA' className='m-3' />
+                        <CircularProgress size='10rem' variant='indeterminate' color='secondary' />
                     </div>
                 </div>
             }>
@@ -41,12 +34,11 @@ const AppMain = () => {
 
 
 
-            {/*}
+
             <Route exac path="/" render={() => (
-                <Redirect to="/RR/riberalta" />
+                <Redirect to="/RR" />
             )} />
 
-            {*/}
             <ToastContainer />
         </Fragment>
     )
