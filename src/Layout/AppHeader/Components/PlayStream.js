@@ -21,11 +21,11 @@ export default class PlayStream extends Component {
         //console.log(this.repro)
     }
 
-    encender = () => {        
-        if(this.state.play){
+    encender = () => {
+        if (this.state.play) {
             this.repro.current.pause();
         }
-        else{
+        else {
             this.repro.current.play();
         }
         this.setState({ play: !this.state.play });
@@ -51,7 +51,9 @@ export default class PlayStream extends Component {
 
                 {/*}<FontAwesomeIcon icon={faPlayCircle} size='3x' color={"white"} />{*/}
                 <audio ref={this.repro} name="media">
-                    <source src="http://stm10.miradio.com.es:10544/stream/1/" type="audio/mpeg"></source>
+                    {/*}<source src="http://stm10.miradio.com.es:10544/stream/1/" type="audio/mpeg"></source>{*/}
+                    <source src="https://ssl.xcast.com.br:10544/" type="audio/mpeg"></source>
+
                 </audio>
             </Fragment>
         )

@@ -143,14 +143,15 @@ const initialState = {
     ],
     hoy: new Date().getDay(),
     hoydia: '',
-    API_REST: 'http://192.34.58.196:4500/api/'
-    //API_REST: 'http://192.168.1.6:4500/api/'
+    //API_REST: 'https://www.radioriberalta.com.bo:4500/api/'
+    //API_REST: 'https://192.168.1.6:4500/api/'
+    API_REST: 'https://api.radioriberalta.com.bo/api/'
 }
 
 
 export default function reducer(state = initialState, action) {
 
-    state.hoydia=state.diasTabs[state.hoy];
+    state.hoydia = state.diasTabs[state.hoy];
     axios.get(state.API_REST + 'seccion/navs').then(response => {
         return response.data;
     }).then(response => {
