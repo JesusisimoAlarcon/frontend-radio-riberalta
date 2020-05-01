@@ -182,12 +182,12 @@ button.bg-info:focus {
   background-color: #178acc !important; }
 
 .bg-warning {
-  background-color: #DD5600 !important; }
+  background-color: #f50057 !important; }
 
 a.bg-warning:hover, a.bg-warning:focus,
 button.bg-warning:hover,
 button.bg-warning:focus {
-  background-color: #aa4200 !important; }
+  background-color: #f50057 !important; }
 
 .bg-danger {
   background-color: #f50057 !important; }
@@ -4960,10 +4960,10 @@ button.bg-info:focus {
 a.bg-warning:hover, a.bg-warning:focus,
 button.bg-warning:hover,
 button.bg-warning:focus {
-  background-color: #aa4200 !important; }
+  background-color: #f50057 !important; }
 
 .bg-danger {
-  background-color: #db094f !important; }
+  background-color: #f50057 !important; }
 
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
