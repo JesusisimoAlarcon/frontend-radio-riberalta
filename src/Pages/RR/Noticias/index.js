@@ -22,26 +22,59 @@ class Noticias extends Component {
             noticias: '',
             noticiasrestantes: '',
             noticiasmasvistas: '',
-            seccion: this.props.match.url.split('/')[1]
+            seccion: this.props.match.url.length === 1 ? '' : this.props.match.url.split('/')[1]
         }
         console.log('url match', this.props.match.url.split('/')[1])
+        console.log('esta es la seccion', this.state.seccion)
+
+        const anchor = document.querySelector('#back-to-top-anchor');
+        //console.log(anchor)
+        if (anchor) {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 
     async componentDidMount() {
-
-        let noticias, noticiasprincipales, noticiassecundarias, noticiasrestantes;
         const resp = await Axios.get(this.props.API + 'noticia/detalle/' + this.state.seccion);
+        this.state.seccion ? this.getNoticiasSecciones(resp) : this.getNoticiasAll(resp)
+    }
 
+
+    getNoticiasAll = (resp) => {
+        let noticias, noticiasprincipales, noticiassecundarias, noticiasrestantes;
+        noticias = resp.data
+        noticiasprincipales = noticias.slice(0, 3)
+        noticiassecundarias = noticias.slice(3, 6)
+
+        noticiasrestantes = noticias.filter(
+            noti =>
+                (!noticiasprincipales.includes(noti) && !noticiassecundarias.includes(noti))
+        ).slice(0, 4);
+        this.setState({
+            noticias,
+            noticiasprincipales,
+            noticiassecundarias,
+            noticiasrestantes
+        })
+        /*
+                console.log(this.state.noticiasprincipales);
+                console.log(this.state.noticiassecundarias);
+                console.log(this.state.noticiasrestantes)
+                console.log(this.state.noticias);
+                */
+    }
+    getNoticiasSecciones = (resp) => {
+        let noticias, noticiasprincipales, noticiassecundarias, noticiasrestantes;
         //Todas las noticias
         noticias = resp.data.filter((noti) =>
             new Date(noti.fecha).getDate() === new Date().getDate()
         );
-        if (noticias.length === 0) {
+        if (noticias.length === 0) {//si no son del dia
             noticias = resp.data
             noticiasprincipales = noticias.slice(0, 3)
             noticiassecundarias = noticias.slice(3, 6)
         }
-        else {
+        else {//si son del dia
             //noticias prioridas principal => 5
             noticiasprincipales = noticias.filter((noti) =>
                 noti.prioridad === 5
@@ -57,23 +90,26 @@ class Noticias extends Component {
         noticiasrestantes = noticias.filter(
             noti =>
                 (!noticiasprincipales.includes(noti) && !noticiassecundarias.includes(noti))
-        );
+        ).slice(0, 4);
         this.setState({
             noticias,
             noticiasprincipales,
             noticiassecundarias,
             noticiasrestantes
         })
-
-        console.log(this.state.noticiasprincipales);
-        console.log(this.state.noticiassecundarias);
-        console.log(this.state.noticiasrestantes)
-        console.log(this.state.noticias);
+        /*
+                console.log(this.state.noticiasprincipales);
+                console.log(this.state.noticiassecundarias);
+                console.log(this.state.noticiasrestantes)
+                console.log(this.state.noticias);
+                */
     }
+
     render() {
         return (
 
             <Fragment>
+                <div id="back-to-top-anchor"></div>
                 <Row>
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>
                     </Col>
@@ -137,15 +173,12 @@ class Noticias extends Component {
 
                             )}
                             <Col lg='4'>
-
-                                PUBLICIDAD
-
-
                             </Col>
                         </Row>
+                        {this.state.noticiasprincipales &&
 
-
-                        <Divider className='mb-3' />
+                            <Divider className='mb-3' />
+                        }
 
                         {/* Noticas Secundarias */}
 
@@ -173,9 +206,10 @@ class Noticias extends Component {
                                 </Col>
                             )}
                         </Row>
+                        {this.state.noticiassecundarias &&
 
-
-                        <Divider className='mb-3' />
+                            <Divider className='mb-3' />
+                        }
 
                         {/* Noticas restantes */}
                         <Row>
@@ -185,7 +219,6 @@ class Noticias extends Component {
                                     key={noticia.idnoticia}>
                                     <MiniNoticiaVertical
                                         //props={this.props}
-
                                         noticia={noticia}
                                         idnoticia={noticia.idnoticia}
                                         key={noticia.idnoticia}

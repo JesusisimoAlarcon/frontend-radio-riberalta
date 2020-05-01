@@ -315,7 +315,7 @@ class FormNoticia extends Component {
                 this.registrarInfografia(newid);
                 this.notifycorrecto();
 
-                this.props.history.push('/RR/listar-noticias');
+                this.props.history.push('/listar-noticias');
             })
 
         }

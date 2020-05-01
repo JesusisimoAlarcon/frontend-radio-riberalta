@@ -14,7 +14,7 @@ class AppFooter extends React.Component {
 
             <footer className=''>
                 <Divider
-                    className='m-2'
+                    className='mb-2'
                 //style={{ background: '#f50057' }} 
                 />
                 <div className='container pt-5'>
@@ -45,7 +45,7 @@ class AppFooter extends React.Component {
                                 <ul className='list-group quick-links'>
                                     {this.props.SECCIONES.map(sec =>
                                         <li key={sec.id}>
-                                            <Link to={`/RR/${sec.label.toLowerCase()}`}>
+                                            <Link to={`/${sec.label.toLowerCase()}`}>
                                                 {sec.label}
                                             </Link>
                                         </li>
@@ -60,17 +60,17 @@ class AppFooter extends React.Component {
                             <div className='footer-content'>
                                 <ul className='list-group quick-links'>
                                     <li>
-                                        <Link to={`/RR/quienes-somos`}>
+                                        <Link to={`/quienes-somos`}>
                                             QUIENES SOMOS?
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={`/RR/nuestros-servicios`}>
+                                        <Link to={`/nuestros-servicios`}>
                                             NUESTROS SERVICIOS
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={`/RR/nuestra-programacion`}>
+                                        <Link to={`/nuestra-programacion`}>
                                             PROGRAMACION RADIAL
                                         </Link>
                                     </li>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import esLocale from 'date-fns/locale/es';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Fab from '@material-ui/core/Fab';
@@ -105,7 +105,7 @@ class DetailNotice extends Component {
         //console.log(props.match.params.titulo)
         //console.log(props.location.state)
 
-        console.log(this.props)
+        //console.log(this.props)
 
         this.state = {
             id: props.match.params.id,
@@ -323,7 +323,7 @@ class DetailNotice extends Component {
                                                                 size='small'
                                                                 color='secondary'
                                                                 label={
-                                                                    <Link to={'/RR/' + (this.state.noticia.seccion + '').toLowerCase()} style={{
+                                                                    <Link to={'/' + (this.state.noticia.seccion + '').toLowerCase()} style={{
                                                                         color: 'white'
                                                                     }}>{this.state.noticia.seccion}</Link>
                                                                 }
@@ -478,7 +478,7 @@ class DetailNotice extends Component {
                                                         En esta nota
                                                     </Typography>
                                                     <Divider className='mb-2' />
-                                                    {this.state.noticia.etiquetas.split(',').map(etiqueta =>
+                                                    {this.state.noticia.etiquetas && this.state.noticia.etiquetas.split(',').map(etiqueta =>
                                                         <Chip
                                                             key={etiqueta}
                                                             className='mr-2'
@@ -521,7 +521,7 @@ class DetailNotice extends Component {
                                             <MiniNoticiaVertical
                                                 //props={this.props}
 
-                                                //noticia={noticia}
+                                                noticia={noticia}
                                                 idnoticia={noticia.idnoticia}
                                                 key={noticia.idnoticia}
                                                 portada={noticia.portada}

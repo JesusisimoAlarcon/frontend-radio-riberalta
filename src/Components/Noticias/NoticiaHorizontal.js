@@ -36,7 +36,7 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 class NoticiaHorizontal extends Component {
 
     state = {
-        link: this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+        link: '/' + this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
     }
 
     render() {
@@ -72,13 +72,13 @@ class NoticiaHorizontal extends Component {
                                         />
                                     </Link>
                                 </Col>
-                                <Col lg='4'>
+                                <Col lg='4' className='pl-0'>
                                     <CardContent>
 
-                                        <Typography variant='h1' style={{
-                                            fontSize: '2.2rem',
+                                        <Typography variant='h6' style={{
+                                            fontSize: '1.5rem',
                                             fontFamily: 'PlayfairDisplay-Bold',
-                                            lineHeight: '2.4rem',
+                                            lineHeight: '1.2rem',
                                             fontWeight: 'bold'
                                         }}>
                                             <Link to={this.state.link}>{this.props.titulo}</Link>
@@ -111,7 +111,7 @@ class NoticiaHorizontal extends Component {
                                                 size='small'
                                                 color='secondary'
                                                 label={
-                                                    <Link to={'/RR/' + (this.props.seccion + '').toLowerCase()} style={{
+                                                    <Link to={'/' + (this.props.seccion + '').toLowerCase()} style={{
                                                         color: 'white',
                                                         fontWeight: 'bold'
                                                     }}>{this.props.seccion}</Link>
@@ -150,10 +150,11 @@ class NoticiaHorizontal extends Component {
 
                                         >
                                             <div>
-                                                <Typography variant="caption" display="block" gutterBottom>
+                                                <Typography style={{ fontWeight: 'bold' }} variant="caption" color='secondary' display="block" gutterBottom>
                                                     <AccessTimeIcon color='secondary' fontSize='small' /> {this.props.tiempo}
                                                 </Typography>
                                             </div>
+                                            
                                             <div>
 
                                                 <Typography variant="caption" display="block" color='secondary' gutterBottom>

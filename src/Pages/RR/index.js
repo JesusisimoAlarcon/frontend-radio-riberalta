@@ -26,23 +26,28 @@ import FormNoticia from './Admin/Noticia';
 import ListNoticias from './Admin/NoticiasList';
 //const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
 import DetailNotice from '../../Components/Noticias/DetailNotice'
-
+import Busqueda from '../RR/Busqueda'
 
 const RR = (props) => {
-    console.log(props.match.url)
     return (
         <Fragment>
-
             <AppHeader />
             <div className="app-main">
                 <AppSidebar />
 
                 <div className="app-main__outer">
                     <div className="app-main__inner">
-                        {/* Pagina principal */}
-                        <Route exact path={`${props.match.url}`} component={Programacion} />
-
                         <Switch>
+
+
+                            <Route exact path={`/search/:busqueda`} component={Busqueda} />
+                            <Route exact path={`/:id/:titulo`} component={DetailNotice} />
+
+
+                            {/* Pagina principal */}
+                            <Route exact path={`/`} component={Noticias} />
+
+
                             {/* Noticias */}
                             {props.SECCIONES.map(sec =>
                                 <Route
@@ -50,7 +55,6 @@ const RR = (props) => {
                                     path={`/${sec.label.toLowerCase()}`}
                                     component={Noticias}
                                 />
-
                             )}
 
 
@@ -76,7 +80,7 @@ const RR = (props) => {
                             <Route path={`/programa`} component={Programa} />
                             <Route path={`/conductor`} component={Conductor} />
                             <Route path={`/programacion`} component={Programacion2} />
-                            <Route path={`/:id/:titulo`} component={DetailNotice} />
+
 
                             {/*}<Route path="/noticia/:id/:titulo" component={DetailNotice} />{*/}
                         </Switch>

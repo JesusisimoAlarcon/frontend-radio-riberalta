@@ -59,6 +59,12 @@ class Programacion extends React.Component {
             hoy: new Date().getDay()
             //hoydia: ''
         }
+
+        const anchor = document.querySelector('#back-to-top-anchor');
+        //console.log(anchor)
+        if (anchor) {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         //console.log(this.state.hoy)
         //const dia = format(new Date(), 'EEEE', { locale: esLocale });
         //console.log(dia)
@@ -77,38 +83,39 @@ class Programacion extends React.Component {
         //this.actualizar_programacion();
     }
 
-/*
-
-    encontrar_live = () => {
-        //console.log(this.state.programas)
-        this.state.programas.filter((p) => {
-            return (p.diasemana === this.state.hoydia && p.estado === 1)
-        }).map(programa => {
-
-            const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
-            const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
-
-            const horaactual = new Date().getTime();
-            //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
-
-            if (horaactual >= horainicio && horaactual < horafin) {
-                //console.log("si")
-                programa.live = 1;
-            }
-
-            //console.log(horainicio)
-            //programa.live = 1;
-            return programa;
-        })
-        //console.log(this.state.programas)
-    }
-*/
+    /*
+    
+        encontrar_live = () => {
+            //console.log(this.state.programas)
+            this.state.programas.filter((p) => {
+                return (p.diasemana === this.state.hoydia && p.estado === 1)
+            }).map(programa => {
+    
+                const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
+                const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
+    
+                const horaactual = new Date().getTime();
+                //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
+    
+                if (horaactual >= horainicio && horaactual < horafin) {
+                    //console.log("si")
+                    programa.live = 1;
+                }
+    
+                //console.log(horainicio)
+                //programa.live = 1;
+                return programa;
+            })
+            //console.log(this.state.programas)
+        }
+    */
     render() {
         return (
             <Fragment>
+                <div id="back-to-top-anchor"></div>
                 <PageTitle
                     heading="Nuestra programacion"
-                    subheading="Puedes consultar nuestra programacion radial semanal para poder escuchar todos nuestros programas."
+                    subheading="Consulta nuestra programacio radial en vivo, musica, noticias, entrevistas y enlaces satelitales desde Riberalta para el Mundo Entero."
                     icon="pe-7s-radio icon-gradient bg-amy-crisp"
                 />
 
@@ -116,6 +123,7 @@ class Programacion extends React.Component {
                     tabsWrapperClass="body-tabs body-tabs-layout"
                     transform={true}
                     selectedTabKey={this.state.hoy}
+                    
                     width={'800px'}
                     showInkBar={true}
                     items={this.state.diasTabs.map((tab, index) => ({

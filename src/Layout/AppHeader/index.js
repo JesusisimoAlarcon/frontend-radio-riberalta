@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import HeaderLogo from '../AppLogo';
 import UserBox from './Components/UserBox';
+import SearchBox from './Components/SearchBox';
 import logocasa from '../../assets/utils/images/banderas/logo_casa.png';
 import { Typography } from '@material-ui/core';
 class Header extends React.Component {
@@ -33,10 +34,17 @@ class Header extends React.Component {
                         { 'header-mobile-open': enableMobileMenuSmall },
                     )}>
                         <div className="app-header-left">
-                            <img width="30px" alt='logocasa' src={logocasa} className='mr-1' />
-
-                            <Typography style={{ color: 'white' }}><small>#QuedateEnCasa</small></Typography>
+                            <SearchBox />
+                            <center>
+                                <img width="30px" alt='logocasa' src={logocasa} className='mr-1' />
+                                <Typography style={{
+                                    color: 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: '0.7rem'
+                                }}><small>#QuedateEnCasa</small></Typography>
+                            </center>
                         </div>
+
                         <div className="app-header-right">
 
                             <UserBox />

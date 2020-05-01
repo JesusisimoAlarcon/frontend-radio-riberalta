@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from "react-router-dom"
+//import { Link, Redirect } from "react-router-dom"
 
 // Examples
 //import imagen from '../../assets/test/test03.png'
@@ -32,8 +33,11 @@ import Image from 'material-ui-image'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 class MiniNoticiaVertical extends Component {
 
-    state = {
-        link: this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+    constructor(props) {
+        super(props);
+        this.state = {
+            link: '../' + this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+        }
     }
 
     render() {
@@ -51,7 +55,7 @@ class MiniNoticiaVertical extends Component {
 
                         <CardActionArea
                         >
-                            <Link to={{
+                            <Link replace to={{
                                 pathname: this.state.link,
                                 state: {
                                     idnoticia: this.props.idnoticia,
@@ -75,6 +79,8 @@ class MiniNoticiaVertical extends Component {
                                     lineHeight: '1.3rem',
                                     fontWeight: 'bold'
                                 }}>
+
+                                    {/*}<Redirect to={this.state.link}>{this.props.titulo}</Redirect>{*/}
                                     <Link to={this.state.link}>{this.props.titulo}</Link>
                                 </Typography>
 
@@ -106,7 +112,7 @@ class MiniNoticiaVertical extends Component {
                                         size='small'
                                         color='secondary'
                                         label={
-                                            <Link to={'/RR/' + (this.props.seccion + '').toLowerCase()} style={{
+                                            <Link to={'/' + (this.props.seccion + '').toLowerCase()} style={{
                                                 color: 'white',
                                                 fontWeight: 'bold'
                                             }}>{this.props.seccion}</Link>
