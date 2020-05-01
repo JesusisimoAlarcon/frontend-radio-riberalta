@@ -91,32 +91,32 @@ export const NoticiasTestNav = [
     {
         icon: 'pe-7s-sun',
         label: 'RIBERALTA',
-        to: '#/RR/riberalta'
+        to: '#/riberalta'
     },
     {
         icon: 'pe-7s-world',
         label: 'INTERNACIONAL',
-        to: '#/RR/internacional'
+        to: '#/internacional'
     },
     {
         icon: 'pe-7s-portfolio',
         label: 'POLITICA',
-        to: '#/RR/politica'
+        to: '#/politica'
     },
     {
         icon: 'pe-7s-cash',
         label: 'ECONOMIA',
-        to: '#/RR/economica'
+        to: '#/economica'
     },
     {
         icon: 'pe-7s-study',
         label: 'EDUCACION',
-        to: '#/RR/educacion'
+        to: '#/educacion'
     },
     {
         icon: 'pe-7s-gym',
         label: 'DEPORTES',
-        to: '#/RR/deportes'
+        to: '#/deportes'
     },
     {
         icon: 'pe-7s-medal',
@@ -146,17 +146,17 @@ export const NoticiasTestNav = [
             {
                 icon: 'pe-7s-medal',
                 label: 'QUIENES SOMOS?',
-                to: '#/RR/quienes-somos'
+                to: '#/quienes-somos'
             },
             {
                 icon: 'pe-7s-target',
                 label: 'NUESTROS SERVICIOS',
-                to: '#/RR/nuestros-servicios'
+                to: '#/nuestros-servicios'
             },
             {
                 icon: 'pe-7s-radio',
                 label: 'PROGRAMACION RADIAL',
-                to: '#/RR/nuestra-programacion'
+                to: '#/nuestra-programacion'
             }
         ]
     },
@@ -166,15 +166,15 @@ export const NoticiasTestNav = [
         content: [
             {
                 label: 'Agregar nueva noticia',
-                to: '#/RR/registrar-noticia'
+                to: '#/registrar-noticia'
             },
             {
                 label: 'Ver mis noticias agregadas',
-                to: '#/RR/listar-noticias'
+                to: '#/listar-noticias'
             },
             {
                 label: 'Quitar noticias',
-                to: '#/RR/quitar-noticia'
+                to: '#/quitar-noticia'
             }
         ]
     },
@@ -184,15 +184,15 @@ export const NoticiasTestNav = [
         content: [
             {
                 label: 'Registrar programa',
-                to: '#/RR/programa',
+                to: '#/programa',
             },
             {
                 label: 'Registrar conductor',
-                to: '#/RR/conductor',
+                to: '#/conductor',
             },
             {
                 label: 'Crear programacion',
-                to: '#/RR/programacion',
+                to: '#/programacion',
             }
         ]
     },

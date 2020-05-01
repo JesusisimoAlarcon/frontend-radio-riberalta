@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import React, { Suspense, lazy, Fragment } from 'react';
 
 import {
@@ -27,17 +27,8 @@ const AppMain = () => {
             }>
 
 
-                <Route path="/RR" component={RR} />
+                <Route path="/" component={RR} />
             </Suspense>
-
-
-
-
-
-
-            <Route exac path="/" render={() => (
-                <Redirect to="/RR" />
-            )} />
 
             <ToastContainer />
         </Fragment>

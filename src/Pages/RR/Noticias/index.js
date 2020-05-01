@@ -22,8 +22,9 @@ class Noticias extends Component {
             noticias: '',
             noticiasrestantes: '',
             noticiasmasvistas: '',
-            seccion: this.props.match.url.split('/')[2]
+            seccion: this.props.match.url.split('/')[1]
         }
+        console.log('url match', this.props.match.url.split('/')[1])
     }
 
     async componentDidMount() {

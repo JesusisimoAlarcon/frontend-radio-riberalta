@@ -29,6 +29,7 @@ import DetailNotice from '../../Components/Noticias/DetailNotice'
 
 
 const RR = (props) => {
+    console.log(props.match.url)
     return (
         <Fragment>
 
@@ -39,14 +40,14 @@ const RR = (props) => {
                 <div className="app-main__outer">
                     <div className="app-main__inner">
                         {/* Pagina principal */}
-                        <Route exact path={`${props.match.url}/`} component={Programacion} />
+                        <Route exact path={`${props.match.url}`} component={Programacion} />
 
                         <Switch>
                             {/* Noticias */}
                             {props.SECCIONES.map(sec =>
                                 <Route
                                     key={sec.label}
-                                    path={`${props.match.url}/${sec.label.toLowerCase()}`}
+                                    path={`/${sec.label.toLowerCase()}`}
                                     component={Noticias}
                                 />
 
@@ -58,24 +59,24 @@ const RR = (props) => {
 
                             {/* Radio Riberalta */}
 
-                            <Route path={`${props.match.url}/quienes-somos`} component={Programacion} />
-                            <Route path={`${props.match.url}/nuestros-servicios`} component={Programacion} />
-                            <Route path={`${props.match.url}/nuestra-programacion`} component={Programacion} />
+                            <Route path={`/quienes-somos`} component={Programacion} />
+                            <Route path={`/nuestros-servicios`} component={Programacion} />
+                            <Route path={`/nuestra-programacion`} component={Programacion} />
 
 
 
                             {/* Administracion */}
 
                             {/* Administracion noticias */}
-                            <Route path={`${props.match.url}/registrar-noticia`} component={FormNoticia} />
-                            <Route path={`${props.match.url}/listar-noticias`} component={ListNoticias} />
+                            <Route path={`/registrar-noticia`} component={FormNoticia} />
+                            <Route path={`/listar-noticias`} component={ListNoticias} />
 
 
                             {/* Administracion programacion */}
-                            <Route path={`${props.match.url}/programa`} component={Programa} />
-                            <Route path={`${props.match.url}/conductor`} component={Conductor} />
-                            <Route path={`${props.match.url}/programacion`} component={Programacion2} />
-                            <Route path={`${props.match.url}/:id/:titulo`} component={DetailNotice} />
+                            <Route path={`/programa`} component={Programa} />
+                            <Route path={`/conductor`} component={Conductor} />
+                            <Route path={`/programacion`} component={Programacion2} />
+                            <Route path={`/:id/:titulo`} component={DetailNotice} />
 
                             {/*}<Route path="/noticia/:id/:titulo" component={DetailNotice} />{*/}
                         </Switch>
