@@ -19,11 +19,13 @@ import Noticias from './Noticias'
 import { connect } from 'react-redux';
 //import DetalleNoticia from '../../Components/Noticias/DetalleNoticia'
 import Programacion from './Radio/Programacion';
+/*
 import Conductor from './Admin/Conductor';
 import Programa from './Admin/Programa';
 import Programacion2 from './Admin/Programacion';
 import FormNoticia from './Admin/Noticia';
 import ListNoticias from './Admin/NoticiasList';
+*/
 //const DetailNotice = lazy(() => import('../../Components/Noticias/DetailNotice'));
 import DetailNotice from '../../Components/Noticias/DetailNotice'
 import Busqueda from '../RR/Busqueda'
@@ -44,7 +46,7 @@ const RR = (props) => {
                             <Route exact path={`/:id/:titulo`} component={DetailNotice} />
 
 
-                            {/* Pagina principal */}
+                            {/* Pagina principal */}admin/
                             <Route exact path={`/`} component={Noticias} />
 
 
@@ -69,19 +71,15 @@ const RR = (props) => {
 
 
 
-                            {/* Administracion */}
+                            {/* Administracion 
 
-                            {/* Administracion noticias */}
-                            <Route path={`/registrar-noticia`} component={FormNoticia} />
-                            <Route path={`/listar-noticias`} component={ListNoticias} />
-
-
-                            {/* Administracion programacion */}
-                            <Route path={`/programa`} component={Programa} />
-                            <Route path={`/conductor`} component={Conductor} />
-                            <Route path={`/programacion`} component={Programacion2} />
-
-
+                            <Route exact path={`/admin`} component={FormNoticia} />
+                            <Route exact path={`/admin/registrar-noticia`} component={FormNoticia} />
+                            <Route exact path={`/admin/listar-noticias`} component={ListNoticias} />
+                            <Route exact path={`/admin/programa`} component={Programa} />
+                            <Route exact path={`/admin/conductor`} component={Conductor} />
+                            <Route exact path={`/admin/programacion`} component={Programacion2} />
+                        */}
                             {/*}<Route path="/noticia/:id/:titulo" component={DetailNotice} />{*/}
                         </Switch>
                     </div>

@@ -93,8 +93,7 @@ export default class CabeceraInfo extends Component {
                                                 <center>
                                                     <Avatar style={{ width: '20px', height: '10px' }} variant='square' src={bolivia} />
                                                 </center>
-                                                <small><b>Casos</b></small>
-                                                <small><p><b>Decesos</b></p></small>
+                                                <small><p className='pb-2 pt-3'><b>Decesos</b></p></small>
                                             </Paper>
                                         </Grid>
                                     </Grid>
@@ -141,8 +140,7 @@ export default class CabeceraInfo extends Component {
                                                 <center>
                                                     <Avatar style={{ width: '20px', height: '10px', color: 'green', background: 'green' }} variant='square' src={null} />
                                                 </center>
-                                                <small><b>Casos</b></small>
-                                                <small><p><b>Decesos</b></p></small>
+                                                <small><p className='pb-2 pt-3'><b>Decesos</b></p></small>
                                             </Paper>
                                         </Grid>
                                     </Grid>

@@ -92,7 +92,7 @@ export const NoticiasTestNav = [
         icon: 'pe-7s-sun',
         label: 'RIBERALTA',
         to: '#/riberalta'
-    },
+    },    
     {
         icon: 'pe-7s-world',
         label: 'INTERNACIONAL',
@@ -119,6 +119,17 @@ export const NoticiasTestNav = [
         to: '#/deportes'
     },
     {
+        icon: 'pe-7s-science',
+        label: 'TECNOLOGIA',
+        to: '#/tecnologia'
+    },
+    {
+        icon: 'pe-7s-star',
+        label: 'ENTRETENIMIENTO',
+        to: '#/entretenimiento'
+    },
+    /*
+    {
         icon: 'pe-7s-medal',
         label: 'CONOCE RIBERALTA',
         content: [
@@ -139,6 +150,7 @@ export const NoticiasTestNav = [
             }
         ]
     },
+    */
     {
         icon: 'pe-7s-medal',
         label: 'NUESTRA RADIO',
@@ -159,47 +171,6 @@ export const NoticiasTestNav = [
                 to: '#/nuestra-programacion'
             }
         ]
-    },
-    {
-        icon: 'pe-7s-medal',
-        label: 'NOTICIAS',
-        content: [
-            {
-                label: 'Agregar nueva noticia',
-                to: '#/registrar-noticia'
-            },
-            {
-                label: 'Ver mis noticias agregadas',
-                to: '#/listar-noticias'
-            },
-            {
-                label: 'Quitar noticias',
-                to: '#/quitar-noticia'
-            }
-        ]
-    },
-    {
-        icon: 'pe-7s-target',
-        label: 'PROGRAMACION',
-        content: [
-            {
-                label: 'Registrar programa',
-                to: '#/programa',
-            },
-            {
-                label: 'Registrar conductor',
-                to: '#/conductor',
-            },
-            {
-                label: 'Crear programacion',
-                to: '#/programacion',
-            }
-        ]
-    },
-    {
-        icon: 'pe-7s-radio',
-        label: 'CONFIGURACION',
-        to: '#/nosotros/exterior'
     }
 ];
 
@@ -237,7 +208,6 @@ export const NostrosNav = [
         to: '#/RR/nuestra-programacion'
     }
 ];
-
 export const AdminNav = [
     {
         icon: 'pe-7s-medal',

@@ -120,7 +120,7 @@ class DetailNotice extends Component {
             tipovideo: false,
             noticiasrelacionadas: ''
         }
-
+        //console.log(this.props)
     }
 
     componentDidMount = async () => {

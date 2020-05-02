@@ -31,11 +31,13 @@ import { connect } from 'react-redux';
 import Image from 'material-ui-image'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 class NoticiaVertical extends Component {
-
-    state = {
-        link: this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+    constructor(props) {
+        super(props);
+        this.state = {
+            link: '/' + this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+        }
+        //console.log(this.props)
     }
-
     render() {
         return (
             <Fragment>

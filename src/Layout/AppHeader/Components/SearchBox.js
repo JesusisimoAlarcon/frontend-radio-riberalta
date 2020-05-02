@@ -23,6 +23,9 @@ class SearchBox extends React.Component {
 
                     <div className="input-holder">
                         <input
+                            style={{
+                                color: 'white'
+                            }}
                             placeholder='Buscar'
                             onChange={(event) => this.setState({ texto: event.target.value })}
                             autoFocus={this.state.focus}
@@ -32,7 +35,10 @@ class SearchBox extends React.Component {
                         <button onClick={
                             () => {
                                 this.state.activeSearch && this.state.texto.length > 0 ?
-                                    this.props.history.push('/search/' + this.state.texto)
+                                    //this.props.history.push('/search/' + this.state.texto)
+                                    this.props.history.push({
+                                        pathname: '/search/' + this.state.texto
+                                    })
                                     :
                                     this.setState({
                                         focus: !this.state.focus,

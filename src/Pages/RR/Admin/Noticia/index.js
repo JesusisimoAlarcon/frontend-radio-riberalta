@@ -323,7 +323,6 @@ class FormNoticia extends Component {
             this.notifyvalidacion()
         }
     }
-
     registrarInfografia = async (newid) => {
         switch (this.state.tipo) {
             case 'audio':

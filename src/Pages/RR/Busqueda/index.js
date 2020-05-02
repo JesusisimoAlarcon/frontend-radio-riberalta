@@ -27,15 +27,17 @@ class Busqueda extends Component {
         return (
             <Fragment>
                 <Row>
-                    <Col xl='2' lg='1'>
+                    <Col xl='1' lg='1'>
                     </Col>
-                    <Col xl='8' lg='10'>
+                    <Col xl='10' lg='10'>
 
                         {this.state.noticias &&
                             <center>
-                                <div className={cx("search-wrapper", {
-                                    'active': true
-                                })}>
+                                <div className={
+                                    cx("search-wrapper", {
+                                        'active': true
+                                    })}
+                                >
                                     <div className="input-holder">
                                         <input
                                             placeholder='Buscar'
@@ -44,13 +46,10 @@ class Busqueda extends Component {
                                             onChange={(event) => this.setState({ busqueda: event.target.value })}
                                             value={this.state.busqueda}
                                         />
-
                                         <button
                                             className="search-icon"><span />
                                         </button>
-
                                     </div>
-
                                 </div>
                                 <Typography style={{ fontWeight: 'bold', textAlign: 'center', fontSize: '1rem' }} className='m-3' variant="caption" color='secondary' display="block" gutterBottom>
                                     Se han encontrado {this.state.noticias.length} resultados
@@ -81,7 +80,7 @@ class Busqueda extends Component {
                                     //tiempo={formatDistanceToNow(new Date(noticia.fecha), { locale: esLocale, includeSeconds: true, addSuffix: true })}
                                     tiempo={formatDistanceStrict(new Date(noticia.fecha), new Date(), { locale: esLocale, includeSeconds: true, addSuffix: true })}
                                 />
-                                <Divider className='m-3' />
+                                <Divider className='mb-2 mt-2' />
                             </ReactCSSTransitionGroup>
                         )}
                     </Col>

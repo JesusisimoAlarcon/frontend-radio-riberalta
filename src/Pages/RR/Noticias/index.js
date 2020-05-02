@@ -24,9 +24,13 @@ class Noticias extends Component {
             noticiasmasvistas: '',
             seccion: this.props.match.url.length === 1 ? '' : this.props.match.url.split('/')[1]
         }
+        //const {  } = useParams();
+        //console.log(useParams())
+/*
+        console.log(this.props)
         console.log('url match', this.props.match.url.split('/')[1])
         console.log('esta es la seccion', this.state.seccion)
-
+*/
         const anchor = document.querySelector('#back-to-top-anchor');
         //console.log(anchor)
         if (anchor) {

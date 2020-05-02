@@ -36,7 +36,7 @@ class MiniNoticiaVertical extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            link: '../' + this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
+            link: '/' + this.props.idnoticia + '/' + (this.props.titulo.replace(/[ ]/gi, '-'))
         }
     }
 
@@ -81,6 +81,7 @@ class MiniNoticiaVertical extends Component {
                                 }}>
 
                                     {/*}<Redirect to={this.state.link}>{this.props.titulo}</Redirect>{*/}
+                                    {/*}<a href={this.state.link} className='text-light'>{this.props.titulo}</a>{*/}
                                     <Link to={this.state.link}>{this.props.titulo}</Link>
                                 </Typography>
 

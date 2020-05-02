@@ -55,7 +55,7 @@ class NoticiaHorizontal extends Component {
                         <CardActionArea
                         >
                             <Row>
-                                <Col lg='8'>
+                                <Col lg='8' className='p-0'>
                                     <Link to={{
                                         pathname: this.state.link,
                                         state: {
@@ -72,7 +72,7 @@ class NoticiaHorizontal extends Component {
                                         />
                                     </Link>
                                 </Col>
-                                <Col lg='4' className='pl-0'>
+                                <Col lg='4'>
                                     <CardContent>
 
                                         <Typography variant='h6' style={{
