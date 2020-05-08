@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
-//import PageTitle from '../../../Layout/AppMain/PageTitle';
 import CabeceraInfo from '../../../Layout/AppMain/CabeceraInfo';
 import Axios from 'axios';
-//import NoticiaHorizontal from '../../../Components/Noticias/NoticiaHorizontal';
 import NoticiaVertical from '../../../Components/Noticias/NoticiaVertical';
 import MiniNoticiaVertical from '../../../Components/Noticias/MiniNoticiaVertical';
-//import { Container } from 'reactstrap';
 import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
