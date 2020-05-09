@@ -22,7 +22,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { connect } from 'react-redux';
-import foto from '../../assets/test/test04.jpg'
 import Axios from 'axios';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -98,7 +97,6 @@ class DetailNotice extends Component {
         this.setState({
             noticia
         })
-        console.log(this.state.noticia)
         if (this.state.noticia.tipo === 'image') {
             const names = this.state.noticia.infografia.split(',');
             console.log(names.length)
@@ -142,8 +140,6 @@ class DetailNotice extends Component {
         let contenido_modificado_inicio = contenido_original.replace(/<figure class="media"><oembed url=/gi, `<div class="embed-responsive embed-responsive-16by9 mb-4"><iframe class="embed-responsive-item" allowfullscreen src=`);
         let contenido_modificado_intermedio = contenido_modificado_inicio.replace(/oembed/gi, "iframe");
         let contenido_modificado_fin = contenido_modificado_intermedio.replace(/figure/gi, "div").replace(/youtu.be/gi, "www.youtube.com/embed");
-
-
         this.setState({
             contenido: contenido_modificado_fin
         })
@@ -155,7 +151,6 @@ class DetailNotice extends Component {
         this.setState({
             noticiasrelacionadas
         })
-
     }
     render() {
         return (
@@ -170,9 +165,9 @@ class DetailNotice extends Component {
                     transitionEnter={false}
                     transitionLeave={false}>
                     <Row>
-                        <Col xl='1' className='p-0'>
+                        <Col xl='12' lg='12' className='p-0'>
                         </Col>
-                        <Col xl='10'>
+                        <Col xl='12' lg='12' md='12' sm='12' xs='12'>
                             {this.state.noticia &&
                                 <Paper my={0} elevation={1} style={{ background: '#ffffff' }} className='pl-4 pr-4 pt-3 pb-3'>
                                     <Row>
@@ -297,26 +292,30 @@ class DetailNotice extends Component {
 
                                                     <div className='mt-2'>
                                                         <ListItem
-                                                            className='p-0'
+                                                            className='p-0 m-0'
                                                         >
-                                                            <ListItemAvatar>
-                                                                <Avatar src={foto} variant="rounded" fontSize='small' />
+                                                            <ListItemAvatar
+                                                                className='p-0 m-0'
+                                                            >
+                                                                <Avatar src={this.props.API + 'static/perfiles/' + this.state.noticia.fotografia} variant="rounded" fontSize='small' />
                                                             </ListItemAvatar>
                                                             <ListItemText
-
-                                                                primary="Radio Riberalta"
-                                                                secondary='@alarconcito'
+                                                                className='p-0 m-0'
+                                                                primary={this.state.noticia.nombres + ' ' + this.state.noticia.apellidos}
+                                                                secondary={this.state.noticia.facebook ? <span><FacebookIcon color={'secondary'} fontSize='small' />{this.state.noticia.facebook}</span>
+                                                                    : ''}
                                                             />
                                                         </ListItem>
                                                     </div>
                                                 </Col>
 
                                             </Row>
-                                            <Divider className='mt-2 mb-3' />
+                                            <Divider className='mt-2 mb-3' variant='middle' />
                                             <Row>
                                                 <Col lg='8'>
-                                                    <div>{ReactHtmlParser(this.state.noticia.infocontenido)}</div>
-
+                                                    <div style={{
+                                                        fontSize: '1rem'
+                                                    }}>{ReactHtmlParser(this.state.noticia.infocontenido)}</div>
                                                     {this.state.noticia.tipo === 'image' ?
                                                         this.state.imagenes.length > 0 &&
                                                         <Swiper
@@ -339,7 +338,7 @@ class DetailNotice extends Component {
                                                                 //className=''
                                                                 src={this.state.audio}
                                                                 //onPlay={e => console.log("onPlay")}
-                                                                header={this.state.titleaudio}
+                                                                header={this.state.titleaudio.split('.')[0]}
                                                                 //footer="This is a footer"
                                                                 showJumpControls={false}
                                                                 //layout="horizontal"
@@ -407,7 +406,9 @@ class DetailNotice extends Component {
 
 
 
-                                                    <div>{ReactHtmlParser(this.state.contenido)}</div>
+                                                    <div style={{
+                                                        fontSize: '1rem'
+                                                    }}>{ReactHtmlParser(this.state.contenido)}</div>
 
 
                                                     <Typography style={{ fontWeight: 'bold' }} variant="h6" color='secondary' display="block" gutterBottom>
@@ -421,7 +422,7 @@ class DetailNotice extends Component {
                                                             color='secondary'
                                                             size='small'
                                                             variant='outlined'
-                                                            label={<b>{etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1)}</b>}
+                                                            label={<b>{etiqueta.charAt(0).toUpperCase() + etiqueta.toLowerCase().slice(1)}</b>}
                                                         />
                                                     )}
                                                 </Col>

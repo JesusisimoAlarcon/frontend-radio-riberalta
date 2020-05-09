@@ -109,7 +109,7 @@ class NoticiaVertical extends Component {
                                         size='small'
                                         color='secondary'
                                         label={
-                                            <Link to={'/RR/' + (this.props.seccion + '').toLowerCase()} style={{
+                                            <Link to={'/' + (this.props.seccion + '').toLowerCase()} style={{
                                                 color: 'white',
                                                 fontWeight: 'bold'
                                             }}>{this.props.seccion}</Link>
