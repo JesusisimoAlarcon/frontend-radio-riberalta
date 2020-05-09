@@ -67,7 +67,7 @@ class NoticiaVertical extends Component {
                                     //animationDuration={5000}
                                     //loading={<CircularProgress size={48} />}
                                     aspectRatio={(16 / 9)}
-                                    src={this.props.API + 'static/portadas/' + this.props.portada}
+                                    src={this.props.API + 'static/portada/' + this.props.portada}
                                 />
                             </Link>
 

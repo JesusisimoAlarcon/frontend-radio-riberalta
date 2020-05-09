@@ -140,7 +140,7 @@ class DetailNotice extends Component {
         })
         if (this.state.noticia.tipo === 'audio') {
             this.setState({
-                audio: this.props.API + 'static/audios/' + respinfo.data[0].infografia,
+                audio: this.props.API + 'static/audio/' + respinfo.data[0].infografia,
                 titleaudio: respinfo.data[0].infotitulo
             })
         }
@@ -148,7 +148,7 @@ class DetailNotice extends Component {
             if (this.state.infografias[0].tipo === 'video_archivo') {
                 this.setState({
                     tipovideo: false,
-                    video: this.props.API + 'static/videos/' + respinfo.data[0].infografia,
+                    video: this.props.API + 'static/video/' + respinfo.data[0].infografia,
                 })
             }
             else {
@@ -279,7 +279,7 @@ class DetailNotice extends Component {
                                                         //src={portada}
                                                         src={
                                                             this.state.noticia.portada === undefined ? portada :
-                                                                this.props.API + 'static/portadas/' + this.state.noticia.portada}
+                                                                this.props.API + 'static/portada/' + this.state.noticia.portada}
                                                     />
                                                     <div className='pl-2'>
                                                         <small style={{
