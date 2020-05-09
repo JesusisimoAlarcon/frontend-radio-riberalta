@@ -1,6 +1,7 @@
 import axios from 'axios'
 import sideBar6 from '../assets/utils/images/sidebar/city1.jpg';
 import * as moment from 'moment';
+export const SET_TOKEN = 'THEME_OPTIONS/SET_ENABLE_BACKGROUND_IMAGE';
 export const SET_ENABLE_BACKGROUND_IMAGE = 'THEME_OPTIONS/SET_ENABLE_BACKGROUND_IMAGE';
 
 export const SET_ENABLE_MOBILE_MENU = 'THEME_OPTIONS/SET_ENABLE_MOBILE_MENU';
@@ -23,6 +24,11 @@ export const SET_COLOR_SCHEME = 'THEME_OPTIONS/SET_COLOR_SCHEME';
 export const SET_BACKGROUND_IMAGE_OPACITY = 'THEME_OPTIONS/SET_BACKGROUND_IMAGE_OPACITY';
 
 export const SET_HEADER_BACKGROUND_COLOR = 'THEME_OPTIONS/SET_HEADER_BACKGROUND_COLOR';
+
+export const setToken = token => ({
+    type: SET_TOKEN,
+    token
+});
 
 
 export const setEnableBackgroundImage = enableBackgroundImage => ({
@@ -111,6 +117,7 @@ export const setBackgroundImage = backgroundImage => ({
 });
 
 const initialState = {
+    token: '',
     secciones: [],
     programacion: [],
     programaactual: {},
@@ -143,8 +150,6 @@ const initialState = {
     ],
     hoy: new Date().getDay(),
     hoydia: '',
-    //API_REST: 'https://www.radioriberalta.com.bo:4500/api/'
-    //API_REST: 'https://192.168.1.6:4500/api/'
     API_REST: 'https://api.radioriberalta.com.bo/api/'
 }
 
@@ -189,6 +194,11 @@ export default function reducer(state = initialState, action) {
     })
 
     switch (action.type) {
+        case SET_TOKEN:
+            return {
+                ...state,
+                token: action.token
+            };
         case SET_ENABLE_BACKGROUND_IMAGE:
             return {
                 ...state,

@@ -6,17 +6,17 @@ import {
 } from 'react-toastify';
 import { CircularProgress } from '@material-ui/core';
 import logo from '../../assets/utils/images/logo-inverse.png'
+import { connect } from 'react-redux';
 const RR = lazy(() => import('../../Pages/RR'));
+//const Admin = lazy(() => import('../../Pages/Admin'));
 
-const AppMain = () => {
+
+
+const AppMain = ({ TOKEN }) => {
 
     return (
         <Fragment>
-
-
-
             {/* Noticias */}
-
             <Suspense fallback={
                 <div className="loader-container">
                     <div className="loader-container-inner">
@@ -25,14 +25,15 @@ const AppMain = () => {
                     </div>
                 </div>
             }>
-
-
                 <Route path="/" component={RR} />
             </Suspense>
-
             <ToastContainer />
         </Fragment>
     )
 };
 
-export default AppMain;
+const mapStateToProps = state => ({
+    TOKEN: state.ThemeOptions.token
+});
+const mapDispatchToProps = dispatch => ({});
+export default connect(mapStateToProps, mapDispatchToProps)(AppMain);

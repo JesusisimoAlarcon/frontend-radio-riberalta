@@ -4,10 +4,8 @@ import Fab from '@material-ui/core/Fab';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
-import { Paper, Divider, Tooltip, CardActionArea, TextareaAutosize, Input } from '@material-ui/core';
+import { Paper, Divider, Tooltip, CardActionArea, TextareaAutosize, Input, LinearProgress } from '@material-ui/core';
 import { Row, Col, Label } from 'reactstrap';
-//import portada from '../../assets/utils/images/dropdown-header/abstract1.jpg'
-//import portada from '../../../assets/test/portada.png'
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import VideocamIcon from '@material-ui/icons/Videocam';
@@ -15,85 +13,49 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DescriptionIcon from '@material-ui/icons/Description';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-//import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import foto from '../../../../assets/test/test04.jpg'
-//import TextField from '@material-ui/core/TextField';
 import esLocale from 'date-fns/locale/es';
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers";
-
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import Axios from 'axios';
 import Dropzone from 'react-dropzone';
 import SaveIcon from '@material-ui/icons/Save';
 import { format } from 'date-fns';
 import ReactPlayer from 'react-player';
-
 import Switch from '@material-ui/core/Switch';
-//import Grid from '@material-ui/core/Grid';
-
-
-//import musica from '../../../assets/test/musica.mp3'
-
 import AudioPlayer from 'react-h5-audio-player';
-//import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
-//import 'react-h5-audio-player/lib/styles.css';
 import './styleControlAudio.css'
-//import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
-//import YouTubePlayer from 'react-player/lib/players/Streamable'
-//import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import LoopIcon from '@material-ui/icons/Loop';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-//import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import LinkOffIcon from '@material-ui/icons/LinkOff';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-//import PhotoCamera from '@material-ui/icons/PhotoCamera';
-//import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Image from 'material-ui-image'
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-//import AlbumIcon from '@material-ui/icons/Album';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
-//import CircularProgress from '@material-ui/core/CircularProgress';
-//import { Button } from '@material-ui/core'
-//import { AutoRotatingCarousel } from 'material-auto-rotating-carousel';
-//import { Slide } from 'material-auto-rotating-carousel';
-//import { red, blue, green } from '@material-ui/core/colors'
-
-//const { red, blue, green } = require('@material-ui/core/colors');
-//import { red, blue, green } from '@material-ui/core/colors'
-//import { AutoRotatingCarousel } from 'material-auto-rotating-carousel'
-//const { AutoRotatingCarousel } = require('material-auto-rotating-carousel')
-//import AutoRotatingCarousel from 'material-auto-rotating-carousel';
-//const Slide = require('material-auto-rotating-carousel/lib/Slide');
-//import Slide from 'material-auto-rotating-carousel';
-//const Slide = require('./Slide').default;
 import {
     toast,
     Bounce
 } from 'react-toastify';
-
 import Swiper from './SwipeableTextMobileStepper'
-
 import ChipInput from 'material-ui-chip-input';
-//import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import CKEditor from '@ckeditor/ckeditor5-react';
-//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import InlineEditor from '@ckeditor/ckeditor5-build-inline'
+import jwt from 'jsonwebtoken';
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
-//import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
+import portada from '../../../assets/utils/images/dropdown-header/abstract1.jpg'
+
 const editorConfiguration = {
     //plugins: [MediaEmbed],
     //plugins: [Essentials, Bold, Italic, Paragraph],
@@ -131,12 +93,9 @@ class FormNoticia extends Component {
 
     constructor(props) {
         super(props)
-
-
-
         this.state = {
-
-
+            progreso: 0,
+            autor: jwt.decode(this.props.TOKEN).user,
             tipoinfografia: true,
             carusel: false,
             //urlinfografia: 'https://youtu.be/CPK_IdHe1Yg',
@@ -146,7 +105,6 @@ class FormNoticia extends Component {
             portada: '',
             tipo: 'tipo',
             seccion: 0,
-            idconductor: 55,
             pieportada: '',
             secciones: this.props.SECCIONES,
             titulo: '',
@@ -177,7 +135,20 @@ class FormNoticia extends Component {
         this.dropzoneRef = React.createRef();
         this.dropzoneRef2 = React.createRef();
         this.player = React.createRef();
-        //this.arrayimages = [];
+        this.api = Axios.create({
+            baseURL: this.props.API,
+            headers: {
+                'x-access-token': this.props.TOKEN
+            },
+
+            onUploadProgress: (e) => {
+                console.log(e.loaded)
+                console.log(e.total)
+                this.setState({
+                    progreso: (e.loaded * 100) / e.total
+                })
+            }
+        })
     }
     notifycorrecto = () => {
         this.toastId =
@@ -272,10 +243,9 @@ class FormNoticia extends Component {
             else {
                 return false;
             }
-
         }
     }
-    registrar = (eventt) => {
+    registrar = async (eventt) => {
         console.log(this.verificarcampos())
         if (this.verificarcampos()) {
             const newNoticia = {
@@ -286,68 +256,97 @@ class FormNoticia extends Component {
                 contenido: this.state.contenido,
                 tipo: this.state.tipo,
                 idseccion: this.state.seccion,
-                idconductor: this.state.idconductor,
+                idconductor: this.state.autor.idconductor,
                 fecha: format(this.state.fecha, 'yyyy-MM-dd H:mm:ss'),
-                //fecha: format(this.state.fecha, 'yyyy-MM-dd'),
                 hora: format(this.state.fecha, 'H:mm:ss'),
                 prioridad: this.state.prioridad,
                 infocontenido: this.state.infocontenido,
+                etiquetas: this.state.etiquetas.toString(),
                 estado: true
             }
-            //console.log(newNoticia);
-            console.log(this.state.foto[0])
-            const dato = new FormData();
-            dato.append('imagen', this.state.foto[0]);
-            fetch(this.props.API + 'noticia/portada', {
-                method: 'post',
-                body: dato
-            }).then((response) => {
-                return response.json()
-            }).then(async (response) => {
+            try {
+                const dato = new FormData();
+                dato.append('imagen', this.state.foto[0]);
+                dato.append('noticia', JSON.stringify(newNoticia));
+                const response = await (await this.api.post('noticia', dato)).data;
                 console.log(response)
-                newNoticia.portada = response.imagen
-                newNoticia.etiquetas = this.state.etiquetas.toString()
-                console.log(newNoticia)
-                const resp = await Axios.post(this.props.API + 'noticia', newNoticia);
-                console.log(resp)
-                console.log(resp.data.insertId)
-                const newid = resp.data.insertId
-                this.registrarInfografia(newid);
-                this.notifycorrecto();
+                /*
+                const response = await fetch(this.props.API + 'noticia', {
+                    method: 'post',
+                    body: dato,
+                    headers: {
+                        'x-access-token': this.props.TOKEN,
+                        'Access-Control-Allow-Origin': 'http://localhost:3000'
+                    }
+                });
+                */
+                //const test = await response.json();
+            } catch (error) {
+                console.log(error)
+            }
+            /*const response = await fetch(this.props.API + 'noticia', {
+                method: 'post',
+                body: dato,
+                headers: {
+                    'x-access-token': this.props.TOKEN
+                }
+            });
+            */
+            //const data = await response.json();
 
-                this.props.history.push('/listar-noticias');
-            })
-
+            //this.registrarInfografia(data.insertId)
         }
         else {
             this.notifyvalidacion()
         }
     }
+
     registrarInfografia = async (newid) => {
         switch (this.state.tipo) {
             case 'audio':
                 console.log(this.state.media[0])
-                const audio = new FormData();
+                let audio = new FormData();
                 audio.append('audio', this.state.media[0]);
-                fetch(this.props.API + 'infografia/audio', {
-                    method: 'post',
-                    body: audio
-                }).then((response) => {
-                    return response.json()
-                }).then(async (response) => {
-                    console.log(response)
-                    const infoaudio = {
-                        tipo: this.state.tipo,
-                        infografia: response.recurso,
-                        infotitulo: response.name,
-                        //infocontenido: this.state.infocontenido,
-                        infopie: 'pie',
-                        idnoticia: newid
-                    }
-                    console.log(infoaudio)
-                    const resp = await Axios.post(this.props.API + 'infografia', infoaudio);
-                    console.log(resp)
-                })
+
+                const response = await this.api.post('infografia/audio', audio);
+                console.log(response)
+                /*
+                const infoaudio = {
+                    tipo: this.state.tipo,
+                    infografia: response.recurso,
+                    infotitulo: response.name,
+                    //infocontenido: this.state.infocontenido,
+                    infopie: 'pie',
+                    idnoticia: newid
+                }
+                console.log(infoaudio)
+                const resp = await this.api.post('infografia', infoaudio);
+                console.log(resp)
+                */
+                /*
+                                fetch(this.props.API + 'infografia/audio', {
+                                    method: 'post',
+                                    body: audio,
+                                    headers: {
+                                        'x-access-token': localStorage.getItem('tokencito')
+                                    }
+                                }).then((response) => {
+                                    return response.json()
+                                }).then(async (response) => {
+                                    console.log(response)
+                                    const infoaudio = {
+                                        tipo: this.state.tipo,
+                                        infografia: response.recurso,
+                                        infotitulo: response.name,
+                                        //infocontenido: this.state.infocontenido,
+                                        infopie: 'pie',
+                                        idnoticia: newid
+                                    }
+                                    console.log(infoaudio)
+                                    const resp = await this.api.post('infografia', infoaudio);
+                                    console.log(resp)
+                                })
+                                */
                 break;
             case 'video':
                 if (this.state.tipoinfografia) {
@@ -360,7 +359,7 @@ class FormNoticia extends Component {
                         idnoticia: newid
                     }
                     console.log(infovideo)
-                    const resp = await Axios.post(this.props.API + 'infografia', infovideo);
+                    const resp = await this.api.post('infografia', infovideo);
                     console.log(resp)
                 }
                 else {
@@ -369,7 +368,10 @@ class FormNoticia extends Component {
                     video.append('video', this.state.media[0]);
                     fetch(this.props.API + 'infografia/video', {
                         method: 'post',
-                        body: video
+                        body: video,
+                        headers: {
+                            'x-access-token': localStorage.getItem('tokencito')
+                        }
                     }).then((response) => {
                         return response.json()
                     }).then(async (response) => {
@@ -383,7 +385,7 @@ class FormNoticia extends Component {
                             idnoticia: newid
                         }
                         console.log(infovideo)
-                        const resp = await Axios.post(this.props.API + 'infografia', infovideo);
+                        const resp = await this.api.post('infografia', infovideo);
                         console.log(resp)
                     })
                 }
@@ -395,7 +397,10 @@ class FormNoticia extends Component {
                     imagen.append('imagen', recurso);
                     fetch(this.props.API + 'infografia/images', {
                         method: 'post',
-                        body: imagen
+                        body: imagen,
+                        headers: {
+                            'x-access-token': this.props.TOKEN
+                        }
                     }).then((response) => {
                         return response.json()
                     }).then(async (response) => {
@@ -409,7 +414,7 @@ class FormNoticia extends Component {
                             idnoticia: newid
                         }
                         console.log(infoimagen)
-                        const resp = await Axios.post(this.props.API + 'infografia', infoimagen);
+                        const resp = await this.api.post('infografia', infoimagen);
                         console.log(resp)
                     })
                     return 0;
@@ -426,6 +431,7 @@ class FormNoticia extends Component {
         return (
             <Fragment>
                 <Paper my={2} className='p-3 mb-2'>
+                    <LinearProgress className='m-3' variant="determinate" value={this.state.progreso} color="secondary" />
                     <Row>
                         <Col lg='1'>
                             <aside style={{
@@ -457,7 +463,6 @@ class FormNoticia extends Component {
                         <Col lg='11'>
                             <Row>
                                 <Col lg='8'>
-
                                     <Dropzone
                                         ref={this.dropzoneRef}
                                         noClick
@@ -482,7 +487,7 @@ class FormNoticia extends Component {
                                                                 aspectRatio={(16 / 9)}
                                                                 src={
                                                                     this.state.foto.length > 0 ?
-                                                                        URL.createObjectURL(this.state.foto[0]) : null
+                                                                        URL.createObjectURL(this.state.foto[0]) : portada
                                                                 }
                                                             />
                                                         </CardActionArea>
@@ -620,12 +625,15 @@ class FormNoticia extends Component {
                                     <div>
                                         <ListItem>
                                             <ListItemAvatar>
-                                                <Avatar src={foto} variant="rounded" fontSize='small' />
-
+                                                <Avatar
+                                                    variant="rounded"
+                                                    fontSize='small'
+                                                    src={this.props.API + 'static/perfiles/' + this.state.autor.fotografia}
+                                                />
                                             </ListItemAvatar>
                                             <ListItemText
-                                                primary="Radio Riberalta"
-                                                secondary='@alarconcito'
+                                                primary={this.state.autor.nombres + ' ' + this.state.autor.apellidos}
+                                                secondary={this.state.autor.correo}
                                             />
                                         </ListItem>
                                     </div>
@@ -944,13 +952,7 @@ class FormNoticia extends Component {
                                             );
                                         }}
                                     </Dropzone>
-
-
-
-
-
                                 </Col>
-
                                 <Col lg='4'>
 
                                     <aside style={{
@@ -983,7 +985,8 @@ class FormNoticia extends Component {
 }
 const mapStateToProps = state => ({
     SECCIONES: state.ThemeOptions.secciones,
-    API: state.ThemeOptions.API_REST
+    API: state.ThemeOptions.API_REST,
+    TOKEN: state.ThemeOptions.token
 });
 
 const mapDispatchToProps = dispatch => ({});

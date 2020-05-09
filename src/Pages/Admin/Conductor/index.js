@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import PageTitle from '../../../../Layout/AppMain/PageTitle'
+import PageTitle from '../../../Layout/AppMain/PageTitle'
 import { Row, Col, Card, CardBody, FormGroup, Button } from 'reactstrap'
 import IconButton from '@material-ui/core/IconButton'
 import MaterialTable from 'material-table'
@@ -12,18 +12,11 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-
-
 import Avatar from '@material-ui/core/Avatar';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import axios from 'axios';
-
-//import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-
 import DialogTitle from '@material-ui/core/DialogTitle';
-///import avatar from '../../../assets/utils/images/avatars/10.jpg'
 class FormConductor extends Component {
     constructor(props) {
         super(props)
@@ -34,12 +27,19 @@ class FormConductor extends Component {
         }
         this.tablaRef = React.createRef()
         this.registrar = this.registrar.bind(this);
+        this.api = Axios.create({
+            baseURL: this.props.API,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:3000',
+                'x-access-token': this.props.TOKEN
+            }
+        })
     }
     componentDidMount() {
         this.getConductores();
     }
     getConductores = async () => {
-        const conductores = await Axios.get(this.props.API + 'conductor');
+        const conductores = await this.api.get('conductor');
         this.setState({
             conductores: conductores.data
         })
@@ -48,26 +48,22 @@ class FormConductor extends Component {
     registrar = async (programa, foto) => {
         const dato = new FormData();
         dato.append('imagen', foto[0]);
-        fetch(this.props.API + 'conductor/fotografia', {
+        dato.append('conductor', JSON.stringify(programa));
+        await fetch(this.props.API + 'conductor/dump', {
             method: 'post',
-            body: dato
-        }).then((response) => {
-            return response.json()
-        }).then(async (response) => {
-            console.log(response)
-            programa.fotografia = response.imagen
-            const resp = await Axios.post(this.props.API + 'conductor', programa);
-            console.log(resp)
-            this.getConductores();
-        })
+            body: dato,
+            headers: {
+                'x-access-token': this.props.TOKEN
+            }
+        });
+        await this.getConductores();
     }
 
 
 
     eliminar = () => {
-        //alert(rowData.idconductor);
         setTimeout(async () => {
-            await axios.delete(this.props.API + 'conductor/' + this.state.idconductor);
+            await this.api.delete('conductor/' + this.state.idconductor);
             this.getConductores();
             this.handleClose();
         }, 1000)
@@ -208,7 +204,8 @@ class FormConductor extends Component {
     }
 }
 const mapStateToProps = state => ({
-    API: state.ThemeOptions.API_REST
+    API: state.ThemeOptions.API_REST,
+    TOKEN: state.ThemeOptions.token
 });
 
 const mapDispatchToProps = dispatch => ({});
