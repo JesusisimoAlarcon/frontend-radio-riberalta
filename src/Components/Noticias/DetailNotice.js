@@ -9,40 +9,28 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
-
 import Zoom from '@material-ui/core/Zoom';
-//import { Badge } from 'reactstrap'
 import { Paper, Divider, Tooltip, Typography } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
-//import portada from '../../assets/utils/images/dropdown-header/abstract1.jpg'
 import portada from '../../assets/test/test07.jpg'
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-
 import { connect } from 'react-redux';
 import foto from '../../assets/test/test04.jpg'
-
-//import AppHeader from '../../Layout/AppHeader/';
-//import AppSidebar from '../../Layout/AppSidebar/';
 import Axios from 'axios';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { format } from 'date-fns';
-//import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import ReactHtmlParser from 'react-html-parser';
 import ReactPlayer from 'react-player';
-//import video from '../../assets/test/angular.mp4'
-
 import Image from 'material-ui-image'
 import Swiper from './Componentes/Swiper'
-
 import AudioPlayer from 'react-h5-audio-player';
 import './Componentes/styleControlAudio.css'
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -52,15 +40,10 @@ import LinkOffIcon from '@material-ui/icons/LinkOff';
 import LoopIcon from '@material-ui/icons/Loop';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import moment from 'moment';
-//import NoticiaVertical from './NoticiaVertical';
 import MiniNoticiaVertical from './MiniNoticiaVertical';
-
 import { formatDistanceStrict } from 'date-fns';
-
-//import moduleName from 'date-fns/parseJSON'
 function ScrollTop(props) {
     const { children, window } = props;
-    //const classes = useStyles();
     const trigger = useScrollTrigger({
         target: window ? window() : undefined,
         disableHysteresis: true,
@@ -90,28 +73,16 @@ function ScrollTop(props) {
 
 ScrollTop.propTypes = {
     children: PropTypes.element.isRequired,
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     window: PropTypes.func,
 };
 class DetailNotice extends Component {
     constructor(props) {
         super(props)
-        //const { noticia } = props.location.state
-        //console.log(noticia)
-        //console.log(props.match.params.id)
-        //console.log(props.match.params.titulo)
-        //console.log(props.location.state)
-
-        //console.log(this.props)
-
         this.state = {
             id: props.match.params.id,
             noticia: '',
-            infografias: [],
-            imagenes: [],
+            infografias: '',
+            imagenes: '',
             contenido: '',
             audio: '',
             titleaudio: '',
@@ -120,107 +91,75 @@ class DetailNotice extends Component {
             tipovideo: false,
             noticiasrelacionadas: ''
         }
-        //console.log(this.props)
     }
 
     componentDidMount = async () => {
-
-        //window.iframely && iframely.load();
-        const resp = await Axios.get(this.props.API + 'noticia/' + this.state.id);
-        const respnoti = resp.data;
+        const noticia = await (await Axios.get(this.props.API + 'noticia/' + this.state.id)).data[0];
         this.setState({
-            noticia: respnoti[0]
+            noticia
         })
-        const respinfo = await Axios.get(this.props.API + 'infografia/noticia/' + this.state.noticia.idnoticia);
-        this.setState({
-            infografias: respinfo.data
-        })
-        this.setState({
-            imagenes: [...this.state.infografias]
-        })
+        console.log(this.state.noticia)
+        if (this.state.noticia.tipo === 'image') {
+            const names = this.state.noticia.infografia.split(',');
+            console.log(names.length)
+            const titulos = this.state.noticia.infonombre.split(',');
+            const imagenes = [];
+            names.map((name, index) =>
+                imagenes.push({
+                    name,
+                    titulo: titulos[index]
+                })
+            )
+            imagenes.pop();
+            console.log(imagenes);
+            console.log(imagenes.length);
+            this.setState({
+                imagenes
+            })
+        }
         if (this.state.noticia.tipo === 'audio') {
             this.setState({
-                audio: this.props.API + 'static/audio/' + respinfo.data[0].infografia,
-                titleaudio: respinfo.data[0].infotitulo
+                audio: this.props.API + 'static/audio/' + this.state.noticia.infografia,
+                titleaudio: this.state.noticia.infonombre
             })
         }
         if (this.state.noticia.tipo === 'video') {
-            if (this.state.infografias[0].tipo === 'video_archivo') {
+            if (this.state.noticia.infotipo === 'video_url') {
                 this.setState({
-                    tipovideo: false,
-                    video: this.props.API + 'static/video/' + respinfo.data[0].infografia,
+                    tipovideo: true,
+                    video_url: this.state.noticia.infografia
                 })
             }
             else {
                 this.setState({
-                    tipovideo: true,
-                    video_url: respinfo.data[0].infografia,
+                    tipovideo: false,
+                    video: this.props.API + 'static/video/' + this.state.noticia.infografia
                 })
             }
-
         }
 
-        //console.log(this.state.noticia)
-        //console.log(respinfo)
-        //console.log(this.state.infografias)
-        //console.log(this.state.imagenes)
-
-        //console.log(this.state.noticia)
-        //console.log(this.state.noticia.contenido)
         let contenido_original = this.state.noticia.contenido;
-        //console.log(contenido_original);
-
-
-
         let contenido_modificado_inicio = contenido_original.replace(/<figure class="media"><oembed url=/gi, `<div class="embed-responsive embed-responsive-16by9 mb-4"><iframe class="embed-responsive-item" allowfullscreen src=`);
-        //console.log(contenido_modificado_inicio)
         let contenido_modificado_intermedio = contenido_modificado_inicio.replace(/oembed/gi, "iframe");
-        //console.log(contenido_modificado_intermedio)
         let contenido_modificado_fin = contenido_modificado_intermedio.replace(/figure/gi, "div").replace(/youtu.be/gi, "www.youtube.com/embed");
-        //console.log(contenido_modificado_fin)
 
-
-        ///let contenido_modificado_fin = contenido_original;
-        //replace(/[ ]/gi, '-')
 
         this.setState({
             contenido: contenido_modificado_fin
         })
-        /*
-        this.setState({
-            contenido: contenido_original
-        })
-        */
-
-
         const anchor = document.querySelector('#back-to-top-anchor');
-        //console.log(anchor)
         if (anchor) {
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-
-        /*
-                //obteniendo noticias relacionadas con la actual
-                const resp2 = await Axios.get(this.props.API + 'noticia/detalle/' + this.state.noticia.seccion);
-                const noticiasall = resp2.data;
-                
-                const noticiasrelacionadas = noticiasall.filter(noti =>
-                    (this.state.noticia.idnoticia !== noti.idnoticia
-                        && noti.contenido.toLowerCase().indexOf(this.state.noticia.etiquetas.toLowerCase()) > -1
-                        //&& this.state.noticia.etiquetas.split(',').map(eti => { return eti })
-                    )
-                )
-        */
         const noticiasrelacionadas = await (await Axios.get(this.props.API + 'noticia/relacionadas/' + this.state.noticia.idnoticia + '/' + this.state.noticia.etiquetas)).data;
         this.setState({
             noticiasrelacionadas
         })
+
     }
     render() {
         return (
-
             <React.Fragment>
-
                 <div id="back-to-top-anchor"></div>
                 {/*}<Container fluid={false}>{*/}
                 <ReactCSSTransitionGroup
@@ -386,8 +325,6 @@ class DetailNotice extends Component {
                                                         />
                                                         :
                                                         this.state.noticia.tipo === 'audio' ?
-                                                            this.state.infografias.length > 0 &&
-
                                                             <AudioPlayer
                                                                 //autoPlay
                                                                 className='mb-3'
@@ -432,7 +369,6 @@ class DetailNotice extends Component {
                                                             */
                                                             />
                                                             :
-                                                            this.state.infografias.length > 0 &&
                                                             <div style={{
                                                                 //position: 'relative',
                                                                 //paddingTop: '56.25%'
@@ -489,15 +425,11 @@ class DetailNotice extends Component {
                                                         />
                                                     )}
                                                 </Col>
-
                                                 <Col lg='4'>
                                                     <aside style={{
                                                         position: 'sticky',
                                                         top: '70px'
                                                     }}>
-
-
-
                                                     </aside>
                                                 </Col>
 
