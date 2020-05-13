@@ -310,12 +310,16 @@ class DetailNotice extends Component {
                                                 </Col>
 
                                             </Row>
-                                            <Divider className='mt-2 mb-3' variant='middle' />
+                                            <Divider className='mt-2 mb-3' />
                                             <Row>
                                                 <Col lg='8'>
-                                                    <div style={{
-                                                        fontSize: '1rem'
-                                                    }}>{ReactHtmlParser(this.state.noticia.infocontenido)}</div>
+                                                    {this.state.noticia.tipo !== 'nota' &&
+                                                        <div style={{
+                                                            fontSize: '1.3rem'
+                                                        }}>{ReactHtmlParser(this.state.noticia.infocontenido)}</div>
+                                                    }
+
+
                                                     {this.state.noticia.tipo === 'image' ?
                                                         this.state.imagenes.length > 0 &&
                                                         <Swiper
@@ -356,59 +360,51 @@ class DetailNotice extends Component {
                                                                     loopOff: <LoopIcon color='secondary' fontSize='default' />,
 
                                                                 }}
-                                                            /*
-                                                            customProgressBarSection={
-                                                                [
-                                                                    RHAP_UI.PROGRESS_BAR,
-                                                                    RHAP_UI.CURRENT_TIME,
-                                                                    <div>/</div>,
-                                                                    RHAP_UI.DURATION
-                                                                ]
-                                                            }
-                                                            */
                                                             />
                                                             :
-                                                            <div style={{
-                                                                //position: 'relative',
-                                                                //paddingTop: '56.25%'
-                                                                height: 0,
-                                                                overflow: 'hidden',
-                                                                paddingBottom: '56.25%',
-                                                                paddingTop: '30px',
-                                                                position: 'relative'
-                                                            }}>
-                                                                <ReactPlayer
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        top: 0,
-                                                                        left: 0,
-                                                                        width: '100%',
-                                                                        height: '100%'
-                                                                    }}
+                                                            this.state.noticia.tipo === 'video' ?
+                                                                <div
                                                                     className='mb-3'
-                                                                    controls
-                                                                    light={false}
-                                                                    url={
-                                                                        this.state.tipovideo === true ?
-                                                                            this.state.video_url
-                                                                            :
-                                                                            this.state.video
-                                                                    }
-                                                                    width='100%'
-                                                                    height='100%'
-                                                                //url={video}
-                                                                //width='100'
-                                                                //height='auto'
-                                                                />
-                                                            </div>
+                                                                    style={{
+                                                                        //position: 'relative',
+                                                                        //paddingTop: '56.25%'
+                                                                        height: 0,
+                                                                        overflow: 'hidden',
+                                                                        paddingBottom: '56.25%',
+                                                                        paddingTop: '30px',
+                                                                        position: 'relative'
+                                                                    }}>
+                                                                    <ReactPlayer
+                                                                        style={{
+                                                                            position: 'absolute',
+                                                                            top: 0,
+                                                                            left: 0,
+                                                                            width: '100%',
+                                                                            height: '100%'
+                                                                        }}
+                                                                        controls
+                                                                        light={false}
+                                                                        
+                                                                        url={
+                                                                            this.state.tipovideo === true ?
+                                                                                this.state.video_url
+                                                                                :
+                                                                                this.state.video
+                                                                        }
+                                                                        width='100%'
+                                                                        height='100%'
+                                                                    />
+                                                                </div>
+                                                                :
+                                                                ''
                                                     }
-
-
-
-
                                                     <div style={{
-                                                        fontSize: '1rem'
-                                                    }}>{ReactHtmlParser(this.state.contenido)}</div>
+                                                        fontSize: '1.3rem'
+                                                    }}>
+                                                        {ReactHtmlParser(this.state.contenido)}
+                                                    </div>
+
+
 
 
                                                     <Typography style={{ fontWeight: 'bold' }} variant="h6" color='secondary' display="block" gutterBottom>
