@@ -5,7 +5,7 @@ import NoticiaHorizontal from '../../../Components/Noticias/NoticiaHorizontal'
 import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
-import { Typography } from '@material-ui/core';
+import { Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import cx from 'classnames';
 import { Divider } from '@material-ui/core';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -14,18 +14,40 @@ class Busqueda extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            open: true,
+            progreso: 0,
             noticias: '',
             busqueda: this.props.match.params.busqueda
         }
         console.log(this.props.match.params.busqueda)
+        this.api = Axios.create({
+            baseURL: this.props.API,
+            onDownloadProgress: (e) => {
+                if ((Math.round(e.loaded * 100) / e.total) === 100)
+                    this.setState({ open: false })
+                this.setState({
+                    progreso: Math.round(e.loaded * 100) / e.total
+                })
+            }
+        })
     }
     componentDidMount = async () => {
-        const noticias = await (await Axios.get(this.props.API + 'noticia/search/' + this.state.busqueda)).data;
+        const noticias = await (await this.api.get(this.props.API + 'noticia/search/' + this.state.busqueda)).data;
         this.setState({ noticias })
     }
     render() {
         return (
             <Fragment>
+                <Backdrop
+                    style={{
+                        zIndex: 1
+                    }}
+                    open={this.state.open}
+                >
+
+                    <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='8rem' variant="indeterminate" color="secondary" />
+
+                </Backdrop>
                 <Row>
                     <Col xl='1' lg='1'>
                     </Col>

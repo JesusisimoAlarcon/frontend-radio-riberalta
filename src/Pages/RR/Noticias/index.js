@@ -7,10 +7,8 @@ import MiniNoticiaVertical from '../../../Components/Noticias/MiniNoticiaVertica
 import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
-import { Divider } from '@material-ui/core';
-
+import { Divider, Backdrop, CircularProgress } from '@material-ui/core';
 class Noticias extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -19,24 +17,36 @@ class Noticias extends Component {
             noticias: '',
             noticiasrestantes: '',
             noticiasmasvistas: '',
-            seccion: this.props.match.url.length === 1 ? '' : this.props.match.url.split('/')[1]
+            seccion: this.props.match.url.length === 1 ? '' : this.props.match.url.split('/')[1],
+            progreso: 0,
+            open: true
         }
         //const {  } = useParams();
         //console.log(useParams())
-/*
-        console.log(this.props)
-        console.log('url match', this.props.match.url.split('/')[1])
-        console.log('esta es la seccion', this.state.seccion)
-*/
+        /*
+                console.log(this.props)
+                console.log('url match', this.props.match.url.split('/')[1])
+                console.log('esta es la seccion', this.state.seccion)
+        */
         const anchor = document.querySelector('#back-to-top-anchor');
         //console.log(anchor)
         if (anchor) {
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+        this.api = Axios.create({
+            baseURL: this.props.API,
+            onDownloadProgress: (e) => {
+                if ((Math.round(e.loaded * 100) / e.total) === 100)
+                    this.setState({ open: false })
+                this.setState({
+                    progreso: Math.round(e.loaded * 100) / e.total
+                })
+            }
+        })
     }
 
     async componentDidMount() {
-        const resp = await Axios.get(this.props.API + 'noticia/detalle/' + this.state.seccion);
+        const resp = await this.api.get('noticia/detalle/' + this.state.seccion);
         this.state.seccion ? this.getNoticiasSecciones(resp) : this.getNoticiasAll(resp)
     }
 
@@ -110,6 +120,17 @@ class Noticias extends Component {
         return (
 
             <Fragment>
+
+                <Backdrop
+                    style={{
+                        zIndex: 1
+                    }}
+                    open={this.state.open}
+                >
+
+                    <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='8rem' variant="indeterminate" color="secondary" />
+
+                </Backdrop>
                 <div id="back-to-top-anchor"></div>
                 <Row>
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>

@@ -81,13 +81,17 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
+            style={{ background: '#e5e5e5' }}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
-            <div className='text-center mt-3'>Estas escuchando...</div>
+            <Typography className='text-center mt-3' variant='h6' style={{ fontWeight: 'bold' }} color='secondary'>
+                {'Estas escuchando...'}
+            </Typography>
             <VerticalTimeline
                 layout='1-column'
+                style={{ background: '#e5e5e5' }}
             >
                 {PROGRAMACION.filter((p) => {
                     return (
@@ -97,7 +101,6 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
                 }).map(programa =>
                     <VerticalTimelineElement
                         key={programa.idprogramacion}
-
                         icon={
                             programa.genero === 'NOTICIAS' ?
                                 <MenuBookIcon fontSize='large' className={programa.live ? 'pe-spin' : ''} />
@@ -107,7 +110,6 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
                                     <SettingsRemoteIcon fontSize='large' className={programa.live ? 'pe-spin' : ''} />
                         }
                         className="vertical-timeline-element--education"
-
                         contentStyle={
                             programa.live ?
                                 {
@@ -193,7 +195,6 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
                 onClose={toggleDrawer('right', false)}
                 onOpen={toggleDrawer('right', true)}
             >
-
                 {list('right')}
             </SwipeableDrawer>
         </Fragment>

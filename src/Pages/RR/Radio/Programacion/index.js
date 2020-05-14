@@ -1,47 +1,26 @@
 import React, { Fragment } from 'react';
-
 import Tabs from 'react-responsive-tabs';
-
 import PageTitle from '../../../../Layout/AppMain/PageTitle';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-//import Programacion2 from '../../Programacion'
-
-
-
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import './main.css';
 import 'react-vertical-timeline-component/style.min.css';
-
-
 import { Avatar, Grid, Typography } from '@material-ui/core';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
-//import ContactlessIcon from '@material-ui/icons/Contactless';
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-//import Avatar from '@material-ui/core/Avatar';
-
 import FacebookIcon from '@material-ui/icons/Facebook';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import TwitterIcon from '@material-ui/icons/Twitter';
-
 import { connect } from 'react-redux';
-//import Axios from 'axios';
-
 import Chip from '@material-ui/core/Chip';
-//import FaceIcon from '@material-ui/icons/Face';
 import AlbumIcon from '@material-ui/icons/Album';
 import * as moment from 'moment';
 import format from 'date-fns/format';
-//import esLocale from 'date-fns/locale/es';
-//import parse from 'date-fns/parse'
 class Programacion extends React.Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
@@ -123,7 +102,7 @@ class Programacion extends React.Component {
                     tabsWrapperClass="body-tabs body-tabs-layout"
                     transform={true}
                     selectedTabKey={this.state.hoy}
-                    
+
                     width={'800px'}
                     showInkBar={true}
                     items={this.state.diasTabs.map((tab, index) => ({

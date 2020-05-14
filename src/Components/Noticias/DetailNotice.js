@@ -10,7 +10,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import Zoom from '@material-ui/core/Zoom';
-import { Paper, Divider, Tooltip, Typography } from '@material-ui/core';
+import { Paper, Divider, Tooltip, Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
 import portada from '../../assets/test/test07.jpg'
 import Grid from '@material-ui/core/Grid';
@@ -78,6 +78,8 @@ class DetailNotice extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            open: true,
+            progreso: 0,
             id: props.match.params.id,
             noticia: '',
             infografias: '',
@@ -90,10 +92,20 @@ class DetailNotice extends Component {
             tipovideo: false,
             noticiasrelacionadas: ''
         }
+        this.api = Axios.create({
+            baseURL: this.props.API,
+            onDownloadProgress: (e) => {
+                if ((Math.round(e.loaded * 100) / e.total) === 100)
+                    this.setState({ open: false })
+                this.setState({
+                    progreso: Math.round(e.loaded * 100) / e.total
+                })
+            }
+        })
     }
 
     componentDidMount = async () => {
-        const noticia = await (await Axios.get(this.props.API + 'noticia/' + this.state.id)).data[0];
+        const noticia = await (await this.api.get(this.props.API + 'noticia/' + this.state.id)).data[0];
         this.setState({
             noticia
         })
@@ -155,6 +167,16 @@ class DetailNotice extends Component {
     render() {
         return (
             <React.Fragment>
+                <Backdrop
+                    style={{
+                        zIndex: 1
+                    }}
+                    open={this.state.open}
+                >
+
+                    <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='8rem' variant="indeterminate" color="secondary" />
+
+                </Backdrop>
                 <div id="back-to-top-anchor"></div>
                 {/*}<Container fluid={false}>{*/}
                 <ReactCSSTransitionGroup
@@ -384,7 +406,7 @@ class DetailNotice extends Component {
                                                                         }}
                                                                         controls
                                                                         light={false}
-                                                                        
+
                                                                         url={
                                                                             this.state.tipovideo === true ?
                                                                                 this.state.video_url

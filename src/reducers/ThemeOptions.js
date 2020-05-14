@@ -1,7 +1,7 @@
 import axios from 'axios'
 import sideBar6 from '../assets/utils/images/sidebar/city1.jpg';
 import * as moment from 'moment';
-export const SET_TOKEN = 'THEME_OPTIONS/SET_ENABLE_BACKGROUND_IMAGE';
+export const SET_TOKEN = 'THEME_OPTIONS/SET_TOKEN';
 export const SET_ENABLE_BACKGROUND_IMAGE = 'THEME_OPTIONS/SET_ENABLE_BACKGROUND_IMAGE';
 
 export const SET_ENABLE_MOBILE_MENU = 'THEME_OPTIONS/SET_ENABLE_MOBILE_MENU';
@@ -155,37 +155,27 @@ const initialState = {
 
 
 export default function reducer(state = initialState, action) {
-
     state.hoydia = state.diasTabs[state.hoy];
     axios.get(state.API_REST + 'seccion/navs').then(response => {
         return response.data;
     }).then(response => {
         state.secciones = response
     })
-
-
     axios.get(state.API_REST + 'programacion/detalle').then(response => {
         return response.data;
     }).then(response => {
-
-
-
         response.filter((p) => {
             return (p.diasemana === state.hoydia && p.estado === 1)
         }).map(programa => {
-
             const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
             const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
-
             const horaactual = new Date().getTime();
             //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
-
             if (horaactual >= horainicio && horaactual < horafin) {
                 //console.log("si")
                 state.programaactual = programa;
                 programa.live = 1;
             }
-
             //console.log(horainicio)
             //programa.live = 1;
             return programa;
