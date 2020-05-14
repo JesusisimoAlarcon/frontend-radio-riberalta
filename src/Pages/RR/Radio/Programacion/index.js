@@ -20,6 +20,12 @@ import Chip from '@material-ui/core/Chip';
 import AlbumIcon from '@material-ui/icons/Album';
 import * as moment from 'moment';
 import format from 'date-fns/format';
+import Axios from 'axios';
+import {
+    setProgramacion,
+    setProgramaactual,
+    setHoydia
+} from '../../../../reducers/ThemeOptions';
 class Programacion extends React.Component {
     constructor(props) {
         super(props);
@@ -33,61 +39,56 @@ class Programacion extends React.Component {
                 'Viernes',
                 'Sabado'
             ],
-            programas: this.props.PROGRAMACION,
-            //hoy: format(new Date(), 'E', { locale: esLocale })
-            hoy: new Date().getDay()
-            //hoydia: ''
+            programacion: '',
+            programaactual: '',
+            hoy: new Date().getDay(),
+            hoydia: ''
+            
         }
-
         const anchor = document.querySelector('#back-to-top-anchor');
-        //console.log(anchor)
         if (anchor) {
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-        //console.log(this.state.hoy)
-        //const dia = format(new Date(), 'EEEE', { locale: esLocale });
-        //console.log(dia)
-        //console.log(this.state.hoy)
-        //console.log(new Date().getDay())
+        };
+        this.api = Axios.create({
+            baseURL: this.props.API,
+            onDownloadProgress: (e) => {
+                if ((Math.round(e.loaded * 100) / e.total) === 100)
+                    this.setState({ open: false })
+                this.setState({
+                    progreso: Math.round(e.loaded * 100) / e.total
+                })
+            }
+        });
     }
-
     componentDidMount = async () => {
-        //const resp = await Axios.get(this.props.API + 'programacion/detalle');
         this.setState({
-            //programas: resp.data,
             hoydia: this.state.diasTabs[this.state.hoy]
 
         })
-        //this.encontrar_live();
-        //this.actualizar_programacion();
+        this.getProgramacion();
     }
 
-    /*
-    
-        encontrar_live = () => {
-            //console.log(this.state.programas)
-            this.state.programas.filter((p) => {
-                return (p.diasemana === this.state.hoydia && p.estado === 1)
-            }).map(programa => {
-    
-                const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
-                const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
-    
-                const horaactual = new Date().getTime();
-                //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
-    
-                if (horaactual >= horainicio && horaactual < horafin) {
-                    //console.log("si")
-                    programa.live = 1;
-                }
-    
-                //console.log(horainicio)
-                //programa.live = 1;
-                return programa;
-            })
-            //console.log(this.state.programas)
-        }
-    */
+    getProgramacion = async () => {
+        const programacion = await (await this.api.get('programacion/detalle')).data;
+        programacion.filter((p) => p.diasemana === this.state.hoydia && p.estado === 1).map(programa => {
+            const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
+            const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
+            const horaactual = new Date().getTime();
+            //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
+            if (horaactual >= horainicio && horaactual < horafin) {
+                //console.log("si")
+                this.state.programaactual = programa;
+                programa.live = 1;
+            }
+            //console.log(horainicio)
+            //programa.live = 1;
+            return programa;
+        })
+        this.setState({ programacion })
+        this.props.setHoydia(this.state.hoydia);
+        this.props.setProgramaactual(this.state.programaactual);
+        this.props.setProgramacion(this.state.programacion);
+    }
     render() {
         return (
             <Fragment>
@@ -97,12 +98,10 @@ class Programacion extends React.Component {
                     subheading="Consulta nuestra programacio radial en vivo, musica, noticias, entrevistas y enlaces satelitales desde Riberalta para el Mundo Entero."
                     icon="pe-7s-radio icon-gradient bg-amy-crisp"
                 />
-
                 <Tabs
                     tabsWrapperClass="body-tabs body-tabs-layout"
                     transform={true}
                     selectedTabKey={this.state.hoy}
-
                     width={'800px'}
                     showInkBar={true}
                     items={this.state.diasTabs.map((tab, index) => ({
@@ -110,17 +109,14 @@ class Programacion extends React.Component {
                         title: tab,
                         getContent: () =>
                             <ReactCSSTransitionGroup
-
                                 component="div"
                                 transitionName="TabsAnimation"
                                 transitionAppear={true}
                                 transitionAppearTimeout={0}
                                 transitionEnter={false}
                                 transitionLeave={false}>
-
                                 <VerticalTimeline>
-
-                                    {this.state.programas.filter((p) => { return (p.diasemana === tab) }).map(programa =>
+                                    {this.state.programacion && this.state.programacion.filter((p) => { return (p.diasemana === tab) }).map(programa =>
                                         <VerticalTimelineElement
                                             key={programa.idprogramacion}
 
@@ -174,7 +170,6 @@ class Programacion extends React.Component {
                                                                     height: '120px'
                                                                 }
                                                             } src={this.props.API + 'static/perfiles/' + programa.fotografia} />
-
                                                         </ListItemAvatar>
                                                         <ListItemText
                                                             primary={<Typography component='span' variant='subtitle1'>{programa.nombres + ' ' + programa.apellidos}</Typography>}
@@ -203,18 +198,18 @@ class Programacion extends React.Component {
                                     )}
                                 </VerticalTimeline>
                             </ReactCSSTransitionGroup>
-
-
                     }))} />
-
             </Fragment>
         );
     }
 }
 const mapStateToProps = state => ({
-    API: state.ThemeOptions.API_REST,
-    PROGRAMACION: state.ThemeOptions.programacion
+    API: state.ThemeOptions.API_REST
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    setProgramacion: programacion => dispatch(setProgramacion(programacion)),
+    setProgramaactual: programaactual => dispatch(setProgramaactual(programaactual)),
+    setHoydia: hoydia => dispatch(setHoydia(hoydia))
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Programacion);

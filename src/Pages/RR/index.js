@@ -16,7 +16,9 @@ import FormNoticia from '../Admin/Noticia';
 import ListNoticias from '../Admin/NoticiasList';
 import Login from '../Login';
 import Axios from 'axios';
-
+import {
+    setSecciones
+} from '../../reducers/ThemeOptions';
 const PrivateRoute = ({ auth, component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
         auth === true
@@ -41,6 +43,7 @@ class RR extends Component {
     getSecciones = async () => {
         const secciones = await (await Axios.get(this.props.API + 'seccion/navs')).data;
         this.setState({ secciones })
+        this.props.setSecciones(this.state.secciones)
     }
     render() {
         const { match } = this.props;
@@ -70,12 +73,7 @@ class RR extends Component {
                                 <Route exact path={`${match.url}quienes-somos`} component={Programacion} />
                                 <Route exact path={`${match.url}nuestros-servicios`} component={Programacion} />
                                 <Route exact path={`${match.url}nuestra-programacion`} component={Programacion} />
-
-
-
                                 <Route exact path={`${match.url}signin`} component={Login} />
-
-
                                 {/* Administracion */}
                                 <PrivateRoute exact path={`${match.url}perfil`} component={Perfil} />
                                 {/* Administracion noticias */}
@@ -98,5 +96,7 @@ const mapStateToProps = state => ({
     API: state.ThemeOptions.API_REST,
     TOKEN: state.ThemeOptions.token
 });
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    setSecciones: secciones => dispatch(setSecciones(secciones)),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(RR);

@@ -1,6 +1,8 @@
-import axios from 'axios'
 import sideBar6 from '../assets/utils/images/sidebar/city1.jpg';
-import * as moment from 'moment';
+export const SET_HOYDIA = 'THEME_OPTIONS/SET_HOYDIA';
+export const SET_SECCIONES = 'THEME_OPTIONS/SET_SECCIONES';
+export const SET_PROGRAMACION = 'THEME_OPTIONS/SET_PROGRAMACION';
+export const SET_PROGRAMAACTUAL = 'THEME_OPTIONS/SET_PROGRAMAACTUAL';
 export const SET_TOKEN = 'THEME_OPTIONS/SET_TOKEN';
 export const SET_ENABLE_BACKGROUND_IMAGE = 'THEME_OPTIONS/SET_ENABLE_BACKGROUND_IMAGE';
 
@@ -25,11 +27,26 @@ export const SET_BACKGROUND_IMAGE_OPACITY = 'THEME_OPTIONS/SET_BACKGROUND_IMAGE_
 
 export const SET_HEADER_BACKGROUND_COLOR = 'THEME_OPTIONS/SET_HEADER_BACKGROUND_COLOR';
 
+export const setHoydia = hoydia => ({
+    type: SET_HOYDIA,
+    hoydia
+});
 export const setToken = token => ({
     type: SET_TOKEN,
     token
 });
-
+export const setSecciones = secciones => ({
+    type: SET_SECCIONES,
+    secciones
+});
+export const setProgramacion = programacion => ({
+    type: SET_PROGRAMACION,
+    programacion
+});
+export const setProgramaactual = programaactual => ({
+    type: SET_PROGRAMAACTUAL,
+    programaactual
+});
 
 export const setEnableBackgroundImage = enableBackgroundImage => ({
     type: SET_ENABLE_BACKGROUND_IMAGE,
@@ -139,51 +156,32 @@ const initialState = {
     enablePageTitleIcon: true,
     enablePageTitleSubheading: true,
     enablePageTabsAlt: false,
-    diasTabs: [
-        'Domingo',
-        'Lunes',
-        'Martes',
-        'Miercoles',
-        'Jueves',
-        'Viernes',
-        'Sabado'
-    ],
-    hoy: new Date().getDay(),
     hoydia: '',
     API_REST: 'https://api.radioriberalta.com.bo/api/'
 }
 
-
 export default function reducer(state = initialState, action) {
-    state.hoydia = state.diasTabs[state.hoy];
-    axios.get(state.API_REST + 'seccion/navs').then(response => {
-        return response.data;
-    }).then(response => {
-        state.secciones = response
-    })
-    axios.get(state.API_REST + 'programacion/detalle').then(response => {
-        return response.data;
-    }).then(response => {
-        response.filter((p) => {
-            return (p.diasemana === state.hoydia && p.estado === 1)
-        }).map(programa => {
-            const horainicio = new Date(moment(programa.horainicio, 'HH:mm:ss'))
-            const horafin = new Date(moment(programa.horafin, 'HH:mm:ss'))
-            const horaactual = new Date().getTime();
-            //console.log('hora actual: ' + horaactual + ' horaprogramada: ' + horainicio.getTime() + ' horaprogramada: ' + horafin.getTime())
-            if (horaactual >= horainicio && horaactual < horafin) {
-                //console.log("si")
-                state.programaactual = programa;
-                programa.live = 1;
-            }
-            //console.log(horainicio)
-            //programa.live = 1;
-            return programa;
-        })
-        state.programacion = response
-    })
-
     switch (action.type) {
+        case SET_HOYDIA:
+            return {
+                ...state,
+                hoydia: action.hoydia
+            };
+        case SET_PROGRAMAACTUAL:
+            return {
+                ...state,
+                programaactual: action.programaactual
+            };
+        case SET_PROGRAMACION:
+            return {
+                ...state,
+                programacion: action.programacion
+            };
+        case SET_SECCIONES:
+            return {
+                ...state,
+                secciones: action.secciones
+            };
         case SET_TOKEN:
             return {
                 ...state,
