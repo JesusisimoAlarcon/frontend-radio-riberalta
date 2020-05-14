@@ -762,9 +762,9 @@ class FormNoticia extends Component {
                                                                     autoPlayAfterSrcChange={false}
                                                                     style={{
                                                                         background: 'white',
-                                                                        color: '#e91e63',
+                                                                        color: 'rgba(211, 9, 7)',
                                                                         fontSize: '20px',
-                                                                        borderColor: '#e91e63'
+                                                                        borderColor: 'rgba(211, 9, 7)'
 
                                                                     }}
                                                                     //className=''

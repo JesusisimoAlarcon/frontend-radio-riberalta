@@ -15,7 +15,7 @@ class AppFooter extends React.Component {
             <footer className=''>
                 <Divider
                     className='mb-2'
-                //style={{ background: '#f50057' }} 
+                //style={{ background: 'rgba(211, 9, 7)' }} 
                 />
                 <div className='container pt-5'>
                     <div className='row'>

@@ -199,7 +199,7 @@ class DetailNotice extends Component {
                                                 top: '70px'
                                             }}>
                                                 <small style={{
-                                                    color: '#f50057',
+                                                    color: 'rgba(211, 9, 7)',
                                                     fontWeight: 'bold'
                                                 }}>Compartir</small>
                                                 <Divider className='mt-1 mb-1 mr-4' />
@@ -240,7 +240,7 @@ class DetailNotice extends Component {
                                                     <div className='pl-2'>
                                                         <small style={{
 
-                                                            color: '#f50057',
+                                                            color: 'rgba(211, 9, 7)',
                                                             lineHeight: '0.002rem'
                                                         }}>
                                                             {this.state.noticia.pieportada}
@@ -258,19 +258,19 @@ class DetailNotice extends Component {
                                                             <Chip size="small" label='' color='secondary' className='mr-1' avatar={
                                                                 this.state.noticia.tipo === 'audio' ?
                                                                     <VolumeUpIcon style={{
-                                                                        background: '#f50057',
+                                                                        background: 'rgba(211, 9, 7)',
                                                                         padding: '0'
                                                                     }} /> : this.state.noticia.tipo === 'video' ?
                                                                         <VideocamIcon style={{
-                                                                            background: '#f50057',
+                                                                            background: 'rgba(211, 9, 7)',
                                                                             padding: '0'
                                                                         }} /> : this.state.noticia.tipo === 'image' ?
                                                                             <PhotoLibraryIcon style={{
-                                                                                background: '#f50057',
+                                                                                background: 'rgba(211, 9, 7)',
                                                                                 padding: '0'
                                                                             }} /> :
                                                                             <DescriptionIcon style={{
-                                                                                background: '#f50057',
+                                                                                background: 'rgba(211, 9, 7)',
                                                                                 padding: '0'
                                                                             }} />
                                                             } />
@@ -357,9 +357,9 @@ class DetailNotice extends Component {
                                                                 autoPlayAfterSrcChange={false}
                                                                 style={{
                                                                     background: 'white',
-                                                                    color: '#e91e63',
+                                                                    color: 'rgba(211, 9, 7)',
                                                                     fontSize: '20px',
-                                                                    borderColor: '#e91e63'
+                                                                    borderColor: 'rgba(211, 9, 7)'
                                                                 }}
                                                                 //className=''
                                                                 src={this.state.audio}

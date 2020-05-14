@@ -182,20 +182,20 @@ button.bg-info:focus {
   background-color: #178acc !important; }
 
 .bg-warning {
-  background-color: #f50057 !important; }
+  background-color: rgba(211, 9, 7) !important; }
 
 a.bg-warning:hover, a.bg-warning:focus,
 button.bg-warning:hover,
 button.bg-warning:focus {
-  background-color: #f50057 !important; }
+  background-color: rgba(211, 9, 7) !important; }
 
 .bg-danger {
-  background-color: #f50057 !important; }
+  background-color: rgba(211, 9, 7) !important; }
 
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
 button.bg-danger:focus {
-  background-color: #f50057 !important; }
+  background-color: rgba(211, 9, 7) !important; }
 
 .bg-light {
   background-color: #d5d9eb !important; }
@@ -4960,10 +4960,10 @@ button.bg-info:focus {
 a.bg-warning:hover, a.bg-warning:focus,
 button.bg-warning:hover,
 button.bg-warning:focus {
-  background-color: #f50057 !important; }
+  background-color: rgba(211, 9, 7) !important; }
 
 .bg-danger {
-  background-color: #f50057 !important; }
+  background-color: rgba(211, 9, 7) !important; }
 
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
@@ -8990,7 +8990,7 @@ button,
   background-image: linear-gradient(to right, #434343 0%, black 100%) !important; }
 
 .bg-premium-pink {
-  background-image: #e91e63 !important; }
+  background-image: rgba(211, 9, 7) !important; }
   
 .bg-happy-green {
   background-image: linear-gradient(to bottom, #00b09b, #96c93d) !important; }

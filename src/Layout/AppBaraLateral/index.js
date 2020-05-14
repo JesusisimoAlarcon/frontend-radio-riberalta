@@ -113,18 +113,18 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
                         contentStyle={
                             programa.live ?
                                 {
-                                    background: '#f50057', color: '#fff'
+                                    background: 'rgba(211, 9, 7)', color: '#fff'
                                 }
                                 : {}
                         }
-                        contentArrowStyle={{ borderRight: '7px solid  rgb(233, 30, 99)' }}
+                        contentArrowStyle={{ borderRight: '7px solid  rgba(211, 9, 7)' }}
                         date={<b>
                             {programa.live ?
                                 <Chip color="secondary" size='small' icon={<AlbumIcon />} label='en vivo' />
                                 : ''
                             }
                             {" " + format(new Date(moment(programa.horainicio, 'hh:mm:ss')), 'HH:mm') + ' - ' + format(new Date(moment(programa.horafin, 'HH:mm:ss')), 'HH:mm')}</b>}
-                        iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
+                        iconStyle={{ background: 'rgba(211, 9, 7)', color: '#fff' }}
                     >
                         <Grid
                             container
@@ -154,24 +154,6 @@ function SwipeableTemporaryDrawer({ PROGRAMACION, API, HOY, PROGRAMA }) {
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={<Typography component='small' variant='subtitle1'>{programa.nombres + ' ' + programa.apellidos}</Typography>}
-                                    /*
-                                    secondary={
-                                        <Typography component='span' variant='subtitle1'>
-                                            {programa.facebook ?
-                                                <span><br /><FacebookIcon color={programa.live ? 'inherit' : 'secondary'} fontSize='small' />{programa.facebook}<br /></span>
-                                                : ''
-                                            }
-                                            {programa.twiter ?
-                                                <span><TwitterIcon color={programa.live ? 'inherit' : 'secondary'} fontSize='small' />{programa.twiter}<br /></span>
-                                                : ''
-                                            }
-                                            {programa.whatsapp ?
-                                                <span><WhatsAppIcon color={programa.live ? 'inherit' : 'secondary'} fontSize='small' />{programa.whatsapp}</span>
-                                                : ''
-                                            }
-                                        </Typography>
-                                    }
-                                    */
                                     />
                                 </ListItem>
 

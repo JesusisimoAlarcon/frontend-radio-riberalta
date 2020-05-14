@@ -90,19 +90,19 @@ class NoticiaHorizontal extends Component {
                                             <Chip size="small" label='' color='secondary' className='mr-1' avatar={
                                                 this.props.tipo === 'audio' ?
                                                     <VolumeUpIcon style={{
-                                                        background: '#f50057',
+                                                        background: 'rgba(211, 9, 7)',
                                                         padding: '0'
                                                     }} /> : this.props.tipo === 'video' ?
                                                         <VideocamIcon style={{
-                                                            background: '#f50057',
+                                                            background: 'rgba(211, 9, 7)',
                                                             padding: '0'
                                                         }} /> : this.props.tipo === 'image' ?
                                                             <PhotoLibraryIcon style={{
-                                                                background: '#f50057',
+                                                                background: 'rgba(211, 9, 7)',
                                                                 padding: '0'
                                                             }} /> :
                                                             <DescriptionIcon style={{
-                                                                background: '#f50057',
+                                                                background: 'rgba(211, 9, 7)',
                                                                 padding: '0'
                                                             }} />
                                             } />

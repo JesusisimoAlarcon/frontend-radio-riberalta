@@ -40,7 +40,7 @@ export default class CabeceraInfo extends Component {
                     transitionEnter={false}
                     transitionLeave={false}>
                     {this.state.datosoficiales &&
-                        <Paper style={{ background: '#f50057', color: 'white', fontWeight: 'bold' }} elevation={1} className='p-1 pb-0 mb-3'>
+                        <Paper style={{ background: 'rgba(211, 9, 7)', color: 'white', fontWeight: 'bold' }} elevation={1} className='p-1 pb-0 mb-3'>
 
                             <Typography className='text-center' variant='h1' style={{
                                 fontSize: '1.2rem',
@@ -64,7 +64,7 @@ export default class CabeceraInfo extends Component {
                                             <Paper className='text-center pt-2' style={{
                                                 width: 100
                                             }}>
-                                                <h4 style={{ color: 'red' }}><b>{this.state.contadorbolivia.confirmados}</b></h4>
+                                                <h4 style={{ color: 'rgba(211, 9, 7)' }}><b>{this.state.contadorbolivia.confirmados}</b></h4>
                                                 <center>
                                                     <Avatar style={{ width: '20px', height: '10px' }} variant='square' src={bolivia} />
                                                 </center>
@@ -111,7 +111,7 @@ export default class CabeceraInfo extends Component {
                                             <Paper className='text-center pt-2' style={{
                                                 width: 100
                                             }}>
-                                                <h3 style={{ color: 'red' }}><b>{this.state.contadorbeni.confirmados}</b></h3>
+                                                <h3 style={{ color: 'rgba(211, 9, 7)' }}><b>{this.state.contadorbeni.confirmados}</b></h3>
                                                 <center>
                                                     <Avatar style={{ width: '20px', height: '10px', color: 'green', background: 'green' }} variant='square' src={null} />
                                                 </center>
