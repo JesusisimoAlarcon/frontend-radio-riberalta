@@ -30,6 +30,11 @@ class Busqueda extends Component {
                 })
             }
         })
+        const anchor = document.querySelector('#back-to-top-anchor');
+        //console.log(anchor)
+        if (anchor) {
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
     componentDidMount = async () => {
         const noticias = await (await this.api.get(this.props.API + 'noticia/search/' + this.state.busqueda)).data;
@@ -38,6 +43,7 @@ class Busqueda extends Component {
     render() {
         return (
             <Fragment>
+                <div id="back-to-top-anchor"></div>
                 <Backdrop
                     style={{
                         zIndex: 1

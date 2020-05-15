@@ -209,12 +209,12 @@ class DetailNotice extends Component {
                                                             <FacebookIcon fontSize='small' />
                                                         </Fab>
                                                     </Tooltip>
-                                                    <Tooltip title='Compartir por Facebook' placement='right-start'>
+                                                    <Tooltip title='Compartir por Twitter' placement='right-start'>
                                                         <Fab size='small' className='m-1' color='secondary'>
                                                             <TwitterIcon fontSize='small' />
                                                         </Fab>
                                                     </Tooltip>
-                                                    <Tooltip title='Compartir por Facebook' placement='right-start'>
+                                                    <Tooltip title='Compartir por WhatsApp' placement='right-start'>
                                                         <Fab size='small' className='m-1' color='secondary'>
                                                             <WhatsappIcon fontSize='small' />
                                                         </Fab>
@@ -429,13 +429,22 @@ class DetailNotice extends Component {
                                                     </Typography>
                                                     <Divider className='mb-2' />
                                                     {this.state.noticia.etiquetas && this.state.noticia.etiquetas.split(',').map(etiqueta =>
+
                                                         <Chip
                                                             key={etiqueta}
                                                             className='mr-2'
-                                                            color='secondary'
                                                             size='small'
-                                                            variant='outlined'
-                                                            label={<b>{etiqueta.charAt(0).toUpperCase() + etiqueta.toLowerCase().slice(1)}</b>}
+                                                            color='secondary'
+                                                            label={
+                                                                /*
+                                                                <Link to={'/search/' + etiqueta.charAt(0).toUpperCase() + etiqueta.toLowerCase().slice(1)} style={{
+                                                                    color: 'white'
+                                                                }}>{etiqueta.charAt(0).toUpperCase() + etiqueta.toLowerCase().slice(1)}</Link>
+                                                                */
+                                                                <Link to={'/search/' + etiqueta.toLowerCase()} style={{
+                                                                    color: 'white'
+                                                                }}>{etiqueta.toUpperCase()}</Link>
+                                                            }
                                                         />
                                                     )}
                                                 </Col>
