@@ -9,8 +9,7 @@ class Nav extends Component {
                 {this.props.SECCIONES &&
                     <MetisMenu
                         content={this.props.SECCIONES}
-                        //content={this.state.secciones}
-                        activeLinkFromLocation
+                        activeLinkFromLocation 
                         className='vertical-nav-menu mt-3'
                         iconNamePrefix=''
                         classNameStateIcon='pe-7s-angle-down'

@@ -91,42 +91,42 @@ export const NoticiasTestNav = [
     {
         icon: 'pe-7s-sun',
         label: 'RIBERALTA',
-        to: '#/riberalta'
+        to: 'riberalta'
     },    
     {
         icon: 'pe-7s-world',
         label: 'INTERNACIONAL',
-        to: '#/internacional'
+        to: 'internacional'
     },
     {
         icon: 'pe-7s-portfolio',
         label: 'POLITICA',
-        to: '#/politica'
+        to: 'politica'
     },
     {
         icon: 'pe-7s-cash',
         label: 'ECONOMIA',
-        to: '#/economica'
+        to: 'economica'
     },
     {
         icon: 'pe-7s-study',
         label: 'EDUCACION',
-        to: '#/educacion'
+        to: 'educacion'
     },
     {
         icon: 'pe-7s-gym',
         label: 'DEPORTES',
-        to: '#/deportes'
+        to: 'deportes'
     },
     {
         icon: 'pe-7s-science',
         label: 'TECNOLOGIA',
-        to: '#/tecnologia'
+        to: 'tecnologia'
     },
     {
         icon: 'pe-7s-star',
         label: 'ENTRETENIMIENTO',
-        to: '#/entretenimiento'
+        to: 'entretenimiento'
     },
     /*
     {

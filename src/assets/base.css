@@ -7933,7 +7933,7 @@ button,
     transition: all .4s linear; }
 
 .app-header {
-  height: 60px;
+  height: 75px;
   display: flex;
   align-items: center;
   align-content: center;
@@ -7948,7 +7948,7 @@ button,
     align-content: center;
     flex: 1;
     padding: 0 1.5rem;
-    height: 60px; }
+    height: 75px; }
     .app-header .app-header__content .app-header-left {
       display: flex;
       align-items: center; }
@@ -7963,7 +7963,7 @@ button,
 
 .app-header__logo {
   padding: 0 1.5rem;
-  height: 60px;
+  height: 75px;
   width: 280px;
   display: flex;
   align-items: center;
@@ -7979,7 +7979,7 @@ button,
 .app-header__mobile-menu {
   display: none;
   padding: 0 1.5rem;
-  height: 60px;
+  height: 75px;
   align-items: center; }
 
 .fixed-header .app-header {
@@ -7989,7 +7989,7 @@ button,
   .fixed-header .app-header .app-header__logo {
     visibility: visible; }
 .fixed-header .app-main {
-  padding-top: 60px; }
+  padding-top: 75px; }
 .fixed-header:not(.fixed-sidebar):not(.closed-sidebar) .app-sidebar .app-header__logo {
   visibility: hidden; }
 

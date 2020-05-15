@@ -196,7 +196,7 @@ class DetailNotice extends Component {
                                         <Col lg='1' className='p-0'>
                                             <aside style={{
                                                 position: 'sticky',
-                                                top: '70px'
+                                                top: '80px'
                                             }}>
                                                 <small style={{
                                                     color: 'rgba(211, 9, 7)',
@@ -237,9 +237,8 @@ class DetailNotice extends Component {
                                                             this.state.noticia.portada === undefined ? portada :
                                                                 this.props.API + 'static/portada/' + this.state.noticia.portada}
                                                     />
-                                                    <div className='pl-2'>
+                                                    <div className='pl-2 pb-0'>
                                                         <small style={{
-
                                                             color: 'rgba(211, 9, 7)',
                                                             lineHeight: '0.002rem'
                                                         }}>
@@ -255,7 +254,7 @@ class DetailNotice extends Component {
                                                         alignItems="flex-end"
                                                     >
                                                         <div >
-                                                            <Chip size="small" label='' color='secondary' className='mr-1' avatar={
+                                                            <Chip size="small" color='secondary' className='mr-1' avatar={
                                                                 this.state.noticia.tipo === 'audio' ?
                                                                     <VolumeUpIcon style={{
                                                                         background: 'rgba(211, 9, 7)',
@@ -289,7 +288,7 @@ class DetailNotice extends Component {
                                                             <Typography style={{ fontWeight: 'bold' }} variant="caption" color='secondary' display="block" gutterBottom>
                                                                 <AccessTimeIcon color='secondary' fontSize='small' />
                                                                 {format(new Date(moment(this.state.noticia.fecha)), 'dd MMMM yyyy - ', { locale: esLocale })}
-                                                                {this.state.noticia.hora}
+                                                                {this.state.noticia.hora.split(':')[0] + ':' + this.state.noticia.hora.split(':')[1]}
                                                             </Typography>
                                                         </div>
                                                     </Grid>
@@ -425,10 +424,6 @@ class DetailNotice extends Component {
                                                     }}>
                                                         {ReactHtmlParser(this.state.contenido)}
                                                     </div>
-
-
-
-
                                                     <Typography style={{ fontWeight: 'bold' }} variant="h6" color='secondary' display="block" gutterBottom>
                                                         En esta nota
                                                     </Typography>
@@ -471,7 +466,6 @@ class DetailNotice extends Component {
                                         {this.state.noticia &&
                                             <MiniNoticiaVertical
                                                 //props={this.props}
-
                                                 noticia={noticia}
                                                 idnoticia={noticia.idnoticia}
                                                 key={noticia.idnoticia}
