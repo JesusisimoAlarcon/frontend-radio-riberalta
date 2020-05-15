@@ -1,16 +1,23 @@
+
 import { Route } from 'react-router-dom';
 import React, { Fragment } from 'react';
 import {
     ToastContainer,
 } from 'react-toastify';
-import RR from '../../Pages/RR';
-const AppMain = () => {
+import { connect } from 'react-redux';
+import RR from '../../Pages/RR'
+import { withRouter } from 'react-router-dom';
+const AppMain = ({ TOKEN }) => {
     return (
         <Fragment>
             {/* Noticias */}
-            <Route path="/" component={RR} />
+            <Route path="/" component={withRouter(RR)} />
             <ToastContainer />
         </Fragment>
     )
 };
-export default AppMain;
+const mapStateToProps = state => ({
+    TOKEN: state.ThemeOptions.token
+});
+const mapDispatchToProps = dispatch => ({});
+export default connect(mapStateToProps, mapDispatchToProps)(AppMain);

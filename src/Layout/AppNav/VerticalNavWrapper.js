@@ -18,7 +18,9 @@ class Nav extends Component {
             </Fragment>
         );
     }
-    
+    isPathActive(path) {
+        return this.props.location.pathname.startsWith(path);
+    }
 }
 const mapStateToProps = state => ({
     API: state.ThemeOptions.API_REST,
