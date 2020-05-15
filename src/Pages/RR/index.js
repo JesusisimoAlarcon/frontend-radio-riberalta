@@ -41,9 +41,6 @@ class RR extends Component {
                     <div className="app-main__outer">
                         <div className="app-main__inner">
                             <Switch>
-                                {location.search &&
-                                    console.log(location.search)
-                                }
                                 <Route exact path={`${match.url}search/:busqueda`} component={withRouter(Busqueda)} />
                                 <Route exact path={`${match.url}:id/:titulo`} component={withRouter(DetailNotice)} />
                                 {/* Pagina principal */}
@@ -58,8 +55,6 @@ class RR extends Component {
                                     />
                                 )}
                                 {/* Radio Riberalta */}
-                                <Route exact path={`${match.url}quienes-somos`} component={Programacion} />
-                                <Route exact path={`${match.url}nuestros-servicios`} component={Programacion} />
                                 <Route exact path={`${match.url}nuestra-programacion`} component={withRouter(Programacion)} />
                             </Switch>
                         </div>
