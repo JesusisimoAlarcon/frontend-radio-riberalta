@@ -11,7 +11,7 @@ import {
     setEnableMobileMenuSmall,
 } from '../../reducers/ThemeOptions';
 import { Link } from "react-router-dom";
-
+import logo from '../../assets/utils/images/icono_logo.png'
 class HeaderLogo extends React.Component {
     constructor(props) {
         super(props);
@@ -46,13 +46,13 @@ class HeaderLogo extends React.Component {
             <Fragment>
                 <div className="app-header__logo">
                     <Link to='/' replace={true}>
-                        <div className="logo-src" />
+                        <img src={logo} width='75px' alt='logo'></img>
                     </Link>
                     <div className="header__pane ml-auto">
                         <div onClick={this.toggleEnableClosedSidebar}>
                             <Hamburger
                                 active={enableClosedSidebar}
-                                type="elastic"
+                                type="minus"
                                 onClick={() => this.setState({ active: !this.state.active })}
                             />
                         </div>

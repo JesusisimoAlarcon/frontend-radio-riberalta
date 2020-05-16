@@ -8,6 +8,7 @@ import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import Instagram from '@material-ui/icons/Instagram';
 import { Button } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
+import logo from '../../assets/utils/images/icono_logo.png';
 class AppFooter extends React.Component {
     render() {
         return (
@@ -24,11 +25,7 @@ class AppFooter extends React.Component {
                                 <h6>Nos encuentras</h6>
                             </div>
                             <div className='footer-content'>
-
-                                <div className="app-header__logo">
-                                    <div className="logo-src" />
-                                </div>
-
+                                <img src={logo} width='30%' alt='logo'></img>
                                 <p><b>Direccion:</b> Barrio Base Aerea</p>
                                 <p><b>Calle:</b> Av. Bernandino Ochoa</p>
                                 <p><b>N°:</b> 1030</p>
