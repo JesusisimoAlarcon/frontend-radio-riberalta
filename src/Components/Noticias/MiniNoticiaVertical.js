@@ -56,11 +56,7 @@ class MiniNoticiaVertical extends Component {
                         <CardActionArea
                         >
                             <Link replace to={{
-                                pathname: this.state.link,
-                                state: {
-                                    idnoticia: this.props.idnoticia,
-                                    noticia: this.props.noticia
-                                },
+                                pathname: this.state.link
                             }}>
                                 <Image
                                     className='border rounded'

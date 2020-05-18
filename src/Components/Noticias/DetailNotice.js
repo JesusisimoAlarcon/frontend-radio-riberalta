@@ -28,10 +28,10 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { format } from 'date-fns';
 import ReactHtmlParser from 'react-html-parser';
 import ReactPlayer from 'react-player';
-import Image from 'material-ui-image'
-import Swiper from './Componentes/Swiper'
+import Image from 'material-ui-image';
+import Swiper from './Componentes/Swiper';
 import AudioPlayer from 'react-h5-audio-player';
-import './Componentes/styleControlAudio.css'
+import './Componentes/styleControlAudio.css';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';

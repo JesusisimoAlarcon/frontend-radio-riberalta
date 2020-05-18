@@ -48,19 +48,11 @@ class NoticiaVertical extends Component {
                     transitionAppearTimeout={0}
                     transitionEnter={false}
                     transitionLeave={false}>
-
                     <Card className='mb-3' elevation={0}>
-
                         <CardActionArea
                         >
-
-
                             <Link to={{
-                                pathname: this.state.link,
-                                state: {
-                                    idnoticia: this.props.idnoticia,
-                                    noticia: this.props.noticia
-                                },
+                                pathname: this.state.link
                             }}>
                                 <Image
                                     className='border rounded'

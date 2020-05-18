@@ -57,11 +57,7 @@ class NoticiaHorizontal extends Component {
                             <Row>
                                 <Col lg='8' className='p-0'>
                                     <Link to={{
-                                        pathname: this.state.link,
-                                        state: {
-                                            idnoticia: this.props.idnoticia,
-                                            noticia: this.props.noticia
-                                        },
+                                        pathname: this.state.link
                                     }}>
                                         <Image
                                             className='border rounded'

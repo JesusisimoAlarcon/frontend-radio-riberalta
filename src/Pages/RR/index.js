@@ -29,10 +29,10 @@ class RR extends Component {
         this.props.setSecciones(this.state.secciones)
     }
     render() {
-        const { match, location, history } = this.props;
-        console.log(match)
-        console.log(location)
-        console.log(history)
+        const { match, location } = this.props;
+        //console.log(match)
+        //console.log(location)
+        //console.log(history)
         return (
             <Fragment>
                 <AppHeader />

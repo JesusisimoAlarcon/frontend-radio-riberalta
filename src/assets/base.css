@@ -7962,17 +7962,22 @@ button,
     font-size: 0.8rem; }
 
 .app-header__logo {
-  /*padding: 0 1.5rem;*/
+  /*padding: 0 5px;*/
+  padding-right: 0px;
+  padding-left: 5px;
+  padding-top: 0;
+  padding-bottom: 0;
   height: 75px;
-  width: 280px;
+  width: 275px;
   display: flex;
   align-items: center;
   transition: width .2s; }
   .app-header__logo .logo-src {
-    height: 23px;
-    width: 97px;
+    height: 70px;
+    width: 70px;
+    
     /*background: url('../assets/utils/images/logo-inverse.png');*/
-    background: url('../assets/utils/images/icono_logo.png');
+    /*background: url('../assets/utils/images/logo.png');*/
     /*background: url("~assets/utils/images/logo-inverse.png");*/ }
 
 .app-header__menu,
@@ -8003,7 +8008,7 @@ button,
     background: #868e96; }
 
 .app-header.header-text-light .app-header__logo {
-  background: rgba(255, 255, 255, 0.1); }
+  background: rgba(211, 9, 7, 0.1); }
 .app-header.header-text-light .app-header-left > .nav > li > .nav-link {
   color: rgba(255, 255, 255, 0.7); }
   .app-header.header-text-light .app-header-left > .nav > li > .nav-link .nav-link-icon {
@@ -8054,7 +8059,11 @@ button,
   background: rgba(255, 255, 255, 0.8); }
 .app-header.header-text-light .app-header__logo .logo-src {
   /*background: url("~assets/utils/images/logo.png");*/
-  background: url("../assets/utils/images/icono_logo.png");
+  /*background: url("../assets/utils/images/logo.png");*/
+  background-image: url("../assets/utils/images/icono_logo.png");
+  
+  background-repeat: no-repeat;
+  background-size: 70px;
   /*background: url("../assets/utils/images/logo-test-blanquito.png");*/
 }
 .app-header.header-text-light .app-header__mobile-menu .hamburger-inner,
@@ -8107,7 +8116,7 @@ button,
 .app-header.header-text-dark .search-wrapper .input-holder .search-icon span::before {
   background: rgba(0, 0, 0, 0.8); }
 .app-header.header-text-dark .app-header__logo .logo-src {
-  background: url('../assets/utils/images/logo-inverse.png');
+  background: url('../assets/utils/images/icono_logo.png');
   /*background: url("~assets/utils/images/logo-inverse.png");*/ }
 
 .app-sidebar {
@@ -8286,7 +8295,7 @@ button,
   .app-sidebar.sidebar-text-light .ps__rail-y:hover .ps__thumb-y {
     background: rgba(255, 255, 255, 0.2); }
   .app-sidebar.sidebar-text-light .app-header__logo .logo-src {
-    background: url("../assets/utils/images/logo.png");
+    background: url("../assets/utils/images/icono_logo.png");
     /*background: url("~assets/utils/images/logo.png");*/
   }
   .app-sidebar.sidebar-text-light .app-header__logo .hamburger-inner,

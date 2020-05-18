@@ -144,7 +144,7 @@ const initialState = {
     enableMobileMenuSmall: true,//habilita el menu movil para que sea visible
     enableBackgroundImage: false,//imagen de fondo para el menu principal
     //para tener abierto el silebar izquierdo => false abierto, true cerrado
-    enableClosedSidebar: true,//deshabilita que el menu se encuentra abierto al iniciar la app
+    enableClosedSidebar: false,//deshabilita que el menu se encuentra abierto al iniciar la app
     enableFixedHeader: true,//habilita para que el menu de cabecera sea fijo
     enableHeaderShadow: true,
     enableSidebarShadow: true,
@@ -158,6 +158,7 @@ const initialState = {
     enablePageTabsAlt: false,
     hoydia: '',
     API_REST: 'https://api.radioriberalta.com.bo/api/'
+    //API_REST: 'http://192.168.1.9:4500/api/'
 }
 
 export default function reducer(state = initialState, action) {

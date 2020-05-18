@@ -34,7 +34,6 @@ class Header extends React.Component {
                         { 'header-mobile-open': enableMobileMenuSmall },
                     )}>
                         <div className="app-header-left">
-                            <SearchBox />
                             <center>
                                 <img width="30px" alt='logocasa' src={logocasa} className='mr-1' />
                                 <Typography style={{
@@ -46,7 +45,7 @@ class Header extends React.Component {
                         </div>
 
                         <div className="app-header-right">
-
+                            <SearchBox />
                             <UserBox />
                         </div>
                     </div>
