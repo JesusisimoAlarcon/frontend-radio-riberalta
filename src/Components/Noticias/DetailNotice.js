@@ -48,7 +48,6 @@ function ScrollTop(props) {
         disableHysteresis: true,
         threshold: 100,
     });
-
     const handleClick = (event) => {
         const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
 
@@ -56,7 +55,6 @@ function ScrollTop(props) {
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     };
-
     return (
         <Zoom in={trigger}>
             <div onClick={handleClick} role="presentation" style={{
@@ -103,7 +101,6 @@ class DetailNotice extends Component {
             }
         })
     }
-
     componentDidMount = async () => {
         const noticia = await (await this.api.get(this.props.API + 'noticia/' + this.state.id)).data[0];
         this.setState({
@@ -127,27 +124,24 @@ class DetailNotice extends Component {
                 imagenes
             })
         }
-        if (this.state.noticia.tipo === 'audio') {
+        if (this.state.noticia.tipo === 'audio') 
             this.setState({
                 audio: this.props.API + 'static/audio/' + this.state.noticia.infografia,
                 titleaudio: this.state.noticia.infonombre
             })
-        }
+        
         if (this.state.noticia.tipo === 'video') {
-            if (this.state.noticia.infotipo === 'video_url') {
+            if (this.state.noticia.infotipo === 'video_url')
                 this.setState({
                     tipovideo: true,
                     video_url: this.state.noticia.infografia
                 })
-            }
-            else {
+            else
                 this.setState({
                     tipovideo: false,
                     video: this.props.API + 'static/video/' + this.state.noticia.infografia
                 })
-            }
         }
-
         let contenido_original = this.state.noticia.contenido;
         let contenido_modificado_inicio = contenido_original.replace(/<figure class="media"><oembed url=/gi, `<div class="embed-responsive embed-responsive-16by9 mb-4"><iframe class="embed-responsive-item" allowfullscreen src=`);
         let contenido_modificado_intermedio = contenido_modificado_inicio.replace(/oembed/gi, "iframe");
@@ -156,9 +150,8 @@ class DetailNotice extends Component {
             contenido: contenido_modificado_fin
         })
         const anchor = document.querySelector('#back-to-top-anchor');
-        if (anchor) {
+        if (anchor)
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
         const noticiasrelacionadas = await (await Axios.get(this.props.API + 'noticia/relacionadas/' + this.state.noticia.idnoticia + '/' + this.state.noticia.etiquetas)).data;
         this.setState({
             noticiasrelacionadas
@@ -173,12 +166,9 @@ class DetailNotice extends Component {
                     }}
                     open={this.state.open}
                 >
-
                     <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='8rem' variant="indeterminate" color="secondary" />
-
                 </Backdrop>
                 <div id="back-to-top-anchor"></div>
-                {/*}<Container fluid={false}>{*/}
                 <ReactCSSTransitionGroup
                     component="div"
                     transitionName="TabsAnimation"
@@ -222,11 +212,9 @@ class DetailNotice extends Component {
                                                 </div>
                                             </aside>
                                         </Col>
-
                                         <Col lg='11' className='p-0'>
                                             <Row>
                                                 <Col lg='8' className='p-1 mb-2'>
-
                                                     <Image
                                                         className='border rounded'
                                                         //animationDuration={10000}
@@ -273,7 +261,6 @@ class DetailNotice extends Component {
                                                                                 padding: '0'
                                                                             }} />
                                                             } />
-
                                                             <Chip
                                                                 size='small'
                                                                 color='secondary'
@@ -292,7 +279,6 @@ class DetailNotice extends Component {
                                                             </Typography>
                                                         </div>
                                                     </Grid>
-
                                                     <Typography variant='h1' style={{
                                                         fontSize: '2.2rem',
                                                         fontFamily: 'PlayfairDisplay-Bold',
@@ -310,7 +296,6 @@ class DetailNotice extends Component {
                                                     }}>
                                                         {this.state.noticia.subtitulo}
                                                     </Typography>
-
                                                     <div className='mt-2'>
                                                         <ListItem
                                                             className='p-0 m-0'
@@ -329,7 +314,6 @@ class DetailNotice extends Component {
                                                         </ListItem>
                                                     </div>
                                                 </Col>
-
                                             </Row>
                                             <Divider className='mt-2 mb-3' />
                                             <Row>
@@ -350,7 +334,6 @@ class DetailNotice extends Component {
                                                         :
                                                         this.state.noticia.tipo === 'audio' ?
                                                             <AudioPlayer
-                                                                //autoPlay
                                                                 className='mb-3'
                                                                 autoPlay={false}
                                                                 autoPlayAfterSrcChange={false}
@@ -360,9 +343,7 @@ class DetailNotice extends Component {
                                                                     fontSize: '20px',
                                                                     borderColor: 'rgba(211, 9, 7)'
                                                                 }}
-                                                                //className=''
                                                                 src={this.state.audio}
-                                                                //onPlay={e => console.log("onPlay")}
                                                                 header={this.state.titleaudio.split('.')[0]}
                                                                 //footer="This is a footer"
                                                                 showJumpControls={false}
@@ -379,7 +360,6 @@ class DetailNotice extends Component {
                                                                     volumeMute: <VolumeOffIcon color='secondary' fontSize='default' />,
                                                                     loop: <LinkOffIcon color='secondary' fontSize='default' />,
                                                                     loopOff: <LoopIcon color='secondary' fontSize='default' />,
-
                                                                 }}
                                                             />
                                                             :
@@ -429,18 +409,12 @@ class DetailNotice extends Component {
                                                     </Typography>
                                                     <Divider className='mb-2' />
                                                     {this.state.noticia.etiquetas && this.state.noticia.etiquetas.split(',').map(etiqueta =>
-
                                                         <Chip
                                                             key={etiqueta}
                                                             className='mr-2'
                                                             size='small'
                                                             color='secondary'
                                                             label={
-                                                                /*
-                                                                <Link to={'/search/' + etiqueta.charAt(0).toUpperCase() + etiqueta.toLowerCase().slice(1)} style={{
-                                                                    color: 'white'
-                                                                }}>{etiqueta.charAt(0).toUpperCase() + etiqueta.toLowerCase().slice(1)}</Link>
-                                                                */
                                                                 <Link to={'/search/' + etiqueta.toLowerCase()} style={{
                                                                     color: 'white'
                                                                 }}>{etiqueta.toUpperCase()}</Link>
@@ -455,58 +429,45 @@ class DetailNotice extends Component {
                                                     }}>
                                                     </aside>
                                                 </Col>
-
                                             </Row>
                                         </Col>
                                     </Row>
                                 </Paper>
                             }
                             <Typography className='mt-4' style={{ fontWeight: 'bold' }} variant="h6" color='secondary' display="block" gutterBottom>
-                                Le puede interesar
+                                {'Le puede interesar'}
                             </Typography>
                             <Divider className='mt-2 mb-3' />
-
-
                             <Row className='p-2 mb-3'>
-
                                 {this.state.noticiasrelacionadas && this.state.noticiasrelacionadas.map(noticia =>
                                     <Col lg='3'
                                         key={noticia.idnoticia}>
                                         {this.state.noticia &&
                                             <MiniNoticiaVertical
-                                                //props={this.props}
                                                 noticia={noticia}
                                                 idnoticia={noticia.idnoticia}
                                                 key={noticia.idnoticia}
                                                 portada={noticia.portada}
                                                 pieportada={noticia.pieportada}
                                                 titulo={noticia.titulo}
-                                                //subtitulo={this.state.noticiaprincipal.subtitulo}
                                                 seccion={noticia.seccion}
                                                 tipo={noticia.tipo}
                                                 fecha={noticia.fecha}
-                                                //tiempo={formatDistanceToNow(new Date(noticia.fecha), { locale: esLocale, includeSeconds: true, addSuffix: true })}
                                                 tiempo={formatDistanceStrict(new Date(noticia.fecha), new Date(), { locale: esLocale, includeSeconds: true, addSuffix: true })}
-
                                             />
                                         }
                                     </Col>
-
                                 )}
                             </Row>
                         </Col>
                     </Row>
                 </ReactCSSTransitionGroup>
-                {/*}</Container>{*/}
                 <ScrollTop {...this.props}>
                     <Fab color="secondary" size="small" aria-label="scroll back to top">
                         <KeyboardArrowUpIcon />
                     </Fab>
                 </ScrollTop>
-
-
             </React.Fragment >
-
         )
     }
 }

@@ -117,7 +117,7 @@ class Noticias extends Component {
                                                 idnoticia={noticia.idnoticia}
                                                 key={noticia.idnoticia}
                                                 portada={noticia.portada}
-                                                titulo={noticia.indice + ' ' + noticia.titulo}
+                                                titulo={noticia.titulo}
                                                 seccion={noticia.seccion}
                                                 tipo={noticia.tipo}
                                                 tiempo={formatDistanceStrict(new Date(noticia.fecha), new Date(), { locale: esLocale, includeSeconds: true, addSuffix: true })}
@@ -155,7 +155,7 @@ class Noticias extends Component {
                                                         idnoticia={noticia.idnoticia}
                                                         key={noticia.idnoticia}
                                                         portada={noticia.portada}
-                                                        titulo={noticia.indice + ' ' + noticia.titulo}
+                                                        titulo={noticia.titulo}
                                                         seccion={noticia.seccion}
                                                         tipo={noticia.tipo}
                                                         tiempo={formatDistanceStrict(new Date(noticia.fecha), new Date(), { locale: esLocale, includeSeconds: true, addSuffix: true })}
@@ -168,7 +168,7 @@ class Noticias extends Component {
                                                         idnoticia={noticia.idnoticia}
                                                         key={noticia.idnoticia}
                                                         portada={noticia.portada}
-                                                        titulo={noticia.indice + ' ' + noticia.titulo}
+                                                        titulo={noticia.titulo}
                                                         subtitulo={noticia.subtitulo}
                                                         seccion={noticia.seccion}
                                                         tipo={noticia.tipo}
