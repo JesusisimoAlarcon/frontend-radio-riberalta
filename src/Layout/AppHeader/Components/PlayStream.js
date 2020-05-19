@@ -8,10 +8,10 @@ export default class PlayStream extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            play: false
+            play: true
         }
         this.repro = React.createRef();
-        this.encender.bind()
+        this.encender.bind();
     }
 
     componentDidMount() {
@@ -50,7 +50,7 @@ export default class PlayStream extends Component {
                 </IconButton>
 
                 {/*}<FontAwesomeIcon icon={faPlayCircle} size='3x' color={"white"} />{*/}
-                <audio ref={this.repro} name="media">
+                <audio ref={this.repro} autoPlay name="media">
                     {/*}<source src="http://stm10.miradio.com.es:10544/stream/1/" type="audio/mpeg"></source>{*/}
                     <source src="https://ssl.xcast.com.br:10544/" type="audio/mpeg"></source>
 

@@ -99,7 +99,7 @@ class Noticias extends Component {
                                         }}
                                         open={this.state.open}
                                     >
-                                        <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={4} size='16rem' variant="indeterminate" color="secondary" />
+                                        <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='16rem' variant="indeterminate" color="secondary" />
 
                                     </Backdrop>
                                     :
