@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import AppHeader from '../../Layout/AppHeader';
 import AppSidebar from '../../Layout/AppSidebar';
 import AppFooter from '../../Layout/AppFooter';
-import Noticias from './Noticias'
+import Noticias from './Noticias';
 import { connect } from 'react-redux';
 import Programacion from './Radio/Programacion';
 import DetailNotice from '../../Components/Noticias/DetailNotice'

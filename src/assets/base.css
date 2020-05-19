@@ -8664,9 +8664,11 @@ button,
       left: 0;
       top: 9px; }
   .search-wrapper.active {
-    width: 265px; }
+    width: 225px; }
+    /**width: 265px; }*/
     .search-wrapper.active .input-holder {
-      width: 240px;
+      width: 200px;
+      /*width: 240px;*/
       border-radius: 50px;
       background: rgba(0, 0, 0, 0.05);
       transition: all 0.5s cubic-bezier(0, 0.105, 0.035, 1.57); }
@@ -8681,7 +8683,8 @@ button,
         .search-wrapper.active .input-holder .search-icon span {
           transform: rotate(-45deg); }
     .search-wrapper.active .close {
-      left: 245px;
+      /*left: 245px;*/
+      left: 205px;
       opacity: .6 !important;
       transform: rotate(45deg);
       transition: all 0.6s cubic-bezier(0, 0.105, 0.035, 1.57);

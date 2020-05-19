@@ -141,7 +141,7 @@ const initialState = {
     backgroundColor: 'bg-white sidebar-text-dark',
     //backgroundColor: 'swatch-holder bg-light',
     headerBackgroundColor: 'bg-danger active active header-text-light',
-    enableMobileMenuSmall: true,//habilita el menu movil para que sea visible
+    enableMobileMenuSmall: false,//habilita el menu movil para que sea visible
     enableBackgroundImage: false,//imagen de fondo para el menu principal
     //para tener abierto el silebar izquierdo => false abierto, true cerrado
     enableClosedSidebar: false,//deshabilita que el menu se encuentra abierto al iniciar la app

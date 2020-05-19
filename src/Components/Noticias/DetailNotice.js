@@ -12,7 +12,6 @@ import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import Zoom from '@material-ui/core/Zoom';
 import { Paper, Divider, Tooltip, Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
-import portada from '../../assets/test/test07.jpg'
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import VideocamIcon from '@material-ui/icons/Videocam';
@@ -41,6 +40,7 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import moment from 'moment';
 import MiniNoticiaVertical from './MiniNoticiaVertical';
 import { formatDistanceStrict } from 'date-fns';
+import portada from '../../assets/utils/images/portada.png';
 function ScrollTop(props) {
     const { children, window } = props;
     const trigger = useScrollTrigger({
@@ -124,12 +124,12 @@ class DetailNotice extends Component {
                 imagenes
             })
         }
-        if (this.state.noticia.tipo === 'audio') 
+        if (this.state.noticia.tipo === 'audio')
             this.setState({
                 audio: this.props.API + 'static/audio/' + this.state.noticia.infografia,
                 titleaudio: this.state.noticia.infonombre
             })
-        
+
         if (this.state.noticia.tipo === 'video') {
             if (this.state.noticia.infotipo === 'video_url')
                 this.setState({
@@ -225,7 +225,7 @@ class DetailNotice extends Component {
                                                             this.state.noticia.portada === undefined ? portada :
                                                                 this.props.API + 'static/portada/' + this.state.noticia.portada}
                                                     />
-                                                    <div className='pl-2 pb-0'>
+                                                    <div className='pl-2 pr-2 pb-0'>
                                                         <small style={{
                                                             color: 'rgba(211, 9, 7)',
                                                             lineHeight: '0.002rem'
@@ -320,11 +320,9 @@ class DetailNotice extends Component {
                                                 <Col lg='8'>
                                                     {this.state.noticia.tipo !== 'nota' &&
                                                         <div style={{
-                                                            fontSize: '1.3rem'
+                                                            fontSize: '1.1rem'
                                                         }}>{ReactHtmlParser(this.state.noticia.infocontenido)}</div>
                                                     }
-
-
                                                     {this.state.noticia.tipo === 'image' ?
                                                         this.state.imagenes.length > 0 &&
                                                         <Swiper
@@ -400,7 +398,7 @@ class DetailNotice extends Component {
                                                                 ''
                                                     }
                                                     <div style={{
-                                                        fontSize: '1.3rem'
+                                                        fontSize: '1.1rem'
                                                     }}>
                                                         {ReactHtmlParser(this.state.contenido)}
                                                     </div>
@@ -425,8 +423,16 @@ class DetailNotice extends Component {
                                                 <Col lg='4'>
                                                     <aside style={{
                                                         position: 'sticky',
-                                                        top: '70px'
+                                                        top: '90px'
                                                     }}>
+                                                        <Image
+                                                            className='border rounded'
+                                                            //animationDuration={10000}
+                                                            //loading={<CircularProgress size={48} />}
+                                                            aspectRatio={(16 / 9)}
+                                                            //src={portada}
+                                                            src={portada}
+                                                        />
                                                     </aside>
                                                 </Col>
                                             </Row>

@@ -90,22 +90,17 @@ class AppFooter extends React.Component {
                                 </p>
                                 <center>
                                     <div className='social-media mt-4'>
-                                        <a href='!#' className='text-light'>
-
+                                        <a href='https://www.facebook.com/RadioRiberalta94.7Fm' rel='noopener noreferrer' target='_blank' className='text-light'>
                                             <FacebookIcon color='secondary' className='mr-4' />
-
                                         </a>
-                                        <a href='!#' className='text-light'>
+                                        <a href='https://twitter.com/radio_riberalta' rel='noopener noreferrer' target='_blank' className='text-light'>
                                             <TwitterIcon color='secondary' className='mr-4' />
-
                                         </a>
-                                        <a href='!#' className='text-light'>
+                                        <a href='https://www.instagram.com/radioriberalta/' rel='noopener noreferrer' target='_blank' className='text-light'>
                                             <Instagram color='secondary' className='mr-4' />
-
                                         </a>
-                                        <a href='!#' className='text-light'>
+                                        <a href='https://chat.whatsapp.com/F4kFEV4L2n8EYugK8EWFyu' rel='noopener noreferrer' target='_blank' className='text-light'>
                                             <WhatsappIcon color='secondary' className='mr-4' />
-
                                         </a>
                                     </div>
                                 </center>

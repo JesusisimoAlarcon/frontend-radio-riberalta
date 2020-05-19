@@ -9,7 +9,7 @@ import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
 import { Backdrop, CircularProgress, Paper } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
-import portada from '../../../assets/utils/images/portada.jpg';
+import portada from '../../../assets/utils/images/portada.png';
 import Image from 'material-ui-image';
 class Noticias extends Component {
     constructor(props) {
@@ -99,7 +99,7 @@ class Noticias extends Component {
                                         }}
                                         open={this.state.open}
                                     >
-                                        <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='8rem' variant="indeterminate" color="secondary" />
+                                        <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={4} size='16rem' variant="indeterminate" color="secondary" />
 
                                     </Backdrop>
                                     :
@@ -125,18 +125,8 @@ class Noticias extends Component {
                                         </Col>
                                         :
                                         noticia.indice === 4 ?
-                                            <Col lg={4}>
-                                                <Paper className='mb-3'>
-                                                    <Image
-                                                        className='border rounded'
-                                                        //animationDuration={10000}
-                                                        //loading={<CircularProgress size={48} />}
-                                                        aspectRatio={(16 / 9)}
-                                                        //src={portada}
-                                                        src={noticia.publicidad}
-                                                    />
-                                                </Paper>
-                                                <Paper className='mb-3'>
+                                            <Col lg={4} key={-1}>
+                                                <Paper  className='mb-3'>
                                                     <Image
                                                         className='border rounded'
                                                         //animationDuration={10000}

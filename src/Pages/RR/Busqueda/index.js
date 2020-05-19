@@ -50,15 +50,12 @@ class Busqueda extends Component {
                     }}
                     open={this.state.open}
                 >
-
                     <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='8rem' variant="indeterminate" color="secondary" />
-
                 </Backdrop>
                 <Row>
                     <Col xl='1' lg='1'>
                     </Col>
                     <Col xl='10' lg='10'>
-
                         {this.state.noticias &&
                             <center>
                                 <div className={
@@ -67,16 +64,27 @@ class Busqueda extends Component {
                                     })}
                                 >
                                     <div className="input-holder">
-                                        <input
-                                            placeholder='Buscar'
-                                            type="text"
-                                            className="search-input"
-                                            onChange={(event) => this.setState({ busqueda: event.target.value })}
-                                            value={this.state.busqueda}
-                                        />
-                                        <button
-                                            className="search-icon"><span />
-                                        </button>
+                                        <form>
+                                            <input
+                                                placeholder='Buscar'
+                                                type="text"
+                                                className="search-input"
+                                                onChange={(event) => this.setState({ busqueda: event.target.value })}
+                                                value={this.state.busqueda}
+                                            />
+                                            <button
+                                                onClick={
+                                                    (e) => {
+                                                        e.preventDefault()
+                                                        if (this.state.busqueda.length > 0) {
+                                                            this.props.history.push({
+                                                                pathname: '/search/' + this.state.busqueda
+                                                            })
+                                                        }
+                                                    }}
+                                                className="search-icon"><span />
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 <Typography style={{ fontWeight: 'bold', textAlign: 'center', fontSize: '1rem' }} className='m-3' variant="caption" color='secondary' display="block" gutterBottom>
@@ -95,17 +103,13 @@ class Busqueda extends Component {
                                 transitionEnter={false}
                                 transitionLeave={false}>
                                 <NoticiaHorizontal
-                                    noticia={noticia}
                                     idnoticia={noticia.idnoticia}
                                     key={noticia.idnoticia}
                                     portada={noticia.portada}
-                                    pieportada={noticia.pieportada}
                                     titulo={noticia.titulo}
                                     subtitulo={noticia.subtitulo}
                                     seccion={noticia.seccion}
                                     tipo={noticia.tipo}
-                                    fecha={noticia.fecha}
-                                    //tiempo={formatDistanceToNow(new Date(noticia.fecha), { locale: esLocale, includeSeconds: true, addSuffix: true })}
                                     tiempo={formatDistanceStrict(new Date(noticia.fecha), new Date(), { locale: esLocale, includeSeconds: true, addSuffix: true })}
                                 />
                                 <Divider className='mb-2 mt-2' />

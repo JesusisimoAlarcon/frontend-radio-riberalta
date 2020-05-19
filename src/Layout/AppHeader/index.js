@@ -35,7 +35,7 @@ class Header extends React.Component {
                     )}>
                         <div className="app-header-left">
                             <center>
-                                <img width="30px" alt='logocasa' src={logocasa} className='mr-1' />
+                                <img width="45px" alt='logocasa' src={logocasa} className='mr-1' />
                                 <Typography style={{
                                     color: 'white',
                                     fontWeight: 'bold',

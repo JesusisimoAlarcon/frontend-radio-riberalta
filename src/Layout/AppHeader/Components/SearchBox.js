@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
-
 import cx from 'classnames';
 import { withRouter } from 'react-router-dom';
-//import { Input } from 'reactstrap'
+import {
+    setEnableMobileMenuSmall
+} from '../../../reducers/ThemeOptions';
+import { connect } from 'react-redux';
 class SearchBox extends React.Component {
     constructor(props) {
         super(props);
@@ -20,35 +22,35 @@ class SearchBox extends React.Component {
                 <div className={cx("search-wrapper", {
                     'active': this.state.activeSearch
                 })}>
-
                     <div className="input-holder">
-                        <input
-                            style={{
-                                color: 'white'
-                            }}
-                            placeholder='Buscar'
-                            onChange={(event) => this.setState({ texto: event.target.value })}
-                            autoFocus={this.state.focus}
-                            type="text"
-                            className="search-input" />
+                        <form>
+                            <input
+                                style={{
+                                    color: 'white'
+                                }}
+                                placeholder='Buscar'
+                                onChange={(event) => this.setState({ texto: event.target.value })}
+                                autoFocus={this.state.focus}
+                                type="text"
+                                className="search-input" />
 
-                        <button onClick={
-                            () => {
-                                this.state.activeSearch && this.state.texto.length > 0 ?
-                                    //this.props.history.push('/search/' + this.state.texto)
-                                    this.props.history.push({
-                                        pathname: '/search/' + this.state.texto
-                                    })
-                                    :
+                            <button onClick={
+                                (e) => {
+                                    e.preventDefault()
+                                    if (this.state.activeSearch && this.state.texto.length > 0) {
+                                        this.props.history.push({
+                                            pathname: '/search/' + this.state.texto
+                                        })
+                                        this.props.setEnableMobileMenuSmall(!this.props.ENABLEMOBILEMENUSMALL)
+                                    }
                                     this.setState({
                                         focus: !this.state.focus,
                                         activeSearch: !this.state.activeSearch
                                     })
-
-                            }}
-                            className="search-icon"><span />
-                        </button>
-
+                                }}
+                                className="search-icon"><span />
+                            </button>
+                        </form>
                     </div>
                     <button onClick={
                         () => this.setState({
@@ -56,11 +58,15 @@ class SearchBox extends React.Component {
                             activeSearch: !this.state.activeSearch
                         })}
                         className="close" />
-
                 </div>
             </Fragment >
         )
     }
 }
-
-export default withRouter(SearchBox);
+const mapStateToProps = state => ({
+    ENABLEMOBILEMENUSMALL: state.ThemeOptions.enableMobileMenuSmall
+});
+const mapDispatchToProps = dispatch => ({
+    setEnableMobileMenuSmall: enableMobileMenuSmall => dispatch(setEnableMobileMenuSmall(enableMobileMenuSmall))
+});
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBox));
