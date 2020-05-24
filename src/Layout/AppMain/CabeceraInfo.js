@@ -17,8 +17,19 @@ export default class CabeceraInfo extends Component {
             contadorbeni: {}
         }
     }
-
-    componentDidMount = async () => {
+    componentDidMount() {
+        this.getDatosBoliviaSegura();
+    }
+    getDatosBoliviaSegura() {
+        Axios.get('https://boliviasegura.agetic.gob.bo/wp-content/json/api.php').then(response => {
+            this.setState({
+                datosoficiales: response.data,
+                contadorbolivia: response.data.contador,
+                beni: response.data.departamento.bn,
+                contadorbeni: response.data.departamento.bn.contador
+            })
+        })
+        /*
         const resp = await Axios.get('https://boliviasegura.agetic.gob.bo/wp-content/json/api.php');
         this.setState({
             datosoficiales: resp.data,
@@ -26,7 +37,7 @@ export default class CabeceraInfo extends Component {
             beni: resp.data.departamento.bn,
             contadorbeni: resp.data.departamento.bn.contador
         })
-        //console.log(this.state.datosoficiales)
+        */
     }
     render() {
         return (

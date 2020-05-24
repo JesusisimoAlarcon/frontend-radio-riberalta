@@ -9,7 +9,6 @@ import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
 import { Backdrop, CircularProgress, Paper } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
-import portada from '../../../assets/utils/images/portada.png';
 import Image from 'material-ui-image';
 class Noticias extends Component {
     constructor(props) {
@@ -19,8 +18,9 @@ class Noticias extends Component {
             seccion: this.props.match.url.length === 1 ? '' : this.props.match.url.split('/')[1],
             progreso: 0,
             open: true,
-            masNoticias: true,
-            page: 1
+            masNoticias: false,
+            page: 1,
+            publicidades: ''
         }
         const anchor = document.querySelector('#back-to-top-anchor');
         if (anchor) {
@@ -28,16 +28,84 @@ class Noticias extends Component {
         }
         this.api = Axios.create({
             baseURL: this.props.API,
-            /*
-            onDownloadProgress: (e) => {
-                if ((Math.round(e.loaded * 100) / e.total) === 100)
-                    this.setState({ open: false })
-            }
-            */
         })
     }
 
-    async leerNoticias() {
+    componentDidMount() {
+        this.getPublicidad();
+        //this.leerNoticias();
+    }
+    
+        getPublicidad() {
+            this.api.get('publicidad').then(response => {
+                let publicidades = response.data;
+                this.setState({ publicidades })
+                console.log(this.state.publicidades)
+                this.leerNoticias();
+            })
+            /*
+            let publicidades = await(await this.api.get('publicidad')).data;
+            this.setState({ publicidades })
+            console.log(this.state.publicidades)
+            */
+        }
+        
+    leerNoticias() {
+
+        if (!this.state.publicidades) {
+            this.api.get('publicidad').then(response => {
+                let publicidades = response.data;
+                this.setState({ publicidades })
+                console.log(this.state.publicidades)
+            })
+        }
+
+        this.api.get('noticia/detalle/seccion', {
+            params: {
+                seccion: this.state.seccion,
+                limit: 10,
+                page: this.state.page
+            }
+        }).then(response => {
+            let data = response.data;
+            if (data.length) {
+                let indice = 1
+                console.log('inicio de la copia')
+                let noticias = this.state.noticias;
+                let publicidad;
+                if (this.state.publicidades) {
+                    let item = Math.floor(Math.random() * this.state.publicidades.length)
+                    publicidad = this.state.publicidades[item]
+                    this.state.publicidades.splice(item, 1)
+                }
+                else {
+                    publicidad = {
+                        publicidad: 'portada.png',
+                        paginaweb: 'radioriberalta.com.bo',
+                    }
+                }
+                if (data.length >= 3)
+                    data.splice(3, 0, publicidad)
+                data.map(noticia =>
+                    noticia.indice = indice++
+                )
+                noticias = noticias.concat(data)
+                this.setState({
+                    noticias: noticias,
+                    masNoticias: true,
+                    page: this.state.page + 1,
+                    open: false
+                })
+                console.log(this.state.noticias)
+                console.log('fin de la copia')
+            }
+            else {
+                this.setState({
+                    masNoticias: false,
+                })
+            }
+        })
+        /*
         let data = await (await this.api.get('noticia/detalle/seccion', {
             params: {
                 seccion: this.state.seccion,
@@ -49,9 +117,17 @@ class Noticias extends Component {
             let indice = 1
             console.log('inicio de la copia')
             let noticias = this.state.noticias;
-            const publicidad = {
-                publicidad: portada,
-                paginaweb: 'radioriberalta.com.bo'
+            let publicidad;
+            if (this.state.publicidades) {
+                let item = Math.floor(Math.random() * this.state.publicidades.length)
+                publicidad = this.state.publicidades[item]
+                this.state.publicidades.splice(item, 1)
+            }
+            else {
+                publicidad = {
+                    publicidad: 'portada.png',
+                    paginaweb: 'radioriberalta.com.bo',
+                }
             }
             if (data.length >= 3)
                 data.splice(3, 0, publicidad)
@@ -59,15 +135,13 @@ class Noticias extends Component {
                 noticia.indice = indice++
             )
             noticias = noticias.concat(data)
-
-
-            //console.log(data)
             this.setState({
                 noticias: noticias,
                 masNoticias: true,
                 page: this.state.page + 1,
                 open: false
             })
+            console.log(this.state.noticias)
             console.log('fin de la copia')
         }
         else {
@@ -75,7 +149,7 @@ class Noticias extends Component {
                 masNoticias: false,
             })
         }
-
+        */
     }
     render() {
         return (
@@ -85,6 +159,7 @@ class Noticias extends Component {
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>
                     </Col>
                     <Col xl='10' lg='12' md='12' sm='12'>
+
                         <CabeceraInfo />
                         <InfiniteScroll
                             pageStart={0}
@@ -126,14 +201,16 @@ class Noticias extends Component {
                                         :
                                         noticia.indice === 4 ?
                                             <Col lg={4} key={-1}>
-                                                <Paper  className='mb-3'>
+                                                <Paper className='mb-3'>
                                                     <Image
                                                         className='border rounded'
                                                         //animationDuration={10000}
                                                         //loading={<CircularProgress size={48} />}
                                                         aspectRatio={(16 / 9)}
                                                         //src={portada}
-                                                        src={noticia.publicidad}
+                                                        src={this.props.API + 'static/publicidad/' +
+                                                            noticia.publicidad
+                                                        }
                                                     />
                                                 </Paper>
                                             </Col>
