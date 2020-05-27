@@ -7,7 +7,7 @@ import MiniNoticiaVertical from '../../../Components/Noticias/MiniNoticiaVertica
 import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
-import { Backdrop, CircularProgress, Paper } from '@material-ui/core';
+import { Backdrop, CircularProgress, Paper, CardActionArea } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
 import Image from 'material-ui-image';
 import ReactPlayer from 'react-player';
@@ -85,12 +85,9 @@ class Noticias extends Component {
                 let noticias = this.state.noticias;
                 let publi = {};
                 if (this.state.publicidades) {
-
                     publi.images = this.state.publiimages;
-                    let indice_item = Math.floor(Math.random() * this.state.publivideos.length);
-                    let video_publi = this.state.publivideos[indice_item];
-                    //this.state.publivideos.splice(indice_item, 1);
-                    publi.video = video_publi;
+                    publi.video = this.state.publivideos[Math.floor(Math.random() * this.state.publivideos.length)];
+                    publi.image = this.state.publiimages[Math.floor(Math.random() * this.state.publiimages.length)];
                     /*
                     let item = Math.floor(Math.random() * this.state.publicidades.length)
                     publicidad = this.state.publicidades[item]
@@ -103,9 +100,12 @@ class Noticias extends Component {
                             publicidad: 'portada.png',
                             paginaweb: 'radioriberalta.com.bo',
                         }]
-
                     publi.video = {
                         publicidad: 'https://youtu.be/5NPBIwQyPWE?list=RD5NPBIwQyPWE',
+                        paginaweb: 'radioriberalta.com.bo',
+                    }
+                    publi.image = {
+                        publicidad: 'portada.png',
                         paginaweb: 'radioriberalta.com.bo',
                     }
                 }
@@ -231,7 +231,13 @@ class Noticias extends Component {
                                                         imagenes={noticia.images}
                                                     />
                                                 </Paper>
-                                                <Paper className='mb-3'>
+                                                <CardActionArea
+                                                    className='mb-3'
+                                                    onClick={() =>
+                                                        noticia.image.paginaweb &&
+                                                        window.open(`https://${noticia.image.paginaweb}`, '_blank')
+                                                    }
+                                                >
                                                     <Image
                                                         className='border rounded'
                                                         //animationDuration={10000}
@@ -239,13 +245,11 @@ class Noticias extends Component {
                                                         aspectRatio={(16 / 9)}
                                                         //src={portada}
                                                         src={this.props.API + 'static/publicidad/' +
-                                                            noticia.images[0].publicidad
-                                                        }
+                                                            noticia.image.publicidad}
                                                     />
-                                                </Paper>
+                                                </CardActionArea>
                                                 <Paper className='mb-3'>
                                                     <div
-                                                        className='mb-3'
                                                         style={{
                                                             //position: 'relative',
                                                             //paddingTop: '56.25%'

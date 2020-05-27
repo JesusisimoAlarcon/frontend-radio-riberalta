@@ -10,7 +10,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import Zoom from '@material-ui/core/Zoom';
-import { Paper, Divider, Tooltip, Typography, Backdrop, CircularProgress } from '@material-ui/core';
+import { Paper, Divider, Tooltip, Typography, Backdrop, CircularProgress, CardActionArea } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
@@ -29,6 +29,7 @@ import ReactHtmlParser from 'react-html-parser';
 import ReactPlayer from 'react-player';
 import Image from 'material-ui-image';
 import Swiper from './Componentes/Swiper';
+import SwiperPublicidades from './Componentes/SwiperPublicidades';
 import AudioPlayer from 'react-h5-audio-player';
 import './Componentes/styleControlAudio.css';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -88,7 +89,11 @@ class DetailNotice extends Component {
             video: '',
             video_url: '',
             tipovideo: false,
-            noticiasrelacionadas: ''
+            noticiasrelacionadas: '',
+            publicidades: '',
+            publiimages: '',
+            publivideos: '',
+            publi: ''
         }
         this.api = Axios.create({
             baseURL: this.props.API,
@@ -156,6 +161,53 @@ class DetailNotice extends Component {
         this.setState({
             noticiasrelacionadas
         })
+        this.getPublicidad()
+    }
+    getPublicidad() {
+        this.api.get('publicidad').then(response => {
+            let publicidades = response.data;
+            publicidades = publicidades.filter(publi => publi.estado === 1);
+            let publiimages = publicidades.filter(publi => publi.tipo === 'image');
+            let publivideos = publicidades.filter(publi => publi.tipo === 'video');
+            this.setState({ publicidades, publiimages, publivideos })
+            /*
+            console.log(this.state.publicidades)
+            console.log(this.state.publiimages)
+            console.log(this.state.publivideos)
+            */
+            let publi = {};
+            if (this.state.publicidades) {
+                publi.images = this.state.publiimages;
+                publi.video = this.state.publivideos[Math.floor(Math.random() * this.state.publivideos.length)];
+                publi.image = this.state.publiimages[Math.floor(Math.random() * this.state.publiimages.length)];
+                /*
+                let item = Math.floor(Math.random() * this.state.publicidades.length)
+                publicidad = this.state.publicidades[item]
+                this.state.publicidades.splice(item, 1)
+                */
+            }
+            else {
+                publi.images =
+                    [{
+                        publicidad: 'portada.png',
+                        paginaweb: 'radioriberalta.com.bo',
+                    }]
+                publi.video = {
+                    publicidad: 'https://youtu.be/5NPBIwQyPWE?list=RD5NPBIwQyPWE',
+                    paginaweb: 'radioriberalta.com.bo',
+                }
+                publi.image = {
+                    publicidad: 'portada.png',
+                    paginaweb: 'radioriberalta.com.bo',
+                }
+            }
+            this.setState({ publi })
+        })
+        /*
+        let publicidades = await(await this.api.get('publicidad')).data;
+        this.setState({ publicidades })
+        console.log(this.state.publicidades)
+        */
     }
     render() {
         return (
@@ -421,19 +473,63 @@ class DetailNotice extends Component {
                                                     )}
                                                 </Col>
                                                 <Col lg='4'>
-                                                    <aside style={{
-                                                        position: 'sticky',
-                                                        top: '90px'
-                                                    }}>
-                                                        <Image
-                                                            className='border rounded'
-                                                            //animationDuration={10000}
-                                                            //loading={<CircularProgress size={48} />}
-                                                            aspectRatio={(16 / 9)}
-                                                            //src={portada}
-                                                            src={portada}
-                                                        />
-                                                    </aside>
+                                                    {this.state.publi &&
+                                                        <aside style={{
+                                                            position: 'sticky',
+                                                            top: '90px'
+                                                        }}>
+                                                            <Paper className='mb-2'>
+                                                                <SwiperPublicidades
+                                                                    API={this.props.API}
+                                                                    imagenes={this.state.publi.images}
+                                                                />
+                                                            </Paper>
+                                                            <CardActionArea
+                                                                className='mb-2'
+                                                                onClick={() =>
+                                                                    this.state.publi.image.paginaweb &&
+                                                                    window.open(`https://${this.state.publi.image.paginaweb}`, '_blank')
+                                                                }
+                                                            >
+                                                                <Image
+                                                                    className='border rounded'
+                                                                    //animationDuration={10000}
+                                                                    //loading={<CircularProgress size={48} />}
+                                                                    aspectRatio={(16 / 9)}
+                                                                    //src={portada}
+                                                                    src={this.props.API + 'static/publicidad/' +
+                                                                        this.state.publi.image.publicidad}
+                                                                />
+                                                            </CardActionArea>
+                                                            <Paper className='mb-2'>
+                                                                <div
+                                                                    style={{
+                                                                        //position: 'relative',
+                                                                        //paddingTop: '56.25%'
+                                                                        height: 0,
+                                                                        overflow: 'hidden',
+                                                                        paddingBottom: '56.25%',
+                                                                        paddingTop: '30px',
+                                                                        position: 'relative'
+                                                                    }}>
+                                                                    <ReactPlayer
+                                                                        style={{
+                                                                            position: 'absolute',
+                                                                            top: 0,
+                                                                            left: 0,
+                                                                            width: '100%',
+                                                                            height: '100%'
+                                                                        }}
+                                                                        controls
+                                                                        light={false}
+                                                                        url={this.state.publi.video.publicidad}
+                                                                        width='100%'
+                                                                        height='100%'
+                                                                    />
+                                                                </div>
+                                                            </Paper>
+                                                        </aside>
+                                                    }
                                                 </Col>
                                             </Row>
                                         </Col>
