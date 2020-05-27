@@ -10,6 +10,8 @@ import { Row, Col } from 'reactstrap';
 import { Backdrop, CircularProgress, Paper } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
 import Image from 'material-ui-image';
+import ReactPlayer from 'react-player';
+import Swiper from './Componentes/Swiper';
 class Noticias extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,9 @@ class Noticias extends Component {
             open: true,
             masNoticias: false,
             page: 1,
-            publicidades: ''
+            publicidades: '',
+            publiimages: '',
+            publivideos: ''
         }
         const anchor = document.querySelector('#back-to-top-anchor');
         if (anchor) {
@@ -35,21 +39,28 @@ class Noticias extends Component {
         this.getPublicidad();
         //this.leerNoticias();
     }
-    
-        getPublicidad() {
-            this.api.get('publicidad').then(response => {
-                let publicidades = response.data;
-                this.setState({ publicidades })
-                console.log(this.state.publicidades)
-                this.leerNoticias();
-            })
+
+    getPublicidad() {
+        this.api.get('publicidad').then(response => {
+            let publicidades = response.data;
+            publicidades = publicidades.filter(publi => publi.estado === 1);
+            let publiimages = publicidades.filter(publi => publi.tipo === 'image');
+            let publivideos = publicidades.filter(publi => publi.tipo === 'video');
+            this.setState({ publicidades, publiimages, publivideos })
             /*
-            let publicidades = await(await this.api.get('publicidad')).data;
-            this.setState({ publicidades })
             console.log(this.state.publicidades)
+            console.log(this.state.publiimages)
+            console.log(this.state.publivideos)
             */
-        }
-        
+            this.leerNoticias();
+        })
+        /*
+        let publicidades = await(await this.api.get('publicidad')).data;
+        this.setState({ publicidades })
+        console.log(this.state.publicidades)
+        */
+    }
+
     leerNoticias() {
 
         if (!this.state.publicidades) {
@@ -70,22 +81,37 @@ class Noticias extends Component {
             let data = response.data;
             if (data.length) {
                 let indice = 1
-                console.log('inicio de la copia')
+                //console.log('inicio de la copia')
                 let noticias = this.state.noticias;
-                let publicidad;
+                let publi = {};
                 if (this.state.publicidades) {
+
+                    publi.images = this.state.publiimages;
+                    let indice_item = Math.floor(Math.random() * this.state.publivideos.length);
+                    let video_publi = this.state.publivideos[indice_item];
+                    //this.state.publivideos.splice(indice_item, 1);
+                    publi.video = video_publi;
+                    /*
                     let item = Math.floor(Math.random() * this.state.publicidades.length)
                     publicidad = this.state.publicidades[item]
                     this.state.publicidades.splice(item, 1)
+                    */
                 }
                 else {
-                    publicidad = {
-                        publicidad: 'portada.png',
+                    publi.images =
+                        [{
+                            publicidad: 'portada.png',
+                            paginaweb: 'radioriberalta.com.bo',
+                        }]
+
+                    publi.video = {
+                        publicidad: 'https://youtu.be/5NPBIwQyPWE?list=RD5NPBIwQyPWE',
                         paginaweb: 'radioriberalta.com.bo',
                     }
                 }
+                console.log(publi)
                 if (data.length >= 3)
-                    data.splice(3, 0, publicidad)
+                    data.splice(3, 0, publi)
                 data.map(noticia =>
                     noticia.indice = indice++
                 )
@@ -97,7 +123,7 @@ class Noticias extends Component {
                     open: false
                 })
                 console.log(this.state.noticias)
-                console.log('fin de la copia')
+                //console.log('fin de la copia')
             }
             else {
                 this.setState({
@@ -159,7 +185,6 @@ class Noticias extends Component {
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>
                     </Col>
                     <Col xl='10' lg='12' md='12' sm='12'>
-
                         <CabeceraInfo />
                         <InfiniteScroll
                             pageStart={0}
@@ -175,7 +200,6 @@ class Noticias extends Component {
                                         open={this.state.open}
                                     >
                                         <CircularProgress className='mt-0 mb-3 ml-3 mr-3' thickness={2} size='16rem' variant="indeterminate" color="secondary" />
-
                                     </Backdrop>
                                     :
                                     <div key={0} className='text-center'>
@@ -202,6 +226,12 @@ class Noticias extends Component {
                                         noticia.indice === 4 ?
                                             <Col lg={4} key={-1}>
                                                 <Paper className='mb-3'>
+                                                    <Swiper
+                                                        API={this.props.API}
+                                                        imagenes={noticia.images}
+                                                    />
+                                                </Paper>
+                                                <Paper className='mb-3'>
                                                     <Image
                                                         className='border rounded'
                                                         //animationDuration={10000}
@@ -209,9 +239,37 @@ class Noticias extends Component {
                                                         aspectRatio={(16 / 9)}
                                                         //src={portada}
                                                         src={this.props.API + 'static/publicidad/' +
-                                                            noticia.publicidad
+                                                            noticia.images[0].publicidad
                                                         }
                                                     />
+                                                </Paper>
+                                                <Paper className='mb-3'>
+                                                    <div
+                                                        className='mb-3'
+                                                        style={{
+                                                            //position: 'relative',
+                                                            //paddingTop: '56.25%'
+                                                            height: 0,
+                                                            overflow: 'hidden',
+                                                            paddingBottom: '56.25%',
+                                                            paddingTop: '30px',
+                                                            position: 'relative'
+                                                        }}>
+                                                        <ReactPlayer
+                                                            style={{
+                                                                position: 'absolute',
+                                                                top: 0,
+                                                                left: 0,
+                                                                width: '100%',
+                                                                height: '100%'
+                                                            }}
+                                                            controls
+                                                            light={false}
+                                                            url={noticia.video.publicidad}
+                                                            width='100%'
+                                                            height='100%'
+                                                        />
+                                                    </div>
                                                 </Paper>
                                             </Col>
                                             :
