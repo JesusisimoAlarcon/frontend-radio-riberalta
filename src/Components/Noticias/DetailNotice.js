@@ -10,7 +10,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import Zoom from '@material-ui/core/Zoom';
-import { Paper, Divider, Tooltip, Typography, Backdrop, CircularProgress, CardActionArea } from '@material-ui/core';
+import { Paper, Divider, Tooltip, Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import { Row, Col } from 'reactstrap';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
@@ -113,8 +113,9 @@ class DetailNotice extends Component {
         })
         if (this.state.noticia.tipo === 'image') {
             const names = this.state.noticia.infografia.split(',');
-            console.log(names.length)
+            console.log(names)
             const titulos = this.state.noticia.infonombre.split(',');
+            console.log(titulos)
             const imagenes = [];
             names.map((name, index) =>
                 imagenes.push({
@@ -122,7 +123,7 @@ class DetailNotice extends Component {
                     titulo: titulos[index]
                 })
             )
-            imagenes.pop();
+            //imagenes.pop();
             console.log(imagenes);
             console.log(imagenes.length);
             this.setState({
@@ -147,6 +148,7 @@ class DetailNotice extends Component {
                     video: this.props.API + 'static/video/' + this.state.noticia.infografia
                 })
         }
+        /*
         let contenido_original = this.state.noticia.contenido;
         let contenido_modificado_inicio = contenido_original.replace(/<figure class="media"><oembed url=/gi, `<div class="embed-responsive embed-responsive-16by9 mb-4"><iframe class="embed-responsive-item" allowfullscreen src=`);
         let contenido_modificado_intermedio = contenido_modificado_inicio.replace(/oembed/gi, "iframe");
@@ -154,6 +156,9 @@ class DetailNotice extends Component {
         this.setState({
             contenido: contenido_modificado_fin
         })
+        */
+       
+
         const anchor = document.querySelector('#back-to-top-anchor');
         if (anchor)
             anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -179,7 +184,7 @@ class DetailNotice extends Component {
             if (this.state.publicidades) {
                 publi.images = this.state.publiimages;
                 publi.video = this.state.publivideos[Math.floor(Math.random() * this.state.publivideos.length)];
-                publi.image = this.state.publiimages[Math.floor(Math.random() * this.state.publiimages.length)];
+                //publi.image = this.state.publiimages[Math.floor(Math.random() * this.state.publiimages.length)];
                 /*
                 let item = Math.floor(Math.random() * this.state.publicidades.length)
                 publicidad = this.state.publicidades[item]
@@ -196,10 +201,12 @@ class DetailNotice extends Component {
                     publicidad: 'https://youtu.be/5NPBIwQyPWE?list=RD5NPBIwQyPWE',
                     paginaweb: 'radioriberalta.com.bo',
                 }
+                /*
                 publi.image = {
                     publicidad: 'portada.png',
                     paginaweb: 'radioriberalta.com.bo',
                 }
+                */
             }
             this.setState({ publi })
         })
@@ -452,7 +459,7 @@ class DetailNotice extends Component {
                                                     <div style={{
                                                         fontSize: '1.1rem'
                                                     }}>
-                                                        {ReactHtmlParser(this.state.contenido)}
+                                                        {ReactHtmlParser(this.state.noticia.contenido)}
                                                     </div>
                                                     <Typography style={{ fontWeight: 'bold' }} variant="h6" color='secondary' display="block" gutterBottom>
                                                         En esta nota
@@ -484,6 +491,7 @@ class DetailNotice extends Component {
                                                                     imagenes={this.state.publi.images}
                                                                 />
                                                             </Paper>
+                                                            {/*}
                                                             <CardActionArea
                                                                 className='mb-2'
                                                                 onClick={() =>
@@ -501,6 +509,7 @@ class DetailNotice extends Component {
                                                                         this.state.publi.image.publicidad}
                                                                 />
                                                             </CardActionArea>
+                                                            {*/}
                                                             <Paper className='mb-2'>
                                                                 <div
                                                                     style={{

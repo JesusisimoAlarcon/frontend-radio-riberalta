@@ -7,9 +7,9 @@ import MiniNoticiaVertical from '../../../Components/Noticias/MiniNoticiaVertica
 import { formatDistanceStrict } from 'date-fns';
 import esLocale from 'date-fns/locale/es';
 import { Row, Col } from 'reactstrap';
-import { Backdrop, CircularProgress, Paper, CardActionArea } from '@material-ui/core';
+import { Backdrop, CircularProgress, Paper } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
-import Image from 'material-ui-image';
+//import Image from 'material-ui-image';
 import ReactPlayer from 'react-player';
 import Swiper from './Componentes/Swiper';
 class Noticias extends Component {
@@ -87,7 +87,7 @@ class Noticias extends Component {
                 if (this.state.publicidades) {
                     publi.images = this.state.publiimages;
                     publi.video = this.state.publivideos[Math.floor(Math.random() * this.state.publivideos.length)];
-                    publi.image = this.state.publiimages[Math.floor(Math.random() * this.state.publiimages.length)];
+                    //publi.image = this.state.publiimages[Math.floor(Math.random() * this.state.publiimages.length)];
                     /*
                     let item = Math.floor(Math.random() * this.state.publicidades.length)
                     publicidad = this.state.publicidades[item]
@@ -104,10 +104,12 @@ class Noticias extends Component {
                         publicidad: 'https://youtu.be/5NPBIwQyPWE?list=RD5NPBIwQyPWE',
                         paginaweb: 'radioriberalta.com.bo',
                     }
+                    /*
                     publi.image = {
                         publicidad: 'portada.png',
                         paginaweb: 'radioriberalta.com.bo',
                     }
+                    */
                 }
                 console.log(publi)
                 if (data.length >= 3)
@@ -182,9 +184,11 @@ class Noticias extends Component {
             <Fragment>
                 <div id="back-to-top-anchor"></div>
                 <Row>
+                    {/*}
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>
                     </Col>
-                    <Col xl='10' lg='12' md='12' sm='12'>
+                    {*/}
+                    <Col xl='12' lg='12' md='12' sm='12'>
                         <CabeceraInfo />
                         <InfiniteScroll
                             pageStart={0}
@@ -224,13 +228,14 @@ class Noticias extends Component {
                                         </Col>
                                         :
                                         noticia.indice === 4 ?
-                                            <Col lg={4} key={-1}>
+                                            <Col lg={4} key={(-1) * Math.floor(Math.random() * (this.state.noticias.length * 2))}>
                                                 <Paper className='mb-3'>
                                                     <Swiper
                                                         API={this.props.API}
                                                         imagenes={noticia.images}
                                                     />
                                                 </Paper>
+                                                {/*}
                                                 <CardActionArea
                                                     className='mb-3'
                                                     onClick={() =>
@@ -248,6 +253,7 @@ class Noticias extends Component {
                                                             noticia.image.publicidad}
                                                     />
                                                 </CardActionArea>
+                                                {*/}
                                                 <Paper className='mb-3'>
                                                     <div
                                                         style={{
@@ -308,8 +314,10 @@ class Noticias extends Component {
                             </Row>
                         </InfiniteScroll>
                     </Col>
+                    {/*}
                     <Col xl='1' lg='0' md='0' sm='0' className='p-0'>
                     </Col>
+                    {*/}
                 </Row>
             </Fragment >
         )

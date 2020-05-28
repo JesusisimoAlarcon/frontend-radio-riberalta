@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 function SwipeableTextMobileStepper(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(Math.floor(Math.random() * props.imagenes.length));
     /*
     const maxSteps = props.imagenes.length;
 
